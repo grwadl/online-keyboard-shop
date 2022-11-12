@@ -1,0 +1,15 @@
+services:
+  shop-db:
+    image: mysql:latest
+    container_name: shop-db
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    env_file:
+      - .env.local
+    volumes:
+      - my-data-app:/var/lib/mysql
+    ports:
+      - "3306:3306"
+volumes:
+  my-data-app:
+    driver: local
