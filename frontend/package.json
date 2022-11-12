@@ -20,7 +20,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "check": "astro check",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx, src",
+    "lint:fix": "npm run lint -- --fix",
+    "prepare": "if [[ $NODE_ENV != \"production\" ]]; then cd .. && husky install client/.husky; fi",
+    "precommit": "npm run format && npm run lint:fix"
   },
   "eslintConfig": {
     "extends": [
