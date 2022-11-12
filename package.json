@@ -1,0 +1,31 @@
+{
+  "name": "mysite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client": "npm start -w ./frontend/",
+    "server": "npm run start -w ./backend/",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grwadl/mysite.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "./backend/",
+    "./frontend/",
+    "./shared/"
+  ],
+  "bugs": {
+    "url": "https://github.com/grwadl/mysite/issues"
+  },
+  "homepage": "https://github.com/grwadl/mysite#readme",
+  "dependencies": {
+    "husky": "^8.0.2",
+    "react": "^18.2.0"
+  }
+}
