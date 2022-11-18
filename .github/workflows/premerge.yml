@@ -17,5 +17,4 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: lint+prettier
-        uses: ./
         run: npm run precommit
