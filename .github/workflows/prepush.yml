@@ -6,8 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [18.x]
     steps:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
-      - run: npm run precommit
+      - run: npm i && npm run precommit
