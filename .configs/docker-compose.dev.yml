@@ -12,4 +12,4 @@ services:
       - "3306:3306"
 volumes:
   my-data-app:
-    driver: local
+    driver: bridge
