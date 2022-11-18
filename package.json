@@ -9,10 +9,8 @@
     "build:server": "cd ./backend/ &&  npm run build",
     "prod:server": "cd ./backend/ && npm run start:prod",
     "start": "npm run build:server && npm run prod:server",
-    "precommit:general": "npm run format && npm run lint:fix",
-    "prepush:general": "npm run lint",
-    "precommit": "cd backend && npm run precommit:general && cd ../frontend && npm run precommit:general",
-    "prepush": "cd backend && npm run prepush:general && cd ../frontend && npm run prepush:general",
+    "format": "npm run format && npm run lint:fix",
+    "precommit": "cd backend && npm run format && cd ../frontend && npm run format",
     "prepare": "if [[ $NODE_ENV != \"production\" ]]; then husky install; fi"
   },
   "repository": {
