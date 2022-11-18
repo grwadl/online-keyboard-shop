@@ -10,4 +10,6 @@ jobs:
     steps:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
-      - run: npm i && npm run precommit
+      - name: lint+prettier
+        uses: ./
+        run: npm run precommit

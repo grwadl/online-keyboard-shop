@@ -16,4 +16,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm i && npm run precommit
+      - name: lint+prettier
+        uses: ./
+        run: npm run precommit
