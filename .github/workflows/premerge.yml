@@ -1,0 +1,11 @@
+name: PR
+run-name: ${{ github.actor }}  ${{ github.event_name }} event on ${{ github.name }}🚀
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  premerge:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run prepush
