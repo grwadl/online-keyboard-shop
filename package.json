@@ -2,7 +2,6 @@
   "name": "mysite",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "client": "npm start -w ./frontend/",
     "server": "npm run start -w ./backend/",
