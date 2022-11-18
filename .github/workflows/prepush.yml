@@ -1,6 +1,6 @@
 name: Push
 run-name: ${{ github.actor }}  ${{ github.event_name }} event on ${{ github.name }}🚀
-on: [push]
+on: push
 jobs:
   prepush:
     runs-on: ubuntu-latest
@@ -12,5 +12,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18.x"
-      - name: lint+prettier
-        run: npm run precommit
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install, build, test
+        run: |
+          npm install
+          npm run precommit
