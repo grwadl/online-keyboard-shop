@@ -1,7 +1,14 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ProductsModule } from './products/products.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Keyboard } from './products/entities/product.entity';
+import { UserModule } from './user/user.module';
+import { User } from './user/entities/user.entity';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthModule } from './auth/auth.module';
+import { JwtAuthGuard } from './auth/jwt-auth-guard';
+import { JWT } from './jwt/jwt.module';
 
 @Module({
   imports: [
@@ -13,13 +20,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: process.env.MYSQL_USER,
       password: process.env.MYSQL_PASSWORD,
       database: process.env.MYSQL_DATABASE,
-      entities: [],
+      entities: [User, Keyboard],
       autoLoadEntities: false,
       synchronize: false
     }),
-    ProductsModule
+    JWT,
+    forwardRef(() => UserModule),
+    ProductsModule,
+    UserModule,
+    AuthModule
   ],
   controllers: [],
-  providers: []
+  providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }]
 })
 export class AppModule {}
