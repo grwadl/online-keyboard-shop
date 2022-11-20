@@ -1,7 +1,7 @@
 import { IsEmail, IsMobilePhone, IsNotEmpty } from 'class-validator';
 import { IUser } from '../entities/user.entity';
 
-export class CreateUserDto implements IUser {
+export class CreateUserDto implements Partial<IUser> {
   @IsNotEmpty()
   name: string;
   @IsEmail()

@@ -3,11 +3,12 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
-  Request
+  Put,
+  ParseIntPipe
 } from '@nestjs/common';
+import { User as UserReq } from 'src/user/user.decorator';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -26,23 +27,27 @@ export class UserController {
   async signUp(@Body() createUserDto: CreateUserDto): Promise<User> {
     return await this.authService.register(createUserDto);
   }
+
   @Public(Post('sign-in'))
   async signIn(@Body() signInDto: Partial<CreateUserDto>): Promise<User> {
     return await this.authService.login(signInDto);
   }
 
   @Get('again')
-  async signInAgain(@Request() { id }): Promise<User> {
+  async signInAgain(@UserReq() { id }): Promise<User> {
     return await this.userService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  @Put(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateUserDto: UpdateUserDto
+  ) {
+    return this.userService.update(id, updateUserDto).then((res) => res.raw[0]);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.userService.remove(id);
   }
 }

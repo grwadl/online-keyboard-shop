@@ -1,12 +1,12 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-enum KeyboardType {
+export enum KeyboardType {
   MECHANICAL = 'mechanical',
   MEMBRANIC = 'membranic',
   OPTICAL = 'optical'
 }
 
-enum Switches {
+export enum Switches {
   RED = 'red',
   BLUE = 'blue',
   BROWN = 'brown'
@@ -21,6 +21,9 @@ export interface IKeyboard {
 
 @Entity()
 export class Keyboard implements IKeyboard {
+  constructor(id: number) {
+    this.id = id;
+  }
   @PrimaryGeneratedColumn()
   id: number;
 

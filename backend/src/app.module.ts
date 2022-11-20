@@ -9,6 +9,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/jwt-auth-guard';
 import { JWT } from './jwt/jwt.module';
+import { CartModule } from './cart/cart.module';
+import { QueryParserService } from './query-parser/query-parser.service';
 
 @Module({
   imports: [
@@ -21,16 +23,17 @@ import { JWT } from './jwt/jwt.module';
       password: process.env.MYSQL_PASSWORD,
       database: process.env.MYSQL_DATABASE,
       entities: [User, Keyboard],
-      autoLoadEntities: false,
-      synchronize: false
+      autoLoadEntities: true,
+      synchronize: true
     }),
     JWT,
     forwardRef(() => UserModule),
     ProductsModule,
     UserModule,
-    AuthModule
+    AuthModule,
+    CartModule
   ],
   controllers: [],
-  providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }]
+  providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }, QueryParserService]
 })
 export class AppModule {}
