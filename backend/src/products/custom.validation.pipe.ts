@@ -1,12 +1,12 @@
-import { PipeTransform, Injectable } from '@nestjs/common';
+import { PipeTransform, Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ParseQueryPipe<T = never> implements PipeTransform<string, T> {
-  transform(value: any) {
-    for (const key in value)
-      if (typeof value[key] === 'string' && value[key].includes(','))
-        value[key] = value[key].split(',');
+  transform(query: any) {
+    for (const [key, value] of Object.entries(query))
+      if (typeof value === 'string' && value.includes(','))
+        query[key] = value.split(',')
 
-    return value as T;
+    return query as T
   }
 }

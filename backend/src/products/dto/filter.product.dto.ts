@@ -1,15 +1,15 @@
-import { IsOptional } from 'class-validator';
-import { KeyboardType, Switches } from '../entities/product.entity';
+import { IsOptional } from 'class-validator'
+import { KeyboardType, Switches } from '../entities/product.entity'
 
 class FilterProduct {
   @IsOptional()
-  switches?: Switches;
+  switches?: Switches | Switches[]
 
   @IsOptional()
-  keycaps?: string;
+  keycaps?: string
 
   @IsOptional()
-  type?: KeyboardType;
+  type?: KeyboardType | KeyboardType[]
 }
 
-export { FilterProduct };
+export { FilterProduct }

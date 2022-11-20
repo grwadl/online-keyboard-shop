@@ -1,13 +1,13 @@
-import { IsEmail, IsMobilePhone, IsNotEmpty } from 'class-validator';
-import { IUser } from '../entities/user.entity';
+import { IsEmail, IsMobilePhone, IsNotEmpty } from 'class-validator'
+import { IUser } from '../entities/user.entity'
 
 export class CreateUserDto implements Partial<IUser> {
   @IsNotEmpty()
-  name: string;
+  name: string
   @IsEmail()
-  email: string;
+  email: string
   @IsMobilePhone()
-  phone: string;
+  phone: string
   @IsNotEmpty()
-  password: string;
+  password: string
 }

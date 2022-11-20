@@ -1,16 +1,16 @@
-import { forwardRef, Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { ProductsModule } from './products/products.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Keyboard } from './products/entities/product.entity';
-import { UserModule } from './user/user.module';
-import { User } from './user/entities/user.entity';
-import { APP_GUARD } from '@nestjs/core';
-import { AuthModule } from './auth/auth.module';
-import { JwtAuthGuard } from './auth/jwt-auth-guard';
-import { JWT } from './jwt/jwt.module';
-import { CartModule } from './cart/cart.module';
-import { QueryParserService } from './query-parser/query-parser.service';
+import { forwardRef, Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
+import { ProductsModule } from './products/products.module'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { Keyboard } from './products/entities/product.entity'
+import { UserModule } from './user/user.module'
+import { User } from './user/entities/user.entity'
+import { APP_GUARD } from '@nestjs/core'
+import { AuthModule } from './auth/auth.module'
+import { JwtAuthGuard } from './auth/jwt-auth-guard'
+import { JWT } from './jwt/jwt.module'
+import { CartModule } from './cart/cart.module'
+import { QueryParserService } from './query-parser/query-parser.service'
 
 @Module({
   imports: [
