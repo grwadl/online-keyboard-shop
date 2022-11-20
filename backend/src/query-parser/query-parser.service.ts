@@ -12,15 +12,10 @@ export class QueryParserService {
     const res = { where: {} };
     if (!parsedQuery) return;
     for (const [key, value] of Object.entries(parsedQuery)) {
-      res.where = isArray(value)
-        ? {
-            ...res.where,
-            [key]: In<unknown[]>(value)
-          }
-        : {
-            ...res.where,
-            [key]: value
-          };
+      res.where = {
+        ...res.where,
+        [key]: isArray(value) ? In<unknown[]>(value) : value
+      };
     }
     return res;
   }

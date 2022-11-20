@@ -34,6 +34,9 @@ import { QueryParserService } from './query-parser/query-parser.service';
     CartModule
   ],
   controllers: [],
-  providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }, QueryParserService]
+  providers: [
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+    QueryParserService
+  ]
 })
 export class AppModule {}
