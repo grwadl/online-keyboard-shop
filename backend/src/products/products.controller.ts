@@ -1,22 +1,32 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { FindManyOptions } from 'typeorm';
-import { Keyboard } from './entities/product.entity';
-import { ProductsService } from './products.service';
-
-type GetOneParams = {
-  id: number;
-};
+import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common'
+import { Public } from 'src/auth/jwt-auth-guard'
+import { QueryParserService } from 'src/query-parser/query-parser.service'
+import { ParseQueryPipe } from './custom.validation.pipe'
+import { FilterProduct } from './dto/filter.product.dto'
+import { Keyboard } from './entities/product.entity'
+import { ProductsService } from './products.service'
 
 @Controller('products')
 export class ProductsController {
-  constructor(private productService: ProductsService) {}
-  @Get()
-  getAll(@Param() params: FindManyOptions<Keyboard>) {
-    return this.productService.get(params);
+  constructor(
+    private productService: ProductsService,
+    private queryParserService: QueryParserService
+  ) {}
+  @Public(Get())
+  getAll(
+    @Query(new ParseQueryPipe<FilterProduct>())
+    params: FilterProduct
+  ) {
+    const transformedParams = this.queryParserService.transformQuery<
+      Keyboard,
+      FilterProduct
+    >(params)
+
+    return this.productService.get(transformedParams)
   }
 
-  @Get(':id')
-  getOne(@Param() { id }: GetOneParams) {
-    return this.productService.getOne({ where: { id } });
+  @Public(Get(':id'))
+  getOne(@Param('id', ParseIntPipe) id: number) {
+    return this.productService.getOne({ where: { id } })
   }
 }

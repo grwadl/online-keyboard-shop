@@ -1,12 +1,13 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Keyboard } from './entities/product.entity';
-import { ProductsController } from './products.controller';
-import { ProductsService } from './products.service';
+import { Module } from '@nestjs/common'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { QueryParserService } from 'src/query-parser/query-parser.service'
+import { Keyboard } from './entities/product.entity'
+import { ProductsController } from './products.controller'
+import { ProductsService } from './products.service'
 
 @Module({
   imports: [TypeOrmModule.forFeature([Keyboard])],
   controllers: [ProductsController],
-  providers: [ProductsService]
+  providers: [ProductsService, QueryParserService]
 })
 export class ProductsModule {}

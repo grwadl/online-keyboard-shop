@@ -1,35 +1,38 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
-enum KeyboardType {
+export enum KeyboardType {
   MECHANICAL = 'mechanical',
   MEMBRANIC = 'membranic',
   OPTICAL = 'optical'
 }
 
-enum Switches {
+export enum Switches {
   RED = 'red',
   BLUE = 'blue',
   BROWN = 'brown'
 }
 
 export interface IKeyboard {
-  id: number;
-  type: KeyboardType;
-  switches?: Switches;
-  keycaps: string;
+  id: number
+  type: KeyboardType
+  switches?: Switches
+  keycaps: string
 }
 
 @Entity()
 export class Keyboard implements IKeyboard {
+  constructor(id: number) {
+    this.id = id
+  }
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column()
-  type: KeyboardType;
+  type: KeyboardType
 
   @Column()
-  switches?: Switches;
+  switches?: Switches
 
   @Column()
-  keycaps: string;
+  keycaps: string
 }

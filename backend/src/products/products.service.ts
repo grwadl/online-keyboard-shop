@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
-import { Keyboard } from './entities/product.entity';
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { FindManyOptions, FindOneOptions, Repository } from 'typeorm'
+import { Keyboard } from './entities/product.entity'
 
 @Injectable()
 export class ProductsService {
@@ -9,10 +9,10 @@ export class ProductsService {
     @InjectRepository(Keyboard) private keyboardRepository: Repository<Keyboard>
   ) {}
   get(params?: FindManyOptions<Keyboard>) {
-    return this.keyboardRepository.find(params);
+    return this.keyboardRepository.find(params)
   }
 
   getOne(params: FindOneOptions<Keyboard>) {
-    return this.keyboardRepository.findOne(params);
+    return this.keyboardRepository.findOne(params)
   }
 }

@@ -1,26 +1,36 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Cart } from 'src/cart/entities/cart.entity'
+import { Keyboard } from 'src/products/entities/product.entity'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 export interface IUser {
-  name: string;
-  email: string;
-  phone: string;
-  password: string;
+  name: string
+  email: string
+  phone: string
+  password: string
+  cart: Cart[]
 }
 
 @Entity()
 export class User implements IUser {
+  constructor(id: number) {
+    this.id = id
+  }
+
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column()
-  name: string;
+  name: string
 
   @Column()
-  email: string;
+  email: string
 
   @Column()
-  phone: string;
+  phone: string
 
   @Column()
-  password: string;
+  password: string
+
+  @OneToMany(() => Cart, (cart) => cart.user)
+  cart: Cart[]
 }
