@@ -12,6 +12,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+        <nav className="w-32 border-l-amber-600">dgsdgd</nav>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
