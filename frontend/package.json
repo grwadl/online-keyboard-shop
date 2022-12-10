@@ -13,6 +13,7 @@
     "precommit": "npm run format && npm run lint:fix"
   },
   "dependencies": {
+    "@next/font": "^13.0.6",
     "@nextui-org/react": "^1.0.0-beta.10",
     "@reduxjs/toolkit": "^1.9.1",
     "@types/node": "18.11.10",
@@ -26,6 +27,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
+    "sass": "^1.56.2",
     "typescript": "4.9.3"
   },
   "devDependencies": {

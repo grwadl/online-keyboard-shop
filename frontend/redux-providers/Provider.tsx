@@ -1,3 +1,4 @@
+'use client'
 import { useServerInsertedHTML } from 'next/navigation'
 import { CssBaseline, NextUIProvider } from '@nextui-org/react'
 import { PropsWithChildren } from 'react'
