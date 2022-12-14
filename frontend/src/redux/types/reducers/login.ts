@@ -1,9 +1,15 @@
 interface ILogin {
-  user: null
+  user: null | IUser
 }
 
-interface IUser {
+interface LoginData {
   email: string
+  password: string
 }
 
-export type { ILogin, IUser }
+interface IUser extends LoginData {
+  email: string
+  password: string
+}
+
+export type { ILogin, IUser, LoginData }

@@ -1,5 +1,6 @@
 const Actions = {
-  LOGIN: 'login'
+  LOGIN: 'login',
+  RELOGIN: 'relogin'
 }
 
 export { Actions }

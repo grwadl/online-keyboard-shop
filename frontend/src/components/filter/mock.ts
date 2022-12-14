@@ -1,0 +1,3 @@
+const mockedFilters = {}
+
+export { mockedFilters }

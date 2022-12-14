@@ -4,11 +4,12 @@ import { UpperHeader } from './UpperHeader'
 
 type Props = {
   user: IUser | null
+  className?: string
 }
 
-const Header = ({ user }: Props) => {
+const Header = ({ user, className }: Props) => {
   return (
-    <header className="header">
+    <header className={`header bg-def-white fixed w-full ${className}`}>
       <UpperHeader user={user} />
       <DownHeader user={user} />
     </header>

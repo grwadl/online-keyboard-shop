@@ -1,24 +1,18 @@
 import { useAppSelector } from '@/redux/common/hooks'
-import { IProduct } from '@/redux/types/reducers/products'
-import { LoginService } from '@/service/api/LoginService'
-import { useEffect, useState } from 'react'
+import { Outlet } from 'react-router-dom'
+import { Footer } from './footer/Footer'
 import { Header } from './header/Header'
 
-type Props = {
-  children?: React.ReactElement
-}
-
-const Layout = ({ children }: Props) => {
+const Layout = () => {
   const user = useAppSelector(({ login }) => login)
-  const [products, setProducts] = useState<IProduct[]>([])
-
-  useEffect(() => {
-    LoginService.validateToken().then((res) => console.log(res))
-  }, [])
 
   return (
-    <div className="layout">
+    <div className="layout flex flex-col h-full">
       <Header user={user.user} />
+      <div className="padded-section mt-36 flex-1 basis-full">
+        <Outlet />
+      </div>
+      <Footer />
     </div>
   )
 }
