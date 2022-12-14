@@ -6,7 +6,7 @@ const initialState: ILogin = {
   user: null
 }
 
-export const loginReducer = createReducer<ILogin>(initialState, (builder) => {
+const loginReducer = createReducer<ILogin>(initialState, (builder) => {
   builder.addCase(relogin.fulfilled, (state, action) => {
     const {
       payload: { user }
@@ -15,3 +15,5 @@ export const loginReducer = createReducer<ILogin>(initialState, (builder) => {
     state.user = user
   })
 })
+
+export { loginReducer }

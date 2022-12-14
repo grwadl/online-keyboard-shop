@@ -2,6 +2,7 @@ import { LoginService } from '@/service/api/LoginService'
 import { ProductService } from '@/service/api/ProductService'
 import { configureStore } from '@reduxjs/toolkit'
 import { loginReducer } from './reducers/login-reducer'
+import { productReducer } from './reducers/products-reducer'
 
 const extraArgument = {
   LoginService,
@@ -10,7 +11,8 @@ const extraArgument = {
 
 const store = configureStore({
   reducer: {
-    login: loginReducer
+    login: loginReducer,
+    products: productReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

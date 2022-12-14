@@ -3,4 +3,8 @@ const Actions = {
   RELOGIN: 'relogin'
 }
 
-export { Actions }
+const ProductsActions = {
+  GET_ALL: 'getAll'
+}
+
+export { Actions, ProductsActions }

@@ -12,7 +12,7 @@ const UpperHeader = ({ user }: Props) => {
   const toggleModalClose = () => setModalOpen(false)
 
   return (
-    <div className="bg-header-gray w-full py-2 flex justify-between text-my-white padded-section text-white">
+    <div className="bg-header-gray w-full py-1 flex justify-between text-my-white padded-section text-white text-xs">
       <div className="header-worktime flex gap-1">
         <img src={clock} alt="clock" />
         <span className="header-worktime-clock-numbers">10:30 - 6:00</span>

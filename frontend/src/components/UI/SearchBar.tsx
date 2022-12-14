@@ -7,7 +7,7 @@ type Props = {
 const SearchBar = ({ onChange, value, className }: Props) => {
   return (
     <input
-      className={`border-border-color border-2 p-2 focus:outline-none  rounded-sm w-[20%]  ${className}`}
+      className={`border-border-color border-2 px-2 py-1 focus:outline-none  rounded-sm w-[20%]  ${className}`}
       value={value}
       onChange={onChange}
     />
