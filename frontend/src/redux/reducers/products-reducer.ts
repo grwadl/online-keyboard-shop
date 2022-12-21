@@ -1,5 +1,5 @@
-import { createReducer } from '@reduxjs/toolkit'
-import { getAllProducts } from '../actions/products-action'
+import { createReducer, isAnyOf } from '@reduxjs/toolkit'
+import { changeFilteredProducts, getAllProducts } from '../actions/products-action'
 import { IProduct } from '../types/reducers/products'
 
 interface InitialState {
@@ -9,11 +9,10 @@ interface InitialState {
 const InitialState: InitialState = { keyboards: [] }
 
 const productReducer = createReducer<InitialState>(InitialState, (builder) => {
-  builder.addCase(getAllProducts.fulfilled, (state, action) => {
+  builder.addMatcher(isAnyOf(getAllProducts.fulfilled, changeFilteredProducts.fulfilled), (state, action) => {
     const {
       payload: { keyboards }
     } = action
-    console.log(keyboards)
     state.keyboards = keyboards
   })
 })

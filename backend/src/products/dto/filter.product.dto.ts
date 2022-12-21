@@ -10,6 +10,9 @@ class FilterProduct {
 
   @IsOptional()
   type?: KeyboardType | KeyboardType[]
+
+  @IsOptional()
+  name?: string
 }
 
 export { FilterProduct }

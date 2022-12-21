@@ -9,7 +9,7 @@ type Props = {
 
 const Header = ({ user, className }: Props) => {
   return (
-    <header className={`header bg-def-white fixed w-full ${className}`}>
+    <header className={`header z-10 bg-def-white fixed w-full ${className}`}>
       <UpperHeader user={user} />
       <DownHeader user={user} />
     </header>

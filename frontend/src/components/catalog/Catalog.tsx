@@ -3,7 +3,7 @@ type Props = {
 }
 
 const Catalog = ({ className }: Props) => {
-  return <div className={`${className}`}>Catalog</div>
+  return <div className={`${className ?? ''}`}>Catalog</div>
 }
 
 export { Catalog }

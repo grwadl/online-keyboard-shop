@@ -1,20 +1,36 @@
+import { changeFilters } from '@/redux/actions/filters-action'
+import { changeFilterAction } from '@/redux/actions/query-action'
+import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
+import React, { useCallback, useEffect } from 'react'
 import { Select } from '../UI/Select'
-import { Filter } from './types'
 
 type Props = {
   className?: string
-  list: Filter[]
 }
 
-const FilterList = ({ className, list }: Props) => {
-  const onChange = () => {
-    return
-  }
+const FilterList = ({ className }: Props) => {
+  const dispatch = useAppDispatch()
+  const selectedFilters = useAppSelector(({ filters }) => filters)
+
+  const onChangeFilterHandler = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => dispatch(changeFilters(e, selectedFilters)),
+    [selectedFilters]
+  )
+
+  // const generatedQuery = useAppSelector(({ query }) => query.)
+  useEffect(() => {
+    dispatch(changeFilterAction(selectedFilters))
+  }, [selectedFilters])
+
+  // useEffect(() => {
+  //   dispatch(changeFilteredProducts(generatedQuery))
+  // }, [generatedQuery])
+
   return (
     <div className={`${className}`}>
-      {list.map((filter) => (
-        <Select filter={filter} onChange={onChange} key={filter.name} />
-      ))}
+      <Select onChange={onChangeFilterHandler} name="Switches" filter={selectedFilters.switches} />
+      <Select onChange={onChangeFilterHandler} name="Keycaps" filter={selectedFilters.keycaps} />
+      <Select onChange={onChangeFilterHandler} name="Type" filter={selectedFilters.type} />
     </div>
   )
 }

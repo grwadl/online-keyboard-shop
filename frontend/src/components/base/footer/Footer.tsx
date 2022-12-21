@@ -9,7 +9,7 @@ import inst from '@/assets/icons/socials/inst.svg'
 const Footer = () => {
   return (
     <footer className="footer padded-section py-10 text-white bg-header-gray">
-      <div className="footer-wrapper padded-section flex justify-between">
+      <div className="footer-wrapper flex justify-between">
         <div className="socials-container flex-0 basis-54">
           <div className="logo-container flex gap-3 items-center pb-5">
             <img src={logo} alt="LOGO HERE" className="logo max-h-9" />

@@ -3,8 +3,8 @@ import { URL } from '../enums/urls'
 import { get as getReq } from './fetch'
 
 class ProductService {
-  static async get() {
-    return getReq<IProduct[]>(URL.PRODUCTS)
+  static async get(params = '') {
+    return getReq<IProduct[]>(`${URL.PRODUCTS}${params}`)
   }
 }
 

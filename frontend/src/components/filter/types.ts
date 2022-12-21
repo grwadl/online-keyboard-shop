@@ -1,14 +1,9 @@
-interface Option {
-  name: string
-  value: string
-  checked: boolean
+import { FilterSection } from '@/redux/types/reducers/filter-reducer'
+
+interface ChangeFilterFuncProps {
+  e: React.ChangeEvent<HTMLInputElement>
+  filters: FilterSection
+  setFilters: React.Dispatch<React.SetStateAction<FilterSection>>
 }
 
-interface Filter {
-  name: string
-  slug: string
-  value?: Option['value'][]
-  options: Option[]
-}
-
-export type { Filter, Option }
+export type { FilterSection, ChangeFilterFuncProps }

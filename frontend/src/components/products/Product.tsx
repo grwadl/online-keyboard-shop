@@ -6,10 +6,10 @@ type Props = {
   product: IProduct
   className?: string
 }
+const placeholder =
+  'https://returntofreedom.org/store/wp-content/uploads/shop-placeholder.png'
 
 const Product = ({ product, className }: Props) => {
-  const placeholder =
-    'https://returntofreedom.org/store/wp-content/uploads/shop-placeholder.png'
   const addProductToCart = () => {
     return
   }
@@ -23,7 +23,7 @@ const Product = ({ product, className }: Props) => {
       <h3 className="product-title">{product.name}</h3>
       <Button
         onClick={addProductToCart}
-        className="flex gap-1 items-center text-sm"
+        className="flex mt-2 gap-1 items-center text-sm"
       >
         <img src={cart} alt="cart" className="w-4 h-4" />
         <span className="line">|</span>
