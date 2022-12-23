@@ -5,6 +5,7 @@ import { changeSearchAction } from '@/redux/actions/query-action'
 import { useAppDispatch } from '@/redux/common/hooks'
 import { IUser } from '@/redux/types/reducers/login'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { CartLink } from './CartLink'
 
 type Props = {
@@ -19,10 +20,10 @@ const DownHeader = ({ user }: Props) => {
   useDebounce(() => dispatch(changeSearchAction(value)), value, 300)
   return (
     <div className="padded-section py-[4px] flex justify-between text-header-gray">
-      <div className="logo-wrap flex gap-3 items-center">
+      <Link to="/" className="logo-wrap flex gap-3 items-center">
         <img src={logo} alt="LOGO" className="logo-image w-6 h-6" />
         <span className="logo-name text-lg tracking-wide">KEYBOARD SHOP</span>
-      </div>
+      </Link>
       <SearchBar className="h-[90%]" onChange={onChangeSearch} value={value} />
       <CartLink user={user} />
     </div>

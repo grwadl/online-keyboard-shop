@@ -3,6 +3,7 @@ import { useAppDispatch } from '@/redux/common/hooks'
 import { MouseEvent, useEffect, useState } from 'react'
 import { Select } from '../UI/Select'
 import { sortOptions } from './mock'
+import './sortbar.scss'
 import { IDefaultOption } from './types'
 
 type Props = {
@@ -29,7 +30,12 @@ const SortBar = ({ className }: Props) => {
 
   return (
     <div className={`sort-bar ${className ?? ''}`}>
-      <Select className="p-2 w-28" onChange={onChange} value={selectedSort.value} options={sortOptions} />
+      <Select
+        className="p-2 w-28 cursor-pointer"
+        onChange={onChange}
+        value={selectedSort.value}
+        options={sortOptions}
+      />
     </div>
   )
 }

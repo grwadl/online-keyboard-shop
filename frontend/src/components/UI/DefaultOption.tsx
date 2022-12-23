@@ -9,7 +9,7 @@ type Props = {
 
 const DefaultOption = ({ name, value, className, onClick }: Props) => {
   return (
-    <div data-value={value} onClick={onClick} className={className}>
+    <div data-value={value} onClick={onClick} className={`def-option border-2 border-icon-color ${className}`}>
       {name}
     </div>
   )

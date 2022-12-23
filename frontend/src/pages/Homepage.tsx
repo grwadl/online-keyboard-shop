@@ -1,3 +1,4 @@
+import { Loader } from '@/components/base/loading/Loader'
 import { Catalog } from '@/components/catalog/Catalog'
 import { FilterList } from '@/components/filter/FilterList'
 import { ProductsList } from '@/components/products/ProductsList'
@@ -19,9 +20,13 @@ const Homepage = () => {
   return (
     <div className="flex">
       <FilterList className="flex-0 basis-64" />
-      <div className="main-part flex-1">
+      <div className="main-part flex-1 relative">
         <Catalog />
-        <ProductsList products={products.keyboards} />
+        {products.loading ? (
+          <Loader className="absolute top-1/2 left-1/2" />
+        ) : (
+          <ProductsList products={products.keyboards} />
+        )}
       </div>
     </div>
   )
