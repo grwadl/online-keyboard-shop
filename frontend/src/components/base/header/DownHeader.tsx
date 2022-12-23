@@ -24,7 +24,7 @@ const DownHeader = ({ user }: Props) => {
         <span className="logo-name text-lg tracking-wide">KEYBOARD SHOP</span>
       </div>
       <SearchBar className="h-[90%]" onChange={onChangeSearch} value={value} />
-      <CartLink isShowed={!!!user?.email} />
+      <CartLink user={user} />
     </div>
   )
 }

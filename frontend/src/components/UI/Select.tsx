@@ -1,27 +1,22 @@
-import React from 'react'
-import { FilterSection } from '../filter/types'
-import { Option } from './Option'
+import { MouseEvent, useMemo, useState } from 'react'
+import { IDefaultOption } from '../sort/types'
+import { SelectDefaultList } from './SelectDefaultList'
 
 type Props = {
-  filter: FilterSection[keyof FilterSection]
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  name: string
+  options: IDefaultOption[]
+  onChange: (e: MouseEvent<HTMLDivElement>) => void
+  value: string
+  className?: string
 }
 
-const Select = ({ filter, onChange, name }: Props) => {
+const Select = ({ className, value, onChange, options }: Props) => {
+  const [showed, setShowed] = useState(false)
+  const selectedFullOption = useMemo(() => options.find((option) => option.value === value), [value, onChange])
+
   return (
-    <div className="select-wrapper mb-4">
-      <hr className="my-4 w-[95%] text-second-text-color" />
-      <h4 className="text-base font-semibold">{name}</h4>
-      {filter.options.map((op) => (
-        <Option
-          checked={op.checked}
-          onChange={onChange}
-          label={op.name}
-          key={op.name}
-          className="mt-4"
-        />
-      ))}
+    <div className={`my-select  ${className ?? ''}`} onClick={() => setShowed((v) => !v)}>
+      <span className="selected">{selectedFullOption?.name}</span>
+      <SelectDefaultList setShowed={setShowed} onChange={onChange} options={options} showed={showed} />
     </div>
   )
 }

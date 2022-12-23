@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { changeFilterAction, changeSearchAction } from '../actions/query-action'
+import { changeFilterAction, changeSearchAction, changeSortAction } from '../actions/query-action'
 import { InititalStateQueery } from '../types/reducers/query-reducer'
 
 const initialState: InititalStateQueery = {
@@ -20,6 +20,12 @@ const queryReducer = createReducer(initialState, (builder) => {
     const { payload } = action
 
     state.search = payload
+  })
+
+  builder.addCase(changeSortAction, (state, action) => {
+    const { payload } = action
+
+    state.sort = payload
   })
 })
 

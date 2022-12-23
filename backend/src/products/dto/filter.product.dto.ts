@@ -13,6 +13,9 @@ class FilterProduct {
 
   @IsOptional()
   name?: string
+
+  @IsOptional()
+  sort: string
 }
 
 export { FilterProduct }

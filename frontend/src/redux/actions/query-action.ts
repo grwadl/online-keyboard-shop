@@ -23,4 +23,8 @@ const changeSearchAction = createAction<PrepareAction<string>>(QueryAction.CHANG
   payload: name ? `name=~${name}` : ''
 }))
 
-export { changeFilterAction, changeSearchAction }
+const changeSortAction = createAction<PrepareAction<string>>(QueryAction.CHANGE_SORT, (sort: string) => ({
+  payload: sort ? `sort=${sort}` : ''
+}))
+
+export { changeFilterAction, changeSearchAction, changeSortAction }

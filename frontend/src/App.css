@@ -19,6 +19,12 @@
   box-sizing: border-box;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .layout {
   min-height: 100vh;
 }

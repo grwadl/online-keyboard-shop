@@ -21,7 +21,6 @@ const changeFilteredProducts = createAsyncThunk<ReturnType, string, AsyncThunkCo
   ProductsActions.CHANGE_FILTERS,
   async (query) => {
     const actualQuery = query ? `?${query}` : ''
-    console.log(actualQuery)
 
     const keyboards = await ProductService.get(actualQuery)
     return { keyboards }

@@ -13,20 +13,30 @@ const generateQuery = (value: Array<any> | unknown) => {
   return value
 }
 
+const handleSorting = (sort: string) => {
+  const isAvaliable = !!sort || typeof sort === 'string'
+
+  if (!isAvaliable) return
+  const sortType = sort.charAt(0) === '-' ? 'DESC' : 'ASC'
+  const fieldToSort = sort.slice(1)
+
+  return { [fieldToSort]: sortType }
+}
+
 @Injectable()
 export class QueryParserService {
   transformQuery<T, U extends Record<string, any>>(
     parsedQuery: U
   ): FindManyOptions<T> | undefined {
-    const res = { where: {} }
     if (!parsedQuery) return
-    for (const [key, value] of Object.entries(parsedQuery)) {
+    const { sort, pagination, ...filters } = parsedQuery
+    const res = { where: {}, order: handleSorting(sort) }
+
+    for (const [key, value] of Object.entries(filters))
       res.where = {
         ...res.where,
         [key]: generateQuery(value)
       }
-    }
-    console.log(res)
 
     return res as T
   }
