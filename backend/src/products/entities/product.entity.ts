@@ -42,8 +42,14 @@ export class Keyboard implements IKeyboard {
   image?: string
 
   @Column()
-  name?: string
+  name: string
 
   @Column()
-  price?: number
+  price: number
+
+  @Column('text')
+  desc: string
+
+  @Column('text')
+  excerpt: string
 }

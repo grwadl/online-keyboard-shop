@@ -5,7 +5,7 @@ import { changeSearchAction } from '@/redux/actions/query-action'
 import { useAppDispatch } from '@/redux/common/hooks'
 import { IUser } from '@/redux/types/reducers/login'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { CartLink } from './CartLink'
 
 type Props = {
@@ -14,6 +14,8 @@ type Props = {
 
 const DownHeader = ({ user }: Props) => {
   const dispatch = useAppDispatch()
+  const { pathname } = useLocation()
+
   const [value, setValue] = useState('')
   const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)
 
@@ -24,7 +26,9 @@ const DownHeader = ({ user }: Props) => {
         <img src={logo} alt="LOGO" className="logo-image w-6 h-6" />
         <span className="logo-name text-lg tracking-wide">KEYBOARD SHOP</span>
       </Link>
-      <SearchBar className="h-[90%]" onChange={onChangeSearch} value={value} />
+      {(pathname === '/' || pathname === '') && (
+        <SearchBar className="h-[90%]" onChange={onChangeSearch} value={value} />
+      )}
       <CartLink user={user} />
     </div>
   )

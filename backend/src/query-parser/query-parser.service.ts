@@ -23,14 +23,25 @@ const handleSorting = (sort: string) => {
   return { [fieldToSort]: sortType }
 }
 
+const handlePagination = (page: number, limit: number) => {
+  if (!page || !limit) return
+
+  const skip = (page - 1) * limit
+  return { skip, take: limit }
+}
+
 @Injectable()
 export class QueryParserService {
   transformQuery<T, U extends Record<string, any>>(
     parsedQuery: U
   ): FindManyOptions<T> | undefined {
     if (!parsedQuery) return
-    const { sort, pagination, ...filters } = parsedQuery
-    const res = { where: {}, order: handleSorting(sort) }
+    const { sort, page, limit, ...filters } = parsedQuery
+    const res = {
+      where: {},
+      order: handleSorting(sort),
+      ...handlePagination(+page, +limit)
+    }
 
     for (const [key, value] of Object.entries(filters))
       res.where = {

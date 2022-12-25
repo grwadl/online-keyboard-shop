@@ -6,6 +6,8 @@ interface IProduct {
   type: string
   image: string
   price: string
+  desc: string
+  excerpt: string
 }
 
 export type { IProduct }

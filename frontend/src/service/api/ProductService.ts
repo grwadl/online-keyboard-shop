@@ -6,6 +6,10 @@ class ProductService {
   static async get(params = '') {
     return getReq<IProduct[]>(`${URL.PRODUCTS}${params}`)
   }
+
+  static async getOne(id: number) {
+    return getReq<IProduct>(`${URL.PRODUCTS}${id}`)
+  }
 }
 
 export { ProductService }

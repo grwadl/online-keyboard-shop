@@ -1,5 +1,6 @@
 import React from 'react'
 import { FilterSection } from '../filter/types'
+import { Hr } from './Hr'
 import { Option } from './Option'
 
 type Props = {
@@ -11,7 +12,7 @@ type Props = {
 const SelectFilter = ({ filter, onChange, name }: Props) => {
   return (
     <div className="select-wrapper mb-4">
-      <hr className="my-4 w-[95%] text-second-text-color" />
+      <Hr className="w-[95%]" />
       <h4 className="text-base font-semibold">{name}</h4>
       {filter.options.map((op) => (
         <Option checked={op.checked} onChange={onChange} label={op.name} key={op.name} className="mt-4" />
