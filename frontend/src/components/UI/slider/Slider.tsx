@@ -50,7 +50,7 @@ const Slider = <T,>({ slides, className, renderItem }: Props<T>) => {
     setIsDown(true)
   }
 
-  const handleScrollingEnd = (el: HTMLDivElement, pixels: number) => {
+  const handleApproachingEnd = (el: HTMLDivElement, pixels: number) => {
     el.style.cssText = `transform: translateX(${pixels}px); transition: transform 0.3s`
     setPreviousTransition(-pixels)
   }
@@ -59,12 +59,11 @@ const Slider = <T,>({ slides, className, renderItem }: Props<T>) => {
     setIsDown(false)
     const carousel = ref.current as HTMLDivElement
     const firstChild = carousel.firstChild as HTMLDivElement
-    console.log(e.changedTouches)
 
     const newTransition = startX - e.changedTouches[0].pageX
     const newPosition = previousTransition + newTransition
-    if (newPosition >= maxScrollValue) return handleScrollingEnd(firstChild, -maxScrollValue)
-    else if (newPosition < 0) return handleScrollingEnd(firstChild, 0)
+    if (newPosition >= maxScrollValue) return handleApproachingEnd(firstChild, -maxScrollValue)
+    else if (newPosition < 0) return handleApproachingEnd(firstChild, 0)
     setPreviousTransition(newPosition)
   }
 
@@ -76,7 +75,7 @@ const Slider = <T,>({ slides, className, renderItem }: Props<T>) => {
       onTouchMove={onTouchMoveHandler}
       className={`overflow-x-hidden flex bg-main-accent ${className ?? ''}`}
     >
-      <div className="slides-wrap flex w-full">{slides.map(renderItem)}</div>
+      <div className="slides-wrap flex w-full">{slides?.map(renderItem)}</div>
     </div>
   )
 }
