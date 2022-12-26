@@ -24,6 +24,11 @@ const handleMoveByArrow = (props: OnArrowMoveProps) => {
   const scrollCoefficient = isMovingForward ? 1 : -1
   const slidesContainer = ref.current as HTMLDivElement
   const newScrollValue = scrollCoefficient * widthOfElement + previousTransition
+  const isAlreadyAtTheEnd =
+    (previousTransition === 0 && newScrollValue <= previousTransition) ||
+    (previousTransition === maxScrollValue && newScrollValue >= previousTransition)
+
+  if (isAlreadyAtTheEnd) return
 
   if (newScrollValue < 0) return handleApproachingEnd({ el: slidesContainer, pixels: 0, setPreviousTransition })
   if (newScrollValue > maxScrollValue)

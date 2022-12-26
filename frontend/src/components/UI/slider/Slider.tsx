@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
 import Arrow from '../arrows/Arrow'
 import {
   handleMoveByArrow,
@@ -52,7 +52,7 @@ const Slider = <T,>({ slides, className, renderItem }: Props<T>) => {
   const onMoveByArrow = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) =>
       handleMoveByArrow({ e, maxScrollValue, previousTransition, ref, setPreviousTransition, widthOfElement }),
-    [widthOfElement, maxScrollValue, previousTransition]
+    [maxScrollValue, previousTransition]
   )
 
   return (
@@ -79,4 +79,6 @@ const Slider = <T,>({ slides, className, renderItem }: Props<T>) => {
   )
 }
 
-export { Slider }
+const memoizedSlider = memo(Slider) as typeof Slider
+
+export { memoizedSlider as Slider }
