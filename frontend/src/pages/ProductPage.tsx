@@ -1,9 +1,9 @@
 import { Loader } from '@/components/base/loading/Loader'
-import { ProductSliders } from '@/components/product-page/product-sliders/ProductSliders'
+import { ProductSliderWrapper } from '@/components/product-page/product-sliders/ProductSliders'
 import { UpperInfo } from '@/components/product-page/upper-info/UpperInfo'
-import { IProduct } from '@/redux/types/reducers/products'
-import { ProductService } from '@/service/api/ProductService'
-import { useEffect, useState } from 'react'
+import { fetchCurrentProduct, fetchLatestProducts } from '@/redux/actions/product-page-actions'
+import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
+import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 type Params = {
@@ -12,30 +12,28 @@ type Params = {
 
 const ProductPage = () => {
   const { id } = useParams<Params>()
-  const [product, setProduct] = useState<IProduct>()
-  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const { isLoading, latestProducts, product } = useAppSelector(({ productPage }) => productPage)
 
   useEffect(() => {
     if (!id) return
-    ProductService.getOne(+id)
-      .then((product) => setProduct(product))
-      .finally(() => setLoading(false))
+    Promise.all([dispatch(fetchCurrentProduct(+id)), dispatch(fetchLatestProducts())])
   }, [id])
 
-  if (loading)
+  if (isLoading)
     return (
       <div className="relative">
         <Loader className="absolute top-20 left-1/2" />
       </div>
     )
 
-  if (!product?.id && !loading) navigate('/')
+  if (!product?.id && !isLoading) navigate('/')
 
   return (
     <div className="relative">
       {!!product && <UpperInfo keyboard={product} />}
-      <ProductSliders />
+      <ProductSliderWrapper keyboards={latestProducts} />
     </div>
   )
 }

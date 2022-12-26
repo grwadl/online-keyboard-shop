@@ -5,7 +5,9 @@ const Actions = {
 
 const ProductsActions = {
   GET_ALL: 'getAll',
-  CHANGE_FILTERS: 'changeFilters'
+  CHANGE_FILTERS: 'changeFilters',
+  GET_LATEST: 'getLatest',
+  GET_CURRENT: 'getCurrent'
 }
 
 const FiltersAction = {

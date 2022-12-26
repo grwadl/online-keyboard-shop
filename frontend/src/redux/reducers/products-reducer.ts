@@ -5,9 +5,10 @@ import { IProduct } from '../types/reducers/products'
 interface InitialState {
   keyboards: IProduct[]
   loading: boolean
+  latestKeyboards: IProduct[]
 }
 
-const InitialState: InitialState = { keyboards: [], loading: true }
+const InitialState: InitialState = { keyboards: [], loading: true, latestKeyboards: [] }
 
 const productReducer = createReducer<InitialState>(InitialState, (builder) => {
   builder.addMatcher(isAnyOf(getAllProducts.fulfilled, changeFilteredProducts.fulfilled), (state) => {

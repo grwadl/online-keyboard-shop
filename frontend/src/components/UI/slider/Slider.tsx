@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-type Props = {
+type Props<T> = {
   className?: string
+  slides: T[]
+  renderItem: (item: T) => React.ReactNode
 }
-const slides = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-const Slider = (props: Props) => {
+const Slider = <T,>({ slides, className, renderItem }: Props<T>) => {
   const [isDown, setIsDown] = useState<boolean>(false)
   const [startX, setStartX] = useState(0)
   const [previousTransition, setPreviousTransition] = useState(0)
@@ -17,6 +18,7 @@ const Slider = (props: Props) => {
     const container = carousel.firstChild as HTMLDivElement
 
     const firstChild = container.firstChild as HTMLDivElement
+    if (!firstChild) return
     const amountIntersectingElements = container.offsetWidth / firstChild.offsetWidth
     const amountOfPixelsInintersectingElements = amountIntersectingElements * firstChild.offsetWidth
     const amountOfScrollCycles = container.childElementCount / amountIntersectingElements - 1
@@ -26,23 +28,24 @@ const Slider = (props: Props) => {
 
   useEffect(() => {
     resizeListener()
+
     window.addEventListener('resize', resizeListener)
     return () => {
       window.removeEventListener('resize', resizeListener)
     }
-  }, [])
+  }, [ref.current])
 
-  const mouseMoveHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onTouchMoveHandler = (e: React.TouchEvent<HTMLDivElement>) => {
     if (!isDown) return
     const carousel = ref.current as HTMLDivElement
-    const newStartX = e.pageX
+    const newStartX = e.targetTouches[0].pageX
     const firstChild = carousel.firstChild as HTMLDivElement
     const newPosition = previousTransition + startX - newStartX
     firstChild.style.transform = `translateX(${-newPosition}px)`
   }
 
-  const mouseDownHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-    const newStartX = e.pageX
+  const onTouchStartHandler = (e: React.TouchEvent<HTMLDivElement>) => {
+    const newStartX = e.targetTouches[0].pageX
     setStartX(newStartX)
     setIsDown(true)
   }
@@ -52,11 +55,13 @@ const Slider = (props: Props) => {
     setPreviousTransition(-pixels)
   }
 
-  const mouseUpHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onTouchEndHandler = (e: React.TouchEvent<HTMLDivElement>) => {
     setIsDown(false)
     const carousel = ref.current as HTMLDivElement
     const firstChild = carousel.firstChild as HTMLDivElement
-    const newTransition = startX - e.pageX
+    console.log(e.changedTouches)
+
+    const newTransition = startX - e.changedTouches[0].pageX
     const newPosition = previousTransition + newTransition
     if (newPosition >= maxScrollValue) return handleScrollingEnd(firstChild, -maxScrollValue)
     else if (newPosition < 0) return handleScrollingEnd(firstChild, 0)
@@ -66,19 +71,12 @@ const Slider = (props: Props) => {
   return (
     <div
       ref={ref}
-      onMouseMove={mouseMoveHandler}
-      onMouseLeave={mouseUpHandler}
-      onMouseDown={mouseDownHandler}
-      onMouseUp={mouseUpHandler}
-      className="w-80 overflow-x-hidden flex bg-main-accent"
+      onTouchStart={onTouchStartHandler}
+      onTouchEnd={onTouchEndHandler}
+      onTouchMove={onTouchMoveHandler}
+      className={`overflow-x-hidden flex bg-main-accent ${className ?? ''}`}
     >
-      <div className={`slides-wrap flex w-full ${isDown ? 'cursor-grabbing' : ''}`}>
-        {slides.map((s) => (
-          <div key={s} className="basis-20 shrink-0 h-20 select-none">
-            {s}
-          </div>
-        ))}
-      </div>
+      <div className="slides-wrap flex w-full">{slides.map(renderItem)}</div>
     </div>
   )
 }
