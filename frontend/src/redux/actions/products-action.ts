@@ -5,7 +5,7 @@ import { ProductsActions } from '../enums/actions'
 import { AsyncThunkConfig } from '../types/global.types'
 import { IProduct } from '../types/reducers/products'
 
-interface ReturnType {
+export interface ReturnType {
   keyboards: IProduct[]
 }
 

@@ -1,11 +1,19 @@
+import Product from '@/components/products/Product'
 import { Slider } from '@/components/UI/slider/Slider'
+import { IProduct } from '@/redux/types/reducers/products'
 
 type Props = {
-  some?: boolean
+  keyboards: IProduct[]
 }
 
-const ProductSliders = (props: Props) => {
-  return <Slider />
+const ProductSliderWrapper = ({ keyboards }: Props) => {
+  return (
+    <>
+      {keyboards && (
+        <Slider<IProduct> renderItem={(it: IProduct) => <Product product={it} key={it.id} />} slides={keyboards} />
+      )}
+    </>
+  )
 }
 
-export { ProductSliders }
+export { ProductSliderWrapper }
