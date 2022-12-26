@@ -69,8 +69,10 @@ const resizeListener = (props: ResizeListenerProps) => {
   setWidthOfElement(+slide.offsetWidth)
   const amountIntersectingElements = slideContainer.offsetWidth / slide.offsetWidth
   const amountOfPixelsIntersectingElements = amountIntersectingElements * slide.offsetWidth
-  const amountOfScrollCycles = slideContainer.childElementCount / amountIntersectingElements - 1
+  const amountOfScrollCycles = Math.abs(Math.round(slideContainer.childElementCount / amountIntersectingElements - 1))
   const maxScrollValue = amountOfScrollCycles * amountOfPixelsIntersectingElements
+  console.log(amountOfScrollCycles)
+
   setMaxScrollValue(maxScrollValue)
 }
 

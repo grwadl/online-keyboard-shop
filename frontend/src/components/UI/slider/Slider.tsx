@@ -60,7 +60,7 @@ const Slider = <T,>({ slides, className, renderItem }: Props<T>) => {
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
       onTouchMove={onTouchMove}
-      className={`overflow-x-hidden flex bg-main-accent relative ${className ?? ''}`}
+      className={`overflow-x-hidden flex  relative ${className ?? ''}`}
     >
       <Arrow
         onClick={onMoveByArrow}
