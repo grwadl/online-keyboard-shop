@@ -72,7 +72,6 @@ const resizeListener = (props: ResizeListenerProps) => {
   let amountOfScrollCycles = slideContainer.childElementCount / amountIntersectingElements - 1
   amountOfScrollCycles = amountOfScrollCycles < 0 ? 0 : amountOfScrollCycles
   const maxScrollValue = amountOfScrollCycles * amountOfPixelsIntersectingElements
-  console.log(amountOfScrollCycles)
 
   setMaxScrollValue(maxScrollValue)
 }
