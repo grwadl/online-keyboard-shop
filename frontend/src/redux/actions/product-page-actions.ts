@@ -12,7 +12,7 @@ interface GetCurrentReturnType {
 const fetchLatestProducts = createAsyncThunk<ReturnType, void, AsyncThunkConfig>(
   ProductsActions.GET_LATEST,
   async () => {
-    const query = '?limit=5'
+    const query = '?limit=15'
     const keyboards = await ProductService.get(query)
     return { keyboards }
   }

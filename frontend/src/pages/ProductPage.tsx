@@ -3,7 +3,8 @@ import { ProductSliderWrapper } from '@/components/product-page/product-sliders/
 import { UpperInfo } from '@/components/product-page/upper-info/UpperInfo'
 import { fetchCurrentProduct, fetchLatestProducts } from '@/redux/actions/product-page-actions'
 import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
-import { useEffect } from 'react'
+import { IProduct } from '@/redux/types/reducers/products'
+import { useEffect, useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 type Params = {
@@ -15,6 +16,11 @@ const ProductPage = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { isLoading, latestProducts, product } = useAppSelector(({ productPage }) => productPage)
+
+  const keyboards = useMemo(
+    () => latestProducts.filter((p) => p.id !== (product as IProduct).id),
+    [latestProducts.length]
+  )
 
   useEffect(() => {
     if (!id) return
@@ -33,7 +39,7 @@ const ProductPage = () => {
   return (
     <div className="relative">
       {!!product && <UpperInfo keyboard={product} />}
-      <ProductSliderWrapper keyboards={latestProducts} />
+      <ProductSliderWrapper keyboards={keyboards} />
     </div>
   )
 }
