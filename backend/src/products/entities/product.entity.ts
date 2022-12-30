@@ -17,6 +17,8 @@ export interface IKeyboard {
   type: KeyboardType
   switches?: Switches
   keycaps: string
+  image?: string
+  name?: string
 }
 
 @Entity()
@@ -35,4 +37,19 @@ export class Keyboard implements IKeyboard {
 
   @Column()
   keycaps: string
+
+  @Column()
+  image?: string
+
+  @Column()
+  name: string
+
+  @Column()
+  price: number
+
+  @Column('text')
+  desc: string
+
+  @Column('text')
+  excerpt: string
 }
