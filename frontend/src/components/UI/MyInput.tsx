@@ -1,12 +1,16 @@
+import { InputHTMLAttributes } from 'react'
+
 type Props = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   value: string
   className?: string
+  otherProps?: InputHTMLAttributes<HTMLInputElement>
 }
 
-const SearchBar = ({ onChange, value, className }: Props) => {
+const MyInput = ({ onChange, value, className, otherProps }: Props) => {
   return (
     <input
+      {...otherProps}
       className={`border-border-color border-2 px-2 py-1 focus:outline-none  rounded-sm w-[20%]  ${className}`}
       value={value}
       onChange={onChange}
@@ -14,4 +18,4 @@ const SearchBar = ({ onChange, value, className }: Props) => {
   )
 }
 
-export { SearchBar }
+export { MyInput }

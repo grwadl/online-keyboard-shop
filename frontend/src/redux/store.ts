@@ -3,6 +3,7 @@ import { ProductService } from '@/service/api/ProductService'
 import { configureStore } from '@reduxjs/toolkit'
 import { filterReducer } from './reducers/filters-reducer'
 import { loginReducer } from './reducers/login-reducer'
+import { modalReducer } from './reducers/modal-reducer'
 import { productReducer } from './reducers/products-reducer'
 import { queryReducer } from './reducers/query-reducer'
 import { productPageReducer } from './types/reducers/product-page-reducer'
@@ -18,7 +19,8 @@ const store = configureStore({
     products: productReducer,
     filters: filterReducer,
     query: queryReducer,
-    productPage: productPageReducer
+    productPage: productPageReducer,
+    modal: modalReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

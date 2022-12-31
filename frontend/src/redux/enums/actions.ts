@@ -24,4 +24,9 @@ const QueryAction = {
   CHANGE_SORT: 'changeSortQuery'
 }
 
-export { Actions, ProductsActions, FiltersAction, SearchAction, QueryAction }
+const ModalActions = {
+  openModal: 'openModal',
+  closeModal: 'closeModal'
+}
+
+export { Actions, ProductsActions, FiltersAction, SearchAction, QueryAction, ModalActions }

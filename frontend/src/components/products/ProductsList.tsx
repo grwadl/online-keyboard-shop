@@ -7,9 +7,9 @@ type Props = {
 
 const ProductsList = ({ products }: Props) => {
   return (
-    <ul className="products-list flex">
+    <ul className="products-list flex flex-wrap">
       {products?.map((it) => (
-        <Product key={it.id} className="flex-shrink-1 flex-grow-0 lg:basis-[25%]" product={it} />
+        <Product key={it.id} className="flex-shrink-0 flex-grow-0 basis-[25%]" product={it} />
       ))}
     </ul>
   )

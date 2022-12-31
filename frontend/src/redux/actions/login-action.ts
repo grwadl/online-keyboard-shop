@@ -15,8 +15,10 @@ const login = createAsyncThunk<ActionReturn, LoginData, AsyncThunkConfig>(
 
 const relogin = createAsyncThunk<ActionReturn, void, AsyncThunkConfig>(
   Actions.RELOGIN,
-  async (_, { extra: { LoginService } }) => {
-    const user = await LoginService.validateToken()
+  async (_, { extra: { LoginService }, rejectWithValue }) => {
+    const token = localStorage.getItem('token') as string
+    if (!token) rejectWithValue(null)
+    const user = await LoginService.validateToken(token)
 
     return { user }
   }

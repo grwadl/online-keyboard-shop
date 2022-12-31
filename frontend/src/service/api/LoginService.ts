@@ -7,8 +7,7 @@ class LoginService {
     return post<IUser>(`${URL.PRODUCTS}/login`, { body: JSON.stringify(data) })
   }
 
-  static async validateToken(): Promise<IUser | null> {
-    const token = localStorage.getItem('token')
+  static async validateToken(token: string): Promise<IUser | null> {
     if (!token) return null
     const res = await get<IUser>(`${URL.PRODUCTS}/again`)
     return res
