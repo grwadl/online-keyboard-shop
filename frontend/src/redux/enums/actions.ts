@@ -1,6 +1,14 @@
 const Actions = {
   LOGIN: 'login',
-  RELOGIN: 'relogin'
+  LOG_OUT: 'logout',
+  RELOGIN: 'relogin',
+  REGISTER: 'register',
+  REMOVE_ERROR: 'removeError'
+}
+
+const RegisterAction = {
+  REGISTER: 'register',
+  REMOVE_ERROR: 'removeErrorRegister'
 }
 
 const ProductsActions = {
@@ -24,4 +32,9 @@ const QueryAction = {
   CHANGE_SORT: 'changeSortQuery'
 }
 
-export { Actions, ProductsActions, FiltersAction, SearchAction, QueryAction }
+const ModalActions = {
+  openModal: 'openModal',
+  closeModal: 'closeModal'
+}
+
+export { Actions, ProductsActions, FiltersAction, SearchAction, QueryAction, ModalActions, RegisterAction }

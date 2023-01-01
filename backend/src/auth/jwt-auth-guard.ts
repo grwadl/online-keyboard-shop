@@ -28,6 +28,7 @@ class JwtAuthGuard extends AuthGuard('jwt') {
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest()
     const handler = context.getHandler()
+
     const allowUnauthorizedRequest = this.reflector.get<boolean>(
       ALLOW_UNAUTH,
       handler
@@ -37,6 +38,7 @@ class JwtAuthGuard extends AuthGuard('jwt') {
 
   validateToken(req) {
     const { headers } = req
+
     const token = headers?.authorization?.split('Bearer ')?.at(1)
     if (!token) throw new BadRequestException()
 

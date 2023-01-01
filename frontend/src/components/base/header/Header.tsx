@@ -1,6 +1,5 @@
 import { IUser } from '@/redux/types/reducers/login'
 import { DownHeader } from './DownHeader'
-import { UpperHeader } from './UpperHeader'
 
 type Props = {
   user: IUser | null
@@ -9,8 +8,7 @@ type Props = {
 
 const Header = ({ user, className }: Props) => {
   return (
-    <header className={`header z-10 bg-def-white fixed w-full ${className}`}>
-      <UpperHeader user={user} />
+    <header className={`header z-10 py-2 bg-def-white fixed w-full ${className}`}>
       <DownHeader user={user} />
     </header>
   )

@@ -6,11 +6,17 @@ type Props = {
   children: React.ReactNode
   className?: string
   disabled?: boolean
+  type?: 'button' | 'submit'
 }
 
-const Button = ({ children, onClick, className, disabled }: Props) => {
+const Button = ({ children, onClick, className, disabled, type = 'button' }: Props) => {
   return (
-    <button disabled={disabled} className={`my-btn p-2 bg-main-accent text-white ${className}`} onClick={onClick}>
+    <button
+      disabled={disabled}
+      type={type}
+      className={`my-btn p-2 bg-main-accent text-white ${className}`}
+      onClick={onClick}
+    >
       {children}
     </button>
   )

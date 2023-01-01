@@ -14,9 +14,9 @@ const UpperInfo = ({ keyboard }: Props) => {
   const { image, name, price, excerpt } = keyboard
 
   return (
-    <div className="product-wrapper flex gap-8">
-      <div className="product-image-wrapper px-10 flex-grow-0 flex-shrink-1 basis-1/2">
-        <img src={image} className="w-full" alt={name} />
+    <div className="product-wrapper flex gap-8 mb-5">
+      <div className="product-image-wrapper px-10 flex justify-center flex-grow-0 flex-shrink-0 basis-1/3">
+        <img src={image} className="max-h-[500px] object-cover w-auto" alt={name} />
       </div>
       <div className="product-general-info-wrapper">
         <h2 className="product-name text-3xl text-header-gray mb-10">{name}</h2>

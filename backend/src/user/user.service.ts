@@ -10,8 +10,11 @@ export class UserService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>
   ) {}
-  create(createUserDto: CreateUserDto) {
-    return this.userRepository.save(createUserDto)
+  create(createUserDto: CreateUserDto): Promise<User> {
+    return this.userRepository.save({
+      ...createUserDto,
+      refreshToken: 'fsdfsdfsdf'
+    })
   }
 
   findAll(opt?: FindManyOptions<User>) {
@@ -22,8 +25,9 @@ export class UserService {
     return this.userRepository.findOne({ where: { id } })
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return this.userRepository.update(id, updateUserDto)
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    const user = await this.userRepository.update(id, updateUserDto)
+    return user.raw?.[0]
   }
 
   remove(id: number) {

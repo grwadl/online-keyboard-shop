@@ -1,4 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import Arrow from '../arrows/Arrow'
+import {
+  handleMoveByArrow,
+  onTouchEndHandler,
+  onTouchMoveHandler,
+  onTouchStartHandler,
+  resizeListener
+} from './handlers'
 
 type Props<T> = {
   className?: string
@@ -7,75 +15,66 @@ type Props<T> = {
 }
 
 const Slider = <T,>({ slides, className, renderItem }: Props<T>) => {
+  const [widthOfElement, setWidthOfElement] = useState<number>(0)
   const [isDown, setIsDown] = useState<boolean>(false)
-  const [startX, setStartX] = useState(0)
-  const [previousTransition, setPreviousTransition] = useState(0)
-  const [maxScrollValue, setMaxScrollValue] = useState(0)
+  const [startX, setStartX] = useState<number>(0)
+  const [previousTransition, setPreviousTransition] = useState<number>(0)
+  const [maxScrollValue, setMaxScrollValue] = useState<number>(0)
+
   const ref = useRef<HTMLDivElement>(null)
 
-  const resizeListener = () => {
-    const carousel = ref.current as HTMLDivElement
-    const container = carousel.firstChild as HTMLDivElement
-
-    const firstChild = container.firstChild as HTMLDivElement
-    if (!firstChild) return
-    const amountIntersectingElements = container.offsetWidth / firstChild.offsetWidth
-    const amountOfPixelsInintersectingElements = amountIntersectingElements * firstChild.offsetWidth
-    const amountOfScrollCycles = container.childElementCount / amountIntersectingElements - 1
-    const maxScrollValue = amountOfScrollCycles * amountOfPixelsInintersectingElements
-    setMaxScrollValue(maxScrollValue)
-  }
+  const resizeWindowHandler = useCallback(() => resizeListener({ ref, setMaxScrollValue, setWidthOfElement }), [])
 
   useEffect(() => {
-    resizeListener()
-
-    window.addEventListener('resize', resizeListener)
+    resizeWindowHandler()
+    window.addEventListener('resize', resizeWindowHandler)
     return () => {
-      window.removeEventListener('resize', resizeListener)
+      window.removeEventListener('resize', resizeWindowHandler)
     }
   }, [ref.current])
 
-  const onTouchMoveHandler = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (!isDown) return
-    const carousel = ref.current as HTMLDivElement
-    const newStartX = e.targetTouches[0].pageX
-    const firstChild = carousel.firstChild as HTMLDivElement
-    const newPosition = previousTransition + startX - newStartX
-    firstChild.style.transform = `translateX(${-newPosition}px)`
-  }
+  const onTouchStart = useCallback(
+    (e: React.TouchEvent<HTMLDivElement>) => onTouchStartHandler({ e, setIsDown, setStartX }),
+    []
+  )
+  const onTouchEnd = useCallback(
+    (e: React.TouchEvent<HTMLDivElement>) =>
+      onTouchEndHandler({ e, setIsDown, maxScrollValue, previousTransition, ref, setPreviousTransition, startX }),
+    [maxScrollValue, previousTransition, startX]
+  )
 
-  const onTouchStartHandler = (e: React.TouchEvent<HTMLDivElement>) => {
-    const newStartX = e.targetTouches[0].pageX
-    setStartX(newStartX)
-    setIsDown(true)
-  }
+  const onTouchMove = useCallback(
+    (e: React.TouchEvent<HTMLDivElement>) =>
+      onTouchMoveHandler({ e, isDown, previousTransition, ref, setPreviousTransition, startX }),
+    [previousTransition, startX]
+  )
 
-  const handleApproachingEnd = (el: HTMLDivElement, pixels: number) => {
-    el.style.cssText = `transform: translateX(${pixels}px); transition: transform 0.3s`
-    setPreviousTransition(-pixels)
-  }
-
-  const onTouchEndHandler = (e: React.TouchEvent<HTMLDivElement>) => {
-    setIsDown(false)
-    const carousel = ref.current as HTMLDivElement
-    const firstChild = carousel.firstChild as HTMLDivElement
-
-    const newTransition = startX - e.changedTouches[0].pageX
-    const newPosition = previousTransition + newTransition
-    if (newPosition >= maxScrollValue) return handleApproachingEnd(firstChild, -maxScrollValue)
-    else if (newPosition < 0) return handleApproachingEnd(firstChild, 0)
-    setPreviousTransition(newPosition)
-  }
+  const onMoveByArrow = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) =>
+      handleMoveByArrow({ e, maxScrollValue, previousTransition, ref, setPreviousTransition, widthOfElement }),
+    [maxScrollValue, previousTransition]
+  )
 
   return (
     <div
-      ref={ref}
-      onTouchStart={onTouchStartHandler}
-      onTouchEnd={onTouchEndHandler}
-      onTouchMove={onTouchMoveHandler}
-      className={`overflow-x-hidden flex bg-main-accent ${className ?? ''}`}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+      onTouchMove={onTouchMove}
+      className={`overflow-x-hidden flex  relative ${className ?? ''}`}
     >
-      <div className="slides-wrap flex w-full">{slides?.map(renderItem)}</div>
+      <Arrow
+        onClick={onMoveByArrow}
+        direction="left"
+        className="hidden md:block w-8 left-0 cursor-pointer p-2 bg-white hover:bg-border-color duration-500 z-[1]"
+      />
+      <div ref={ref} className="slides-wrap flex w-full">
+        {slides?.map(renderItem)}
+      </div>
+      <Arrow
+        onClick={onMoveByArrow}
+        direction="right"
+        className="hidden md:block w-8 right-0 cursor-pointer p-2 bg-white hover:bg-border-color duration-500 z-[1]"
+      />
     </div>
   )
 }

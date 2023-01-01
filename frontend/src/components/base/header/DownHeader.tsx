@@ -1,5 +1,5 @@
 import logo from '@/assets/icons/logo.png'
-import { SearchBar } from '@/components/UI/SearchBar'
+import { MyInput } from '@/components/UI/MyInput'
 import { useDebounce } from '@/hooks/useDebounce'
 import { changeSearchAction } from '@/redux/actions/query-action'
 import { useAppDispatch } from '@/redux/common/hooks'
@@ -26,9 +26,7 @@ const DownHeader = ({ user }: Props) => {
         <img src={logo} alt="LOGO" className="logo-image w-6 h-6" />
         <span className="logo-name text-lg tracking-wide">KEYBOARD SHOP</span>
       </Link>
-      {(pathname === '/' || pathname === '') && (
-        <SearchBar className="h-[90%]" onChange={onChangeSearch} value={value} />
-      )}
+      {(pathname === '/' || pathname === '') && <MyInput className="h-[90%]" onChange={onChangeSearch} value={value} />}
       <CartLink user={user} />
     </div>
   )

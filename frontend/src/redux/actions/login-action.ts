@@ -1,4 +1,5 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
+import { removeFromStorage } from '@/service/localstorage/storage'
+import { createAction, createAsyncThunk, PrepareAction } from '@reduxjs/toolkit'
 import { Actions } from '../enums/actions'
 import { AsyncThunkConfig } from '../types/global.types'
 import { IUser, LoginData } from '../types/reducers/login'
@@ -13,13 +14,30 @@ const login = createAsyncThunk<ActionReturn, LoginData, AsyncThunkConfig>(
   }
 )
 
+const logOut = createAction(Actions.LOG_OUT, () => {
+  removeFromStorage('token')
+  return { payload: null }
+})
+
 const relogin = createAsyncThunk<ActionReturn, void, AsyncThunkConfig>(
   Actions.RELOGIN,
-  async (_, { extra: { LoginService } }) => {
-    const user = await LoginService.validateToken()
+  async (_, { extra: { LoginService }, rejectWithValue }) => {
+    const token = localStorage.getItem('token') as string
+    if (!token) rejectWithValue(null)
+    const user = await LoginService.validateToken(token)
 
     return { user }
   }
 )
 
-export { login, relogin }
+const register = createAsyncThunk<ActionReturn, LoginData, AsyncThunkConfig>(
+  Actions.REGISTER,
+  async (data, { extra: { LoginService } }) => {
+    const user = await LoginService.register(data)
+    return { user }
+  }
+)
+
+const removeError = createAction<PrepareAction<null>>(Actions.REMOVE_ERROR, () => ({ payload: null }))
+
+export { login, relogin, removeError, register, logOut }
