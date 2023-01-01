@@ -22,7 +22,7 @@ const fetchCurrentProduct = createAsyncThunk<GetCurrentReturnType, number, Async
   ProductsActions.GET_CURRENT,
   async (id) => {
     const keyboard = await ProductService.getOne(+id)
-
+    if (!keyboard) throw new Error('not Found')
     return { keyboard }
   }
 )

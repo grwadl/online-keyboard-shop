@@ -1,20 +1,30 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
   Put,
-  ParseIntPipe
+  Req,
+  Res,
+  UnauthorizedException
 } from '@nestjs/common'
-import { User as UserReq } from 'src/user/user.decorator'
-import { UserService } from './user.service'
-import { CreateUserDto } from './dto/create-user.dto'
-import { UpdateUserDto } from './dto/update-user.dto'
+import { Request } from 'express'
 import { AuthService } from 'src/auth/auth.service'
 import { Public } from 'src/auth/jwt-auth-guard'
+import { CreateUserDto, LogInUserDto } from './dto/create-user.dto'
+import { UpdateUserDto } from './dto/update-user.dto'
 import { User } from './entities/user.entity'
+import { UserService } from './user.service'
+
+const cookieOptions = {
+  domain: 'localhost',
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  maxAge: 36000000
+}
 
 @Controller('user')
 export class UserController {
@@ -29,13 +39,22 @@ export class UserController {
   }
 
   @Public(Post('sign-in'))
-  async signIn(@Body() signInDto: Partial<CreateUserDto>): Promise<User> {
-    return await this.authService.login(signInDto)
+  async signIn(
+    @Res({ passthrough: true }) res,
+    @Body() signInDto: LogInUserDto
+  ): Promise<User> {
+    const { refreshToken, ...user } = await this.authService.login(signInDto)
+    res.cookie('refreshToken', refreshToken, cookieOptions)
+    return user
   }
 
-  @Get('again')
-  async signInAgain(@UserReq() { id }): Promise<User> {
-    return await this.userService.findOne(id)
+  @Public(Get('refresh'))
+  async signInAgain(@Req() { cookies }: Request): Promise<User> {
+    const token = cookies['refreshToken']
+
+    if (!token) throw new UnauthorizedException()
+
+    return await this.authService.relogin(token)
   }
 
   @Put(':id')
@@ -43,7 +62,7 @@ export class UserController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto
   ) {
-    return this.userService.update(id, updateUserDto).then((res) => res.raw[0])
+    return this.userService.update(id, updateUserDto)
   }
 
   @Delete(':id')

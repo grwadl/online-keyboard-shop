@@ -1,6 +1,13 @@
 const Actions = {
   LOGIN: 'login',
-  RELOGIN: 'relogin'
+  RELOGIN: 'relogin',
+  REGISTER: 'register',
+  REMOVE_ERROR: 'removeError'
+}
+
+const RegisterAction = {
+  REGISTER: 'register',
+  REMOVE_ERROR: 'removeErrorRegister'
 }
 
 const ProductsActions = {
@@ -29,4 +36,4 @@ const ModalActions = {
   closeModal: 'closeModal'
 }
 
-export { Actions, ProductsActions, FiltersAction, SearchAction, QueryAction, ModalActions }
+export { Actions, ProductsActions, FiltersAction, SearchAction, QueryAction, ModalActions, RegisterAction }

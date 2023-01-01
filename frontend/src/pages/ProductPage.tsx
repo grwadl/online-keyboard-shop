@@ -17,15 +17,17 @@ const ProductPage = () => {
   const dispatch = useAppDispatch()
   const { isLoading, latestProducts, product } = useAppSelector(({ productPage }) => productPage)
 
-  const keyboards = useMemo(
-    () => latestProducts.filter((p) => p.id !== (product as IProduct).id),
-    [latestProducts.length]
-  )
-
   useEffect(() => {
     if (!id) return
-    Promise.all([dispatch(fetchCurrentProduct(+id)), dispatch(fetchLatestProducts())])
+    const fetchCurrent = dispatch(fetchCurrentProduct(+id)).unwrap()
+    const fetchRelated = dispatch(fetchLatestProducts()).unwrap()
+    Promise.all([fetchCurrent, fetchRelated]).catch(() => navigate('/'))
   }, [id])
+
+  const keyboards = useMemo(
+    () => latestProducts?.filter((p) => p.id !== (product as IProduct)?.id),
+    [latestProducts.length, product?.id]
+  )
 
   if (isLoading)
     return (

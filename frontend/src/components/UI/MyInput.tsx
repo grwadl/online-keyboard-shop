@@ -1,8 +1,8 @@
 import { InputHTMLAttributes } from 'react'
 
 type Props = {
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  value: string
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  value?: string
   className?: string
   otherProps?: InputHTMLAttributes<HTMLInputElement>
 }

@@ -30,7 +30,8 @@
   },
   "homepage": "https://github.com/grwadl/mysite#readme",
   "dependencies": {
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "react-hook-form": "^7.41.3"
   },
   "optionalDependencies": {
     "husky": "^8.0.2"

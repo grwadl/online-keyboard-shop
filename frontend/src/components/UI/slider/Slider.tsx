@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Arrow from '../arrows/Arrow'
 import {
   handleMoveByArrow,
@@ -79,6 +79,4 @@ const Slider = <T,>({ slides, className, renderItem }: Props<T>) => {
   )
 }
 
-const memoizedSlider = memo(Slider) as typeof Slider
-
-export { memoizedSlider as Slider }
+export { Slider }
