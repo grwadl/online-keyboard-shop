@@ -4,6 +4,8 @@ const getFromStorage = <T>(key: string): T | null => {
   return JSON.parse(data) as T
 }
 
+const removeFromStorage = (key: string): void => localStorage.removeItem(key)
+
 const writeToStorage = <T>(key: string, data: T): void => localStorage.setItem(key, JSON.stringify(data))
 
-export { getFromStorage, writeToStorage }
+export { getFromStorage, writeToStorage, removeFromStorage }

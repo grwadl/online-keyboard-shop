@@ -1,6 +1,6 @@
 import { IProduct } from '@/redux/types/reducers/products'
 import { URL } from '../enums/urls'
-import { get as getReq, getAuthed, intercepted } from './fetch'
+import { get, get as getReq } from './fetch'
 
 class ProductService {
   static async get(params = '') {
@@ -8,7 +8,7 @@ class ProductService {
   }
 
   static async getOne(id: number) {
-    return intercepted(() => getAuthed<IProduct>(`${URL.PRODUCTS}${id}`))
+    return get<IProduct>(`${URL.PRODUCTS}${id}`)
   }
 }
 

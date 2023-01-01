@@ -1,5 +1,6 @@
 const Actions = {
   LOGIN: 'login',
+  LOG_OUT: 'logout',
   RELOGIN: 'relogin',
   REGISTER: 'register',
   REMOVE_ERROR: 'removeError'

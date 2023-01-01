@@ -13,7 +13,7 @@ const ProfileAvatar = ({ user, logIn, logOut }: Props) => {
     return (
       <div className="default-avatar-wrap relative">
         <div className="avatar rounded-full w-6 h-6 flex items-center justify-center bg-header-gray text-white">?</div>
-        <div className="pop-up-menu absolute p-2 -left-2 bg-icon-color">
+        <div className="pop-up-menu absolute p-2 -left-11 bg-icon-color">
           <Button onClick={logIn} className="w-20 p-2">
             Sign in
           </Button>

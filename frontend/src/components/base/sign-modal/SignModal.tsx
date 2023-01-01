@@ -1,6 +1,7 @@
 import { CloseButton } from '@/components/UI/CloseButton'
 import { Modal } from '@/components/UI/modal/Modal'
-import { useState } from 'react'
+import { useAppSelector } from '@/redux/common/hooks'
+import { useEffect, useState } from 'react'
 import { LogInModal } from './LogInModal'
 import { RegistrationModal } from './RegistrationModal'
 
@@ -14,6 +15,11 @@ const SignModal = ({ isOpen, closeModal, className }: Props) => {
   const [isLogInOpened, setIsLoginOpened] = useState<boolean>(true)
   const setRegistrationModal = () => setIsLoginOpened(false)
   const setLoginModal = () => setIsLoginOpened(true)
+  const { user } = useAppSelector(({ login }) => login)
+
+  useEffect(() => {
+    closeModal()
+  }, [user?.email])
 
   return (
     <Modal onCloseModal={closeModal} isOpen={isOpen} className={className}>

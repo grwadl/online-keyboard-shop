@@ -12,7 +12,7 @@ type Props = {
 
 const LogInModal = ({ setAnotherModal }: Props) => {
   const dispatch = useAppDispatch()
-  const { error } = useAppSelector(({ login }) => login)
+  const { error, user } = useAppSelector(({ login }) => login)
 
   const handlerLogin = (data: FieldValues) => {
     if (isDataLoginData(data)) dispatch(login(data))
