@@ -28,10 +28,7 @@ class AbstractRepository<T> extends Repository<T> {
     return [`${key} IN (:...${key}Param)`, { [`${key}Param`]: statement[key] }]
   }
 
-  private buildSingleWhereClause(
-    whereStatement: FindManyOptions<T>['where'],
-    builder: SelectQueryBuilder<T> | WhereExpressionBuilder
-  ) {
+  private buildWhereExpression(whereStatement: FindManyOptions<T>['where']) {
     const whereStatementKeys = Object.keys(
       whereStatement
     ) as (keyof T extends string ? string : never)[]
@@ -51,16 +48,16 @@ class AbstractRepository<T> extends Repository<T> {
     return whereQuery
   }
 
-  private buildMultipleWhereClause(
+  private buildWhereQuery(
     whereStatement: FindManyOptions<T>['where'],
     builder: SelectQueryBuilder<T>
   ) {
     if (!isArray(whereStatement))
-      return builder.where(this.buildSingleWhereClause(whereStatement, builder))
+      return builder.where(this.buildWhereExpression(whereStatement))
 
     let lastInner = builder
     whereStatement.forEach((where) => {
-      const innerWhereQuery = this.buildSingleWhereClause(where, lastInner)
+      const innerWhereQuery = this.buildWhereExpression(where)
       lastInner = lastInner.orWhere(innerWhereQuery)
     })
 
@@ -88,11 +85,7 @@ class AbstractRepository<T> extends Repository<T> {
 
   buildQuery(opt: FindManyOptions<T>, builder: SelectQueryBuilder<T>) {
     const { order, skip, take, where } = opt
-    if (where)
-      builder = this.buildMultipleWhereClause(
-        where,
-        builder
-      ) as SelectQueryBuilder<T>
+    if (where) builder = this.buildWhereQuery(where, builder)
     if (order) builder = this.buildOrderClause(order, builder)
     if (skip) builder = this.buildOffset(skip, builder)
     if (take) builder = this.buildLimit(take, builder)

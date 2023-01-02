@@ -17,7 +17,7 @@ class UserRepository extends AbstractRepository<User> {
     this.repository = this.dataSource.getRepository(User)
   }
 
-  async findAllWithCart(opt: FindManyOptions<User>) {
+  async findAllWithCart(opt: FindManyOptions<User>): Promise<User[]> {
     const builder: SelectQueryBuilder<User> = await this.dataSource
       .getRepository(User)
       .createQueryBuilder('u')
