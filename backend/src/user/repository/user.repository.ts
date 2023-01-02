@@ -18,7 +18,8 @@ class UserRepository extends AbstractRepository<User> {
   }
 
   async findAllWithCart(opt: FindManyOptions<User>) {
-    const builder: SelectQueryBuilder<User> = await this.repository
+    const builder: SelectQueryBuilder<User> = await this.dataSource
+      .getRepository(User)
       .createQueryBuilder('u')
       .leftJoinAndSelect('u.cart', 'cart')
 

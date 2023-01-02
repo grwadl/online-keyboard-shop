@@ -1,5 +1,7 @@
 import {
   Brackets,
+  EntityManager,
+  EntityTarget,
   FindManyOptions,
   FindOptionsOrder,
   Repository,
@@ -13,6 +15,10 @@ type Dict<T> = {
 }
 
 class AbstractRepository<T> extends Repository<T> {
+  constructor(private model: EntityTarget<T>, manager: EntityManager) {
+    super(model, manager)
+  }
+
   private convertExpressionToString(
     statement: FindManyOptions<T>[keyof FindManyOptions<T>],
     key: string
@@ -22,9 +28,9 @@ class AbstractRepository<T> extends Repository<T> {
     return [`${key} IN (:...${key}Param)`, { [`${key}Param`]: statement[key] }]
   }
 
-  private buildWhereClause(
+  private buildSingleWhereClause(
     whereStatement: FindManyOptions<T>['where'],
-    builder: SelectQueryBuilder<T>
+    builder: SelectQueryBuilder<T> | WhereExpressionBuilder
   ) {
     const whereStatementKeys = Object.keys(
       whereStatement
@@ -42,7 +48,22 @@ class AbstractRepository<T> extends Repository<T> {
       return qb
     })
 
-    builder.andWhere(whereQuery)
+    return whereQuery
+  }
+
+  private buildMultipleWhereClause(
+    whereStatement: FindManyOptions<T>['where'],
+    builder: SelectQueryBuilder<T>
+  ) {
+    if (!isArray(whereStatement))
+      return builder.where(this.buildSingleWhereClause(whereStatement, builder))
+
+    let lastInner = builder
+    whereStatement.forEach((where) => {
+      const innerWhereQuery = this.buildSingleWhereClause(where, lastInner)
+      lastInner = lastInner.orWhere(innerWhereQuery)
+    })
+
     return builder
   }
 
@@ -67,7 +88,11 @@ class AbstractRepository<T> extends Repository<T> {
 
   buildQuery(opt: FindManyOptions<T>, builder: SelectQueryBuilder<T>) {
     const { order, skip, take, where } = opt
-    if (where) builder = this.buildWhereClause(where, builder)
+    if (where)
+      builder = this.buildMultipleWhereClause(
+        where,
+        builder
+      ) as SelectQueryBuilder<T>
     if (order) builder = this.buildOrderClause(order, builder)
     if (skip) builder = this.buildOffset(skip, builder)
     if (take) builder = this.buildLimit(take, builder)

@@ -55,7 +55,7 @@ export class AuthService {
       this.validate(refreshToken)
 
       const [{ refreshToken: _, ...possibleUser }] =
-        await this.userService.findAll({
+        await this.userService.findAllWithCart({
           where: [{ refreshToken }]
         })
 
@@ -75,7 +75,7 @@ export class AuthService {
 
   async register(user: CreateUserDto) {
     const { email, password } = user
-    const [possibleUser] = await this.userService.findAll({
+    const [possibleUser] = await this.userService.findAllWithCart({
       where: [{ email }]
     })
     if (possibleUser)
