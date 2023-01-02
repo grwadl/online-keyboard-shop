@@ -1,15 +1,13 @@
 import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { FindManyOptions, Repository } from 'typeorm'
+import { FindManyOptions } from 'typeorm'
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { User } from './entities/user.entity'
+import { UserRepository } from './repository/user.repository'
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectRepository(User) private userRepository: Repository<User>
-  ) {}
+  constructor(private readonly userRepository: UserRepository) {}
   create(createUserDto: CreateUserDto): Promise<User> {
     return this.userRepository.save({
       ...createUserDto,
@@ -23,6 +21,10 @@ export class UserService {
 
   findOne(id: number) {
     return this.userRepository.findOne({ where: { id } })
+  }
+
+  findAllWithCart(opt?: FindManyOptions<User>) {
+    return this.userRepository.findAllWithCart(opt)
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
