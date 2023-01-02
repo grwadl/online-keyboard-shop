@@ -11,7 +11,7 @@ import {
   Res,
   UnauthorizedException
 } from '@nestjs/common'
-import { Request } from 'express'
+import { Request, Response } from 'express'
 import { AuthService } from 'src/auth/auth.service'
 import { Public } from 'src/auth/jwt-auth-guard'
 import { CreateUserDto, LogInUserDto } from './dto/create-user.dto'
@@ -49,12 +49,20 @@ export class UserController {
   }
 
   @Public(Get('refresh'))
-  async signInAgain(@Req() { cookies }: Request): Promise<User> {
+  async signInAgain(
+    @Req() { cookies }: Request,
+    @Res({ passthrough: true }) res: Response
+  ): Promise<User> {
     const token = cookies['refreshToken']
 
     if (!token) throw new UnauthorizedException()
 
-    return await this.authService.relogin(token)
+    const user = await this.authService.relogin(token)
+    if (!user) {
+      res.clearCookie('refreshToken', cookieOptions)
+      throw new UnauthorizedException()
+    }
+    return user
   }
 
   @Put(':id')
