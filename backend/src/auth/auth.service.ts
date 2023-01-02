@@ -28,7 +28,9 @@ export class AuthService {
 
   async login(user: LogInUserDto): Promise<User & { token: string }> {
     const { password, email } = user
-    const [possibleUser] = await this.userService.findAll({ where: { email } })
+    const [possibleUser] = await this.userService.findAllWithCart({
+      where: { email }
+    })
 
     if (!possibleUser || !bcrypt.compare(password, possibleUser.password))
       throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST)
@@ -56,6 +58,7 @@ export class AuthService {
         await this.userService.findAll({
           where: [{ refreshToken }]
         })
+
       if (!possibleUser) throw new UnauthorizedException()
 
       const token: string = this.jwtService.sign(

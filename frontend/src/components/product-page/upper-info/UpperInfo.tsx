@@ -1,7 +1,10 @@
 import Button from '@/components/UI/Button'
 import { Hr } from '@/components/UI/Hr'
 import { Tag } from '@/components/UI/Tag'
+import { openModal } from '@/redux/actions/modal-actions'
+import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
 import { IProduct } from '@/redux/types/reducers/products'
+import { useMemo } from 'react'
 import { tags } from '../mock'
 import { ProductType } from '../product-type/ProductType'
 import './taglist.scss'
@@ -12,6 +15,17 @@ type Props = {
 
 const UpperInfo = ({ keyboard }: Props) => {
   const { image, name, price, excerpt } = keyboard
+  const dispatch = useAppDispatch()
+  const { user } = useAppSelector(({ login }) => login)
+  const isInCart = useMemo<boolean>(() => {
+    if (!user) return false
+    return !!user.cart.find((i: any) => i.id === keyboard.id)
+  }, [user?.cart])
+  const addToCart = () => {
+    if (!user) return dispatch(openModal())
+
+    dispatch
+  }
 
   return (
     <div className="product-wrapper flex gap-8 mb-5">

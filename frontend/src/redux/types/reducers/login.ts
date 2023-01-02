@@ -12,6 +12,7 @@ interface IUser extends LoginData {
   email: string
   password: string
   token: string
+  cart: Record<string, any>
 }
 
 export type { ILogin, IUser, LoginData }
