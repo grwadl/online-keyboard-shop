@@ -26,8 +26,15 @@ const DownHeader = ({ user }: Props) => {
         <img src={logo} alt="LOGO" className="logo-image w-6 h-6" />
         <span className="logo-name text-lg tracking-wide">KEYBOARD SHOP</span>
       </Link>
-      {(pathname === '/' || pathname === '') && <MyInput className="h-[90%]" onChange={onChangeSearch} value={value} />}
-      <CartLink user={user} />
+      {(pathname === '/' || pathname === '') && (
+        <MyInput
+          otherProps={{ placeholder: 'Type the name of the keyboard...' }}
+          className="hidden md:block h-[90%]"
+          onChange={onChangeSearch}
+          value={value}
+        />
+      )}
+      <CartLink className="hidden md:flex" user={user} />
     </div>
   )
 }

@@ -37,7 +37,9 @@ const QueryAction = {
 
 const ModalActions = {
   openModal: 'openModal',
-  closeModal: 'closeModal'
+  closeModal: 'closeModal',
+  openFilters: 'openFilters',
+  closeFilters: 'closeFilters'
 }
 
 export { Actions, ProductsActions, FiltersAction, SearchAction, QueryAction, ModalActions, RegisterAction }

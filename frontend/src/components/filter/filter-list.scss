@@ -1,0 +1,15 @@
+.filters {
+  @media (max-width: 768px) {
+    transform: translate(-1000px);
+    animation: 0.5s ease-left forwards;
+  }
+}
+
+@keyframes ease-left {
+  from {
+    transform: translate(-1000px);
+  }
+  to {
+    transform: translate(0);
+  }
+}

@@ -9,9 +9,10 @@ import { ProfileAvatar } from './profile-avatar/ProfileAvatar'
 
 type Props = {
   user: IUser | null
+  className?: string
 }
 
-const CartLink = ({ user }: Props) => {
+const CartLink = ({ user, className }: Props) => {
   const isShowed = useMemo(() => !!user, [user?.email])
   const totalPrice = useMemo<number>(() => {
     if (!user) return 0
@@ -23,7 +24,7 @@ const CartLink = ({ user }: Props) => {
   const logIn = () => dispatch(openModal())
 
   return (
-    <div className="cart-link flex gap-2 items-center basis-28 shrink-0 grow max-w-fit justify-end">
+    <div className={`cart-link gap-2 items-center basis-28 shrink-0 grow max-w-fit justify-end ${className ?? ''}`}>
       {isShowed && (
         <Link to="/cart">
           <img className={`w-6 ${!isShowed ? 'hidden' : ''}`} src={cart} alt="cart icon" />
