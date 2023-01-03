@@ -14,30 +14,21 @@ const MIN_PRODUCT_QUANTITY = 1
 
 const CartList = ({ cart, className }: Props) => {
   const dispatch = useAppDispatch()
-  const onChangeQuantity = useCallback(
-    (cart: ICart, quantity: number) => {
-      if (quantity > MAX_PRODUCT_QUANTITY || quantity < 0) return
-      dispatch(changeProductQuantityLocally({ quantity, id: cart.id }))
-    },
-    [cart.length]
-  )
+  const onChangeQuantity = useCallback((cart: ICart, quantity: number) => {
+    if (quantity > MAX_PRODUCT_QUANTITY || quantity < 0) return
+    dispatch(changeProductQuantityLocally({ quantity, id: cart.id }))
+  }, [])
 
   const removeFromCart = useCallback(({ product }: ICart) => dispatch(removeProductFromCart(product.id)), [])
 
-  const onPlusQuantity = useCallback(
-    (cart: ICart) => {
-      if (cart.quantity === MAX_PRODUCT_QUANTITY) return
-      dispatch(changeProductQuantityLocally({ quantity: cart.quantity + 1, id: cart.id }))
-    },
-    [cart.length]
-  )
-  const onMinusQuantity = useCallback(
-    (cart: ICart) => {
-      if (cart.quantity === MIN_PRODUCT_QUANTITY) return
-      dispatch(changeProductQuantityLocally({ quantity: cart.quantity - 1, id: cart.id }))
-    },
-    [cart.length]
-  )
+  const onPlusQuantity = useCallback((cart: ICart) => {
+    if (cart.quantity === MAX_PRODUCT_QUANTITY) return
+    dispatch(changeProductQuantityLocally({ quantity: cart.quantity + 1, id: cart.id }))
+  }, [])
+  const onMinusQuantity = useCallback((cart: ICart) => {
+    if (cart.quantity === MIN_PRODUCT_QUANTITY) return
+    dispatch(changeProductQuantityLocally({ quantity: cart.quantity - 1, id: cart.id }))
+  }, [])
 
   return (
     <div className={className ?? ''}>
