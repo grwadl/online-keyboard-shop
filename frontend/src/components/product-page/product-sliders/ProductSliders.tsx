@@ -10,7 +10,7 @@ const ProductSliderWrapper = ({ keyboards }: Props) => {
   return (
     <>
       {keyboards && (
-        <Slider<IProduct>
+        <Slider
           renderItem={(it: IProduct) => <Product className="basis-1/5 shrink-0" product={it} key={it.id} />}
           slides={keyboards}
         />

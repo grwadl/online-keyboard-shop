@@ -3,7 +3,9 @@ const Actions = {
   LOG_OUT: 'logout',
   RELOGIN: 'relogin',
   REGISTER: 'register',
-  REMOVE_ERROR: 'removeError'
+  REMOVE_ERROR: 'removeError',
+  ADD_TO_CART: 'addToCart',
+  REMOVE_FROM_CART: 'removeFromCart'
 }
 
 const RegisterAction = {

@@ -16,7 +16,10 @@ export class UserService {
   }
 
   findAll(opt?: FindManyOptions<User>) {
-    return this.userRepository.find(opt)
+    return this.userRepository.find({
+      ...opt,
+      relations: { cart: { product: true } }
+    })
   }
 
   findOne(id: number) {

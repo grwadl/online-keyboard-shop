@@ -1,8 +1,8 @@
 import { PartialType } from '@nestjs/mapped-types'
 import { IsPositive } from 'class-validator'
-import { CreateCartDto } from './create-cart.dto'
+import { CreateCartDtoProduct } from './create-cart.dto'
 
-export class UpdateCartDto extends PartialType(CreateCartDto) {
+export class UpdateCartDto extends PartialType(CreateCartDtoProduct) {
   @IsPositive()
   quantity?: number
 }
