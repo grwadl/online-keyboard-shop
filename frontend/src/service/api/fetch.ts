@@ -23,7 +23,12 @@ const get = async <T>(url: string, params?: RequestInit): Promise<T> =>
 const getAuthed = async <T>(url: string, params?: RequestInit): Promise<T> => {
   const token = getFromStorage('token')
   if (!token) throw new Error('there is no token in storage')
-  return get<T>(url, { ...params, headers: { ...params?.headers, Authorization: `Bearer ${token}` } })
+  const res = await fetch(url, {
+    ...params,
+    method: 'GET',
+    headers: { ...params?.headers, Authorization: `Bearer ${token}` }
+  })
+  return res.json() as T
 }
 
 const post = async <T>(url: string, params: RequestInit): Promise<T> =>
@@ -37,9 +42,16 @@ const post = async <T>(url: string, params: RequestInit): Promise<T> =>
   })
 
 const postAuthed = async <T>(url: string, params?: RequestInit): Promise<T> => {
-  const token = getFromStorage('token')
+  const token = getFromStorage<string>('token')
+  console.log({ ...params?.headers, Authorization: `Bearer ${token}` })
+
   if (!token) throw new Error('there is no token in storage')
-  return post<T>(url, { ...params, headers: { ...params?.headers, Authorization: `Bearer ${token}` } })
+  const res = await fetch(url, {
+    ...params,
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', ...params?.headers }
+  })
+  return res.json() as T
 }
 
 const deleteReq = async <T>(url: string, params?: RequestInit): Promise<T> =>
@@ -51,7 +63,12 @@ const deleteReq = async <T>(url: string, params?: RequestInit): Promise<T> =>
 const deleteAuthed = async <T>(url: string, params?: RequestInit): Promise<T> => {
   const token = getFromStorage('token')
   if (!token) throw new Error('there is no token in storage')
-  return deleteReq<T>(url, { ...params, headers: { ...params?.headers, Authorization: `Bearer ${token}` } })
+  const res = await fetch(url, {
+    ...params,
+    method: 'DELETE',
+    headers: { ...params?.headers, Authorization: `Bearer ${token}` }
+  })
+  return res.json() as T
 }
 
 const put = async <T>(url: string, params?: RequestInit): Promise<T> =>
@@ -63,7 +80,12 @@ const put = async <T>(url: string, params?: RequestInit): Promise<T> =>
 const putAuthed = async <T>(url: string, params?: RequestInit): Promise<T> => {
   const token = getFromStorage('token')
   if (!token) throw new Error('there is no token in storage')
-  return put<T>(url, { ...params, headers: { ...params?.headers, Authorization: `Bearer ${token}` } })
+  const res = await fetch(url, {
+    ...params,
+    method: 'PUT',
+    headers: { ...params?.headers, Authorization: `Bearer ${token}` }
+  })
+  return res.json() as T
 }
 
 const fetchRefreshedAcessToken = async () => fetch(`${URL.USER}refresh`, { ...cookiesParams })

@@ -1,5 +1,4 @@
-import { IsNumber, IsPositive } from 'class-validator'
-import { ValidateObject } from 'src/nested-validator'
+import { IsNumber } from 'class-validator'
 
 class CreateCartDtoUser {
   @IsNumber()
@@ -11,17 +10,4 @@ class CreateCartDtoProduct {
   id: number
 }
 
-class CreateCartDto {
-  @ValidateObject(CreateCartDtoProduct)
-  product: CreateCartDtoProduct
-  @IsNumber()
-  @IsPositive()
-  quantity: number
-}
-
-class CreateCartWithUserDto extends CreateCartDto {
-  @ValidateObject(CreateCartDtoUser)
-  user: CreateCartDtoUser
-}
-
-export { CreateCartWithUserDto, CreateCartDto }
+export { CreateCartDtoProduct }

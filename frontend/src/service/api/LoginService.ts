@@ -15,7 +15,6 @@ class LoginService {
     const res = await fetchRefreshedAcessToken()
     if (!res.ok) return null
     const { token: newToken, ...user } = (await res.json()) as IUser
-    console.log(newToken)
 
     writeToStorage('token', newToken)
 

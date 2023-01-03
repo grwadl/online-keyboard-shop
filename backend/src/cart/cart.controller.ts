@@ -1,16 +1,16 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Param,
+  Controller,
   Delete,
-  Put,
-  ParseIntPipe
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put
 } from '@nestjs/common'
 import { User } from 'src/user/user.decorator'
 import { CartService } from './cart.service'
-import { CreateCartDto, CreateCartWithUserDto } from './dto/create-cart.dto'
+import { CreateCartDtoProduct } from './dto/create-cart.dto'
 import { UpdateCartDto } from './dto/update-cart.dto'
 
 type UserReq = {
@@ -23,8 +23,11 @@ export class CartController {
   constructor(private readonly cartService: CartService) {}
 
   @Post()
-  async create(@Body() createCartDto: CreateCartDto, @User() { id }: UserReq) {
-    const cartDto: CreateCartWithUserDto = { ...createCartDto, user: { id } }
+  async create(
+    @Body() { id }: CreateCartDtoProduct,
+    @User() { id: userId }: UserReq
+  ) {
+    const cartDto = { id, userId }
     return await this.cartService.create(cartDto)
   }
 

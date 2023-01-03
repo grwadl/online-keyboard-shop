@@ -1,21 +1,22 @@
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Keyboard } from 'src/products/entities/product.entity'
+import { ProductsService } from '@src/products/products.service'
 import { User } from 'src/user/entities/user.entity'
 import { FindManyOptions, Repository } from 'typeorm'
-import { CreateCartWithUserDto } from './dto/create-cart.dto'
 import { UpdateCartDto } from './dto/update-cart.dto'
 import { Cart } from './entities/cart.entity'
 
 @Injectable()
 export class CartService {
   constructor(
-    @InjectRepository(Cart) private cartRepository: Repository<Cart>
+    @InjectRepository(Cart) private cartRepository: Repository<Cart>,
+    private readonly productService: ProductsService
   ) {}
 
-  async create({ user: customer, product }: CreateCartWithUserDto) {
-    const user = new User(customer.id)
-    const keyboard = new Keyboard(product.id)
+  async create({ userId, id }: Record<string, number>) {
+    const user = new User(userId)
+    const keyboard = await this.productService.getOne({ where: { id } })
+    if (!keyboard) throw new BadRequestException('keyboard not found')
     const newCart = new Cart(keyboard, user)
     return this.cartRepository.save(newCart)
   }

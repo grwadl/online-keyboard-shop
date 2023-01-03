@@ -24,7 +24,11 @@
       },
       "sourceMaps": true,
       "console": "internalConsole",
-      "outputCapture": "std"
+      "outputCapture": "std",
+      "skipFiles": [
+        "${workspaceFolder}/backend/node_modules/**/*.js",
+        "<node_internals>/**/*.js"
+      ]
     }
   ]
 }

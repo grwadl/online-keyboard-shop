@@ -1,6 +1,7 @@
 import Button from '@/components/UI/Button'
 import { Hr } from '@/components/UI/Hr'
 import { Tag } from '@/components/UI/Tag'
+import { addProductToCart } from '@/redux/actions/login-action'
 import { openModal } from '@/redux/actions/modal-actions'
 import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
 import { IProduct } from '@/redux/types/reducers/products'
@@ -17,14 +18,16 @@ const UpperInfo = ({ keyboard }: Props) => {
   const { image, name, price, excerpt } = keyboard
   const dispatch = useAppDispatch()
   const { user } = useAppSelector(({ login }) => login)
+
   const isInCart = useMemo<boolean>(() => {
     if (!user) return false
     return !!user.cart.find((i: any) => i.id === keyboard.id)
   }, [user?.cart])
+
   const addToCart = () => {
     if (!user) return dispatch(openModal())
-
-    dispatch
+    if (isInCart) return
+    dispatch(addProductToCart(keyboard.id))
   }
 
   return (
@@ -36,7 +39,9 @@ const UpperInfo = ({ keyboard }: Props) => {
         <h2 className="product-name text-3xl text-header-gray mb-10">{name}</h2>
         <div className="product-buy flex gap-9 items-center">
           <span className="product-price text-header-gray text-2xl">{price} $</span>
-          <Button className="py-3 px-7">Add to cart</Button>
+          <Button onClick={addToCart} className="py-3 px-7">
+            Add to cart
+          </Button>
         </div>
         <Hr className="w-full mt-10" />
         <div className="tags-list flex gap-2 my-5">
