@@ -28,7 +28,7 @@ export class AuthService {
 
   async login(user: LogInUserDto): Promise<User & { token: string }> {
     const { password, email } = user
-    const [possibleUser] = await this.userService.findAllWithCart({
+    const [possibleUser] = await this.userService.findAll({
       where: { email }
     })
 
@@ -55,7 +55,7 @@ export class AuthService {
       this.validate(refreshToken)
 
       const [{ refreshToken: _, ...possibleUser }] =
-        await this.userService.findAllWithCart({
+        await this.userService.findAll({
           where: [{ refreshToken }]
         })
 
@@ -75,7 +75,7 @@ export class AuthService {
 
   async register(user: CreateUserDto) {
     const { email, password } = user
-    const [possibleUser] = await this.userService.findAllWithCart({
+    const [possibleUser] = await this.userService.findAll({
       where: [{ email }]
     })
     if (possibleUser)

@@ -28,7 +28,8 @@ export class CartController {
     @User() { id: userId }: UserReq
   ) {
     const cartDto = { id, userId }
-    return await this.cartService.create(cartDto)
+    const createdCart = await this.cartService.create(cartDto)
+    return this.cartService.findAll({ where: { id: createdCart.id } })
   }
 
   @Get()
