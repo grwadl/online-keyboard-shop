@@ -1,3 +1,4 @@
+import { MAX_PRODUCT_QUANTITY, MIN_PRODUCT_QUANTITY } from '@/components/cart-page/CartList'
 import { removeFromStorage } from '@/service/localstorage/storage'
 import { createAction, createAsyncThunk, PrepareAction } from '@reduxjs/toolkit'
 import { Actions } from '../enums/actions'
@@ -5,6 +6,8 @@ import { AsyncThunkConfig } from '../types/global.types'
 import { ICart, IUser, LoginData } from '../types/reducers/login'
 
 type ActionReturn = { user: IUser | null }
+
+type ChangeCartParams = { quantity: number; id: number }
 
 const login = createAsyncThunk<ActionReturn, LoginData, AsyncThunkConfig>(
   Actions.LOGIN,
@@ -61,6 +64,32 @@ const removeProductFromCart = createAsyncThunk<{ cart: ICart }, number, AsyncThu
   }
 )
 
+const changeProductQuantity = createAsyncThunk<{ cart: ICart }, ChangeCartParams, AsyncThunkConfig>(
+  Actions.CHANGE_PRODUCT_QUANTITY,
+  async ({ id, quantity }, { extra: { ProductService } }) => {
+    if (quantity < MIN_PRODUCT_QUANTITY || quantity > MAX_PRODUCT_QUANTITY) throw new Error('quantity must be normal')
+    const cart = await ProductService.changeCart(id, quantity)
+    return { cart }
+  }
+)
+
+const changeProductQuantityLocally = createAction<PrepareAction<ChangeCartParams>>(
+  Actions.CHANGE_PRODUCT_QUANTITY,
+  (payload: ChangeCartParams) => ({
+    payload
+  })
+)
+
 const removeError = createAction<PrepareAction<null>>(Actions.REMOVE_ERROR, () => ({ payload: null }))
 
-export { login, relogin, removeError, register, logOut, addProductToCart, removeProductFromCart }
+export {
+  login,
+  relogin,
+  removeError,
+  register,
+  logOut,
+  addProductToCart,
+  removeProductFromCart,
+  changeProductQuantity,
+  changeProductQuantityLocally
+}

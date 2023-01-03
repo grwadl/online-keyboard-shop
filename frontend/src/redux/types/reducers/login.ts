@@ -3,6 +3,7 @@ import { IProduct } from './products'
 interface ILogin {
   user: null | IUser
   error: string | null
+  loading: boolean
 }
 
 interface LoginData {

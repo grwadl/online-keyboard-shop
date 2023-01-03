@@ -1,5 +1,6 @@
 import { useAppSelector } from '@/redux/common/hooks'
 import { SortBar } from '../sort/SortBar'
+import CommonHeading from '../UI/CommonHeading'
 import './catalog.scss'
 
 type Props = {
@@ -11,10 +12,7 @@ const Catalog = ({ className }: Props) => {
 
   return (
     <div className={`${className ?? ''} flex justify-between`}>
-      <div className="catalog-info flex items-center gap-2">
-        <div className="catalog-info-title font-bold">Catalog</div>
-        <div className="catalog-info-quantity text-icon-color mt-1">{productsQuantity} product(s)</div>
-      </div>
+      <CommonHeading title="Catalog" subtitle={`${productsQuantity} product(s)`} />
       <div className="catalog-sort flex items-center relative">
         <span className="catalog-sort-title text-icon-color">Sort by</span>
         <SortBar />

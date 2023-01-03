@@ -82,7 +82,7 @@ const putAuthed = async <T>(url: string, params?: RequestInit): Promise<T> => {
   const res = await fetch(url, {
     ...params,
     method: 'PUT',
-    headers: { ...params?.headers, Authorization: `Bearer ${token}` }
+    headers: { ...params?.headers, Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }
   })
   return res.json() as T
 }

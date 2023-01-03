@@ -26,7 +26,7 @@ const ProfileAvatar = ({ user, logIn, logOut }: Props) => {
       <div className="avatar rounded-full w-6 h-6 flex items-center justify-center bg-header-gray text-white">
         {user.email.charAt(0)}
       </div>
-      <div className="pop-up-menu absolute p-2 -left-2 bg-icon-color">
+      <div className="pop-up-menu absolute p-2 -left-10 bg-icon-color">
         <Button onClick={logOut} className="w-20 p-2">
           Log out
         </Button>
