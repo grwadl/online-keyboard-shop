@@ -8,6 +8,7 @@ import { ProductsService } from './products.service'
 @Module({
   imports: [TypeOrmModule.forFeature([Keyboard])],
   controllers: [ProductsController],
-  providers: [ProductsService, QueryParserService]
+  providers: [ProductsService, QueryParserService],
+  exports: [ProductsService]
 })
 export class ProductsModule {}

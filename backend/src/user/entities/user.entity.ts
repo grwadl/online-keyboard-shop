@@ -1,11 +1,8 @@
 import { Cart } from 'src/cart/entities/cart.entity'
-import { Keyboard } from 'src/products/entities/product.entity'
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 export interface IUser {
-  name: string
   email: string
-  phone: string
   password: string
   cart: Cart[]
 }
@@ -20,16 +17,13 @@ export class User implements IUser {
   id: number
 
   @Column()
-  name: string
-
-  @Column()
   email: string
 
   @Column()
-  phone: string
+  password: string
 
   @Column()
-  password: string
+  refreshToken?: string
 
   @OneToMany(() => Cart, (cart) => cart.user)
   cart: Cart[]

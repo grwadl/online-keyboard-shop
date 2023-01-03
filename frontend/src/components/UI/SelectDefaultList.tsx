@@ -25,7 +25,7 @@ const SelectDefaultList = ({ options, showed, setShowed, onChange }: Props) => {
   return (
     <div ref={ref} className={`option-list top-7 left-0 absolute w-full ${!showed ? 'hidden' : ''}`}>
       {options.map((option) => (
-        <DefaultOption {...option} onClick={onChange} className="pl-2 py-2 cursor-pointer" key={option.name} />
+        <DefaultOption {...option} onClick={onChange} className="pl-2 py-2 cursor-pointer bg-white" key={option.name} />
       ))}
     </div>
   )

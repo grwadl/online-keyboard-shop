@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { FindManyOptions, In, Like } from 'typeorm'
 
-const isArray = (data: Array<any> | unknown): data is Array<any> =>
+export const isArray = (data: Array<any> | unknown): data is Array<any> =>
   Array.isArray(data)
 
 const isLikeStatement = (value: unknown): value is string =>

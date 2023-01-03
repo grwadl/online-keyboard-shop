@@ -1,9 +1,19 @@
-import { HttpException, HttpStatus, Injectable, Scope } from '@nestjs/common'
-import { UserService } from '../user/user.service'
-import * as bcrypt from 'bcrypt'
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  Scope,
+  UnauthorizedException
+} from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { CreateUserDto } from '../user/dto/create-user.dto'
+import * as bcrypt from 'bcrypt'
 import { User } from 'src/user/entities/user.entity'
+import { v4 as uuid } from 'uuid'
+import { CreateUserDto, LogInUserDto } from '../user/dto/create-user.dto'
+import { UserService } from '../user/user.service'
+
+const ACCESS_TOKEN_LIFETIME = 300000
+const REFRESH_TOKEN_LIFETIME = 30 * 86400000
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class AuthService {
@@ -16,19 +26,57 @@ export class AuthService {
     return this.jwtService.verify(token)
   }
 
-  async login(user: Partial<CreateUserDto>): Promise<User & { token: string }> {
+  async login(user: LogInUserDto): Promise<User & { token: string }> {
     const { password, email } = user
-    const [possibleUser] = await this.userService.findAll({ where: { email } })
+    const [possibleUser] = await this.userService.findAll({
+      where: { email }
+    })
+
     if (!possibleUser || !bcrypt.compare(password, possibleUser.password))
       throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST)
-    const token: string = this.jwtService.sign({ email, id: possibleUser.id })
-    return { ...possibleUser, token }
+    const token: string = this.jwtService.sign(
+      { email, id: possibleUser.id },
+      { expiresIn: ACCESS_TOKEN_LIFETIME }
+    )
+    const id = uuid() as string
+    const newToken = this.jwtService.sign(
+      { id },
+      { expiresIn: REFRESH_TOKEN_LIFETIME }
+    )
+
+    await this.userService.update(possibleUser.id, {
+      refreshToken: newToken
+    })
+    return { ...possibleUser, refreshToken: newToken, token }
+  }
+
+  async relogin(refreshToken: string) {
+    try {
+      this.validate(refreshToken)
+
+      const [{ refreshToken: _, ...possibleUser }] =
+        await this.userService.findAll({
+          where: [{ refreshToken }]
+        })
+
+      if (!possibleUser) throw new UnauthorizedException()
+
+      const token: string = this.jwtService.sign(
+        { email: possibleUser.email, id: possibleUser.id },
+        { expiresIn: ACCESS_TOKEN_LIFETIME }
+      )
+
+      return { ...possibleUser, token }
+    } catch (e) {
+      console.error(e)
+      return null
+    }
   }
 
   async register(user: CreateUserDto) {
-    const { phone, email, password } = user
+    const { email, password } = user
     const [possibleUser] = await this.userService.findAll({
-      where: [{ email }, { phone }]
+      where: [{ email }]
     })
     if (possibleUser)
       throw new HttpException('This user already exist', HttpStatus.BAD_REQUEST)
