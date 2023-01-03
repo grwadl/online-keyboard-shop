@@ -17,6 +17,7 @@ const Router = () => {
           <Route index element={<Homepage />} />
           <Route path="/product/:id" element={<ProductPage />} />
           {isLogined && <Route path="cart" element={<CartPage />} />}
+          <Route path="*" element={<Homepage />} />
         </Route>
       </Routes>
     </>

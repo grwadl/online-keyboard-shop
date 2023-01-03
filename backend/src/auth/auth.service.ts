@@ -54,13 +54,12 @@ export class AuthService {
     try {
       this.validate(refreshToken)
 
-      const [{ refreshToken: _, ...possibleUser }] =
-        await this.userService.findAll({
-          where: [{ refreshToken }]
-        })
+      const [res] = await this.userService.findAll({
+        where: [{ refreshToken }]
+      })
 
-      if (!possibleUser) throw new UnauthorizedException()
-
+      if (!res) throw new UnauthorizedException()
+      const { refreshToken: _, ...possibleUser } = res
       const token: string = this.jwtService.sign(
         { email: possibleUser.email, id: possibleUser.id },
         { expiresIn: ACCESS_TOKEN_LIFETIME }

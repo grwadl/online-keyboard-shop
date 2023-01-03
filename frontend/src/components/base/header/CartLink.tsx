@@ -30,7 +30,7 @@ const CartLink = ({ user }: Props) => {
         </Link>
       )}
       <span className={`cart-link-general-price whitespace-nowrap ${!isShowed ? 'hidden' : ''}`}>
-        {totalPrice ?? 0} UAH
+        {totalPrice ?? 0} $
       </span>
       <ProfileAvatar logIn={logIn} logOut={logOut} user={user} />
     </div>

@@ -5,7 +5,8 @@ const Actions = {
   REGISTER: 'register',
   REMOVE_ERROR: 'removeError',
   ADD_TO_CART: 'addToCart',
-  REMOVE_FROM_CART: 'removeFromCart'
+  REMOVE_FROM_CART: 'removeFromCart',
+  CHANGE_PRODUCT_QUANTITY: 'changeProductQuantity'
 }
 
 const RegisterAction = {
