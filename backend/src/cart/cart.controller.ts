@@ -29,7 +29,7 @@ export class CartController {
   ) {
     const cartDto = { id, userId }
     const createdCart = await this.cartService.create(cartDto)
-    return this.cartService.findAll({ where: { id: createdCart.id } })
+    return this.cartService.findOne(createdCart.id)
   }
 
   @Get()

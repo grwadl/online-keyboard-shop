@@ -1,3 +1,5 @@
+import { IProduct } from './products'
+
 interface ILogin {
   user: null | IUser
   error: string | null
@@ -8,11 +10,17 @@ interface LoginData {
   password: string
 }
 
+interface ICart {
+  id: number
+  quantity: number
+  product: IProduct
+}
+
 interface IUser extends LoginData {
   email: string
   password: string
   token: string
-  cart: Record<string, any>
+  cart: ICart[]
 }
 
-export type { ILogin, IUser, LoginData }
+export type { ILogin, IUser, LoginData, ICart }

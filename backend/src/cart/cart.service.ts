@@ -27,7 +27,10 @@ export class CartService {
   }
 
   async findOne(id: number) {
-    return this.cartRepository.findOne({ where: { id } })
+    return this.cartRepository.findOne({
+      where: { id },
+      relations: { product: true }
+    })
   }
 
   async update(id: number, updateCartDto: UpdateCartDto) {

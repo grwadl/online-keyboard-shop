@@ -43,7 +43,6 @@ const post = async <T>(url: string, params: RequestInit): Promise<T> =>
 
 const postAuthed = async <T>(url: string, params?: RequestInit): Promise<T> => {
   const token = getFromStorage<string>('token')
-  console.log({ ...params?.headers, Authorization: `Bearer ${token}` })
 
   if (!token) throw new Error('there is no token in storage')
   const res = await fetch(url, {

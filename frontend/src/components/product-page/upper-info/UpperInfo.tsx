@@ -1,7 +1,7 @@
 import Button from '@/components/UI/Button'
 import { Hr } from '@/components/UI/Hr'
 import { Tag } from '@/components/UI/Tag'
-import { addProductToCart } from '@/redux/actions/login-action'
+import { addProductToCart, removeProductFromCart } from '@/redux/actions/login-action'
 import { openModal } from '@/redux/actions/modal-actions'
 import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
 import { IProduct } from '@/redux/types/reducers/products'
@@ -21,12 +21,12 @@ const UpperInfo = ({ keyboard }: Props) => {
 
   const isInCart = useMemo<boolean>(() => {
     if (!user) return false
-    return !!user.cart.find((i: any) => i.id === keyboard.id)
-  }, [user?.cart])
+    return !!user.cart.find((product) => product.product.id === keyboard.id)
+  }, [user?.cart.length])
 
   const addToCart = () => {
     if (!user) return dispatch(openModal())
-    if (isInCart) return
+    if (isInCart) return dispatch(removeProductFromCart(keyboard.id))
     dispatch(addProductToCart(keyboard.id))
   }
 
@@ -40,7 +40,7 @@ const UpperInfo = ({ keyboard }: Props) => {
         <div className="product-buy flex gap-9 items-center">
           <span className="product-price text-header-gray text-2xl">{price} $</span>
           <Button onClick={addToCart} className="py-3 px-7">
-            Add to cart
+            {isInCart ? 'Remove from cart' : 'Add to cart'}
           </Button>
         </div>
         <Hr className="w-full mt-10" />

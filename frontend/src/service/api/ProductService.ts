@@ -1,6 +1,7 @@
+import { ICart } from '@/redux/types/reducers/login'
 import { IProduct } from '@/redux/types/reducers/products'
 import { URL } from '../enums/urls'
-import { get, get as getReq, postAuthed } from './fetch'
+import { deleteAuthed, get, get as getReq, postAuthed } from './fetch'
 
 class ProductService {
   static async get(params = ''): Promise<IProduct[]> {
@@ -11,8 +12,12 @@ class ProductService {
     return get<IProduct>(`${URL.PRODUCTS}${id}`)
   }
 
-  static async addToCart(id: number): Promise<IProduct> {
+  static async addToCart(id: number): Promise<ICart> {
     return postAuthed(URL.CART, { body: JSON.stringify({ id }) })
+  }
+
+  static async removeFromCart(id: number): Promise<ICart> {
+    return deleteAuthed(`${URL.CART}${id}`)
   }
 }
 
