@@ -15,11 +15,11 @@ const Catalog = ({ className, showFiltersMenu }: Props) => {
   return (
     <div className={`${className ?? ''} flex justify-between items-center`}>
       <CommonHeading title="Catalog" subtitle={`${productsQuantity} product(s)`} />
-      <div className="hidden sm:flex catalog-sort items-center relative">
+      <div className="hidden md:flex catalog-sort items-center relative">
         <span className="catalog-sort-title text-icon-color">Sort by</span>
         <SortBar />
       </div>
-      <div className="filters-btn block sm:hidden cursor-pointer" onClick={showFiltersMenu}>
+      <div className="filters-btn block md:hidden cursor-pointer" onClick={showFiltersMenu}>
         <img src={filterIcon} className="h-7" alt="filter-icon" />
       </div>
     </div>
