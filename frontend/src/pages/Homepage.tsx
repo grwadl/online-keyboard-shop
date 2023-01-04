@@ -34,7 +34,7 @@ const Homepage = () => {
         <MobileFilterList
           isOpenFiltersOnMobile={isOpenFiltersOnMobile}
           closeFiltersMenu={closeFiltersMenu}
-          className="block md:hidden fixed z-[5] px-10 top-[50px] left-0 w-full h-full bg-white flex-0"
+          className="block md:hidden fixed z-[5] px-10 top-[48px] left-0 w-full h-full bg-white flex-0"
         />
       ) : (
         <FilterList className="hidden md:block md:basis-40 lg:basis-64" />

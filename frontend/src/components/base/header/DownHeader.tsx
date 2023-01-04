@@ -4,7 +4,7 @@ import { MyInput } from '@/components/UI/MyInput'
 import { useDebounce } from '@/hooks/useDebounce'
 import { toggleBurgerMenu } from '@/redux/actions/modal-actions'
 import { changeSearchAction } from '@/redux/actions/query-action'
-import { useAppDispatch } from '@/redux/common/hooks'
+import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
 import { IUser } from '@/redux/types/reducers/login'
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
@@ -17,6 +17,7 @@ type Props = {
 const DownHeader = ({ user }: Props) => {
   const dispatch = useAppDispatch()
   const { pathname } = useLocation()
+  const { burgerMenuOpen } = useAppSelector(({ modal }) => modal)
 
   const [value, setValue] = useState('')
   const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)
@@ -38,7 +39,12 @@ const DownHeader = ({ user }: Props) => {
         />
       )}
       <CartLink className="hidden md:flex" user={user} />
-      <BurgerMenu onClick={openBurgerMenuHandler} className="w-8 block md:hidden h-5" color="bg-black" />
+      <BurgerMenu
+        isOpen={burgerMenuOpen}
+        onClick={openBurgerMenuHandler}
+        className="w-8 block md:hidden h-5"
+        color="bg-black"
+      />
     </div>
   )
 }

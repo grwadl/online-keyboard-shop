@@ -1,0 +1,7 @@
+.product-general-info-wrapper,
+.product-image-wrapper {
+  flex: 0 1 100%;
+  @media (min-width: 768px) {
+    flex: 0 1 calc(50% - 32px);
+  }
+}

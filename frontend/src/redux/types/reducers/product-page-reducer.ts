@@ -15,6 +15,9 @@ const initialState: InitialState = {
 }
 
 const productPageReducer = createReducer(initialState, (builder) => {
+  builder.addCase(fetchCurrentProduct.pending, (state) => {
+    state.isLoading = true
+  })
   builder.addCase(fetchLatestProducts.fulfilled, (state, action) => {
     const {
       payload: { keyboards }
@@ -26,7 +29,7 @@ const productPageReducer = createReducer(initialState, (builder) => {
     const {
       payload: { keyboard }
     } = action
-
+    state.isLoading = false
     state.product = keyboard
   })
 
