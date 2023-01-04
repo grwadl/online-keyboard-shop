@@ -33,8 +33,8 @@ const CartItem = ({ cart, onChangeQuantity, onMinusQuantity, onPlusQuantity, rem
   )
 
   return (
-    <div className="cart-item flex relative w-full gap-5 justify-between items-center p-2 cursor-pointer">
-      <div className="cart-product-general-info basis-[460px] flex gap-3 items-center">
+    <div className="cart-item flex flex-wrap relative w-full gap-5 justify-between items-center p-2 cursor-pointer">
+      <div className="cart-product-general-info basis-full md:basis-[460px] flex gap-3 items-center">
         <div className="cart-item-img-wrap w-32 h-24 flex justify-center">
           <img src={cart.product.image} className="h-full object-contain" alt="product image" />
         </div>
@@ -58,7 +58,9 @@ const CartItem = ({ cart, onChangeQuantity, onMinusQuantity, onPlusQuantity, rem
           +
         </span>
       </div>
-      <div className="cart-item-total-price text-lg font-bold">{cart.quantity * cart.product.price} $</div>
+      <div className="cart-item-total-price text-lg font-bold right-6 md:right-0 relative">
+        {cart.quantity * cart.product.price} $
+      </div>
       <CloseButton onClick={() => removeFromCart(cart)} className="absolute bottom-2 right-2 text-xl cursor-pointer" />
     </div>
   )

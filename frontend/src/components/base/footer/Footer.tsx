@@ -9,7 +9,7 @@ import inst from '@/assets/icons/socials/inst.svg'
 const Footer = () => {
   return (
     <footer className="footer mt-10 padded-section py-10 text-white bg-header-gray">
-      <div className="footer-wrapper max-w-[1600px] mx-auto flex justify-between">
+      <div className="footer-wrapper max-w-[1600px] mx-auto flex flex-wrap justify-start gap-6 sm:justify-between">
         <div className="socials-container flex-0 basis-54">
           <div className="logo-container flex gap-3 items-center pb-5">
             <img src={logo} alt="LOGO HERE" className="logo max-h-9" />
@@ -28,7 +28,7 @@ const Footer = () => {
           </div>
           <span className="corypright block">KEYBOARD SHOP 2022</span>
         </div>
-        <div className="contacts">
+        <div className="contacts basis-full sm:basis-auto flex flex-col">
           <h3 className="contacts-title uppercase mb-2 tracking-wide text-lg">Contacts</h3>
           <ul className="contacts-list text-second-text-color">
             <li className="py-2">

@@ -35,8 +35,8 @@ const CartPage = () => {
     <div className="cart-page">
       <CommonHeading subtitle={`${addedToCartQuantity} product(s)`} title="Cart" />
       <div className="cart-wrapper mt-5 flex flex-wrap">
-        {user?.cart && <CartList className="flex-grow-0 shrink-0 basis-[1000px]" cart={user.cart} />}
-        {user && <TotalPayment className="flex-1" user={user} />}
+        {user?.cart && <CartList className="flex-0 basis-full xl:basis-3/5" cart={user.cart} />}
+        {user && <TotalPayment className="flex-0 basis-full xl:basis-2/5" user={user} />}
       </div>
     </div>
   )

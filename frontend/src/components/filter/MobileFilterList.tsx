@@ -47,7 +47,7 @@ const MobileFilterList = ({ className, closeFiltersMenu, isOpenFiltersOnMobile }
         <CloseButton className="absolute top-6 right-14 text-3xl" onClick={closeFiltersMenu} />
         <div className="flex w-2/3 z-20 mt-6 catalog-sort items-center relative">
           <span className="catalog-sort-title text-icon-color">Sort by</span>
-          <SortBar />
+          <SortBar className="w-32 ml-2" />
         </div>
         <SelectFilter onChange={onChangeFilterHandler} name="Switches" filter={selectedFilters.switches} />
         <SelectFilter onChange={onChangeFilterHandler} name="Keycaps" filter={selectedFilters.keycaps} />

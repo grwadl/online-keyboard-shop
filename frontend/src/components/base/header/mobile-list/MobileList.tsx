@@ -37,7 +37,7 @@ const MobileList = ({ burgerMenuOpen, closeBurgerMenu, user }: Props) => {
   return (
     <CSSTransition nodeRef={ref} unmountOnExit in={burgerMenuOpen} timeout={200} classNames="mobile-menu">
       <div className="mobile-list py-10 z-10 padded-section fixed bg-white w-full h-full" ref={ref}>
-        <CartLink className="flex mx-auto" user={user} />
+        <CartLink onClick={closeBurgerMenu} className="flex mx-auto" user={user} />
         {!!user ? (
           <Button onClick={onLogOut} className="w-20 p-2 block mt-5 mx-auto">
             Log out

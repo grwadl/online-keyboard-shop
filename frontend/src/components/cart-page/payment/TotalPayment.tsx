@@ -37,7 +37,7 @@ const TotalPayment = ({ user, className }: Props) => {
         <span className="total-products-count text-icon-color">Produts ({user.cart.length})</span>
         <span className="total-products-price text-black">$</span>
       </div>
-      <div className="total-delivery-numbers flex justify-between">
+      <div className="total-delivery-numbers mt-2 flex justify-between">
         <span className="total-delivery-text text-icon-color">Delivery price</span>
         <span className="total-delivery-price">delivery</span>
       </div>
