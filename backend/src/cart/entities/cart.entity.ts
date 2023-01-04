@@ -1,3 +1,4 @@
+import { Order } from '@src/order/entities/order.entity'
 import { Keyboard } from 'src/products/entities/product.entity'
 import { User } from 'src/user/entities/user.entity'
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
@@ -18,6 +19,9 @@ export class Cart {
 
   @ManyToOne(() => User, (user) => user.cart, { cascade: true })
   user: User
+
+  @ManyToOne(() => Order, (order) => order.carts)
+  order: Order
 
   @ManyToOne(() => Keyboard, { cascade: true })
   product: Keyboard

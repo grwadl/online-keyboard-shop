@@ -1,8 +1,4 @@
 .option-list {
-  .def-option:first-child {
-    margin-top: 5px;
-  }
-
   .def-option:not(:first-child, :last-child) {
     border-top: 0;
     border-bottom: 0;
@@ -11,7 +7,7 @@
 
   .def-option {
     &:hover {
-      background-color: var(--border-color);
+      background-color: var(--light-gray);
       transition-duration: 0.3s;
     }
   }
@@ -23,6 +19,52 @@
   &:not(.opened):hover {
     .selected {
       color: var(--icon-color);
+    }
+  }
+
+  .triangle {
+    &::after,
+    &:before {
+      position: absolute;
+      content: '';
+      display: block;
+      background-color: #000;
+      width: 10px;
+      height: 3px;
+      bottom: 42%;
+      transition-duration: 0.3s;
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+      right: 10px;
+    }
+
+    &::before {
+      transform: rotate(45deg);
+      right: 15px;
+    }
+  }
+  &:hover {
+    .triangle {
+      &::after,
+      &::before {
+        background-color: var(--icon-color);
+      }
+    }
+  }
+
+  &.opened {
+    .triangle {
+      &::after {
+        transform: rotate(45deg);
+        right: 10px;
+      }
+
+      &::before {
+        transform: rotate(-45deg);
+        right: 15px;
+      }
     }
   }
 }

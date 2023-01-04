@@ -1,5 +1,6 @@
 import cartEmpty from '@/assets/images/empty-cart.svg'
 import { CartList } from '@/components/cart-page/CartList'
+import { TotalPayment } from '@/components/cart-page/payment/TotalPayment'
 import Button from '@/components/UI/Button'
 import CommonHeading from '@/components/UI/CommonHeading'
 import { MessageBox } from '@/components/UI/MessageBox'
@@ -33,8 +34,9 @@ const CartPage = () => {
   return (
     <div className="cart-page">
       <CommonHeading subtitle={`${addedToCartQuantity} product(s)`} title="Cart" />
-      <div className="cart-wrapper flex flex-wrap">
-        {user?.cart && <CartList className="flex-grow-0 shrink-0 basis-2/3" cart={user.cart} />}
+      <div className="cart-wrapper mt-5 flex flex-wrap">
+        {user?.cart && <CartList className="flex-grow-0 shrink-0 basis-[1000px]" cart={user.cart} />}
+        {user && <TotalPayment className="flex-1" user={user} />}
       </div>
     </div>
   )
