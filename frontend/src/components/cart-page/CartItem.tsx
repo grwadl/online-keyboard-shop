@@ -59,7 +59,7 @@ const CartItem = ({ cart, onChangeQuantity, onMinusQuantity, onPlusQuantity, rem
         </span>
       </div>
       <div className="cart-item-total-price text-lg font-bold">{cart.quantity * cart.product.price} $</div>
-      <CloseButton onClick={() => removeFromCart(cart)} className="absolute bottom-0 right-0 cursor-pointer" />
+      <CloseButton onClick={() => removeFromCart(cart)} className="absolute bottom-2 right-2 text-xl cursor-pointer" />
     </div>
   )
 }

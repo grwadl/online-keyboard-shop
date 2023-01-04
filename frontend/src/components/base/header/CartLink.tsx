@@ -15,7 +15,7 @@ type Props = {
 const CartLink = ({ user, className }: Props) => {
   const isShowed = useMemo(() => !!user, [user?.email])
   const totalPrice = useMemo<number>(() => {
-    if (!user) return 0
+    if (!user?.cart?.length) return 0
     const prices = user.cart.map((prod) => prod.quantity * prod.product.price)
     return prices.reduce((total, current) => total + current)
   }, [user?.cart])

@@ -1,5 +1,6 @@
-import successImage from '@/assets/images/success.png'
+import successImage from '@/assets/images/success.svg'
 import Button from '@/components/UI/Button'
+import { MessageBox } from '@/components/UI/MessageBox'
 import { MyInput } from '@/components/UI/MyInput'
 import { useFormWithErrors } from '@/hooks/useFormWithErrors'
 import { register as registerFunc } from '@/redux/actions/login-action'
@@ -26,15 +27,16 @@ const RegistrationModal = ({ setAnotherModal }: Props) => {
 
   if (isSuccess)
     return (
-      <div className="modal relative">
-        <div className="img-wrap flex justify-center max-h-24 mb-4">
-          <img src={successImage} className="object-cover h-24" alt="success" />
-        </div>
-        <h3 className="success-msg text-lg">Success! Now login to your account...</h3>
+      <MessageBox
+        imageSrc={successImage}
+        title="Success!"
+        subtitle="Now you can login into your account"
+        className="modal relative flex flex-col w-full h-full items-center justify-center"
+      >
         <Button onClick={setAnotherModal} type="button" className="w-full mt-4">
           Log in
         </Button>
-      </div>
+      </MessageBox>
     )
 
   return (

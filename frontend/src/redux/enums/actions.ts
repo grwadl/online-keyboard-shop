@@ -22,7 +22,8 @@ const ProductsActions = {
 }
 
 const FiltersAction = {
-  SELECT_CHANGED: 'selectChanged'
+  SELECT_CHANGED: 'selectChanged',
+  SET_NULL: 'setNull'
 }
 
 const SearchAction = {

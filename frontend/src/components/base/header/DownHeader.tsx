@@ -6,7 +6,7 @@ import { toggleBurgerMenu } from '@/redux/actions/modal-actions'
 import { changeSearchAction } from '@/redux/actions/query-action'
 import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
 import { IUser } from '@/redux/types/reducers/login'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { CartLink } from './CartLink'
 
@@ -18,10 +18,15 @@ const DownHeader = ({ user }: Props) => {
   const dispatch = useAppDispatch()
   const { pathname } = useLocation()
   const { burgerMenuOpen } = useAppSelector(({ modal }) => modal)
+  const { search } = useAppSelector(({ query }) => query)
 
   const [value, setValue] = useState('')
   const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)
   const openBurgerMenuHandler = () => dispatch(toggleBurgerMenu())
+
+  useEffect(() => {
+    if (search === '' && value !== '') setValue('')
+  }, [search])
 
   useDebounce(() => dispatch(changeSearchAction(value)), value, 300)
 

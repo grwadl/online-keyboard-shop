@@ -24,4 +24,6 @@ const changeFilters = createAction<PrepareAction<ChangeFilterReturn | null>>(
   }
 )
 
-export { changeFilters }
+const setNullFilters = createAction(FiltersAction.SET_NULL, () => ({ payload: null }))
+
+export { changeFilters, setNullFilters }
