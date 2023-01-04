@@ -9,4 +9,8 @@ const openFilters = createAction(ModalActions.openFilters, () => ({ payload: tru
 
 const closeFilters = createAction(ModalActions.closeFilters, () => ({ payload: false }))
 
-export { closeModal, openModal, openFilters, closeFilters }
+const toggleBurgerMenu = createAction(ModalActions.toggleBurgerMenu, () => ({ payload: null }))
+
+const closeBurgerMenu = createAction(ModalActions.closeBurgerMenu, () => ({ payload: false }))
+
+export { closeModal, openModal, openFilters, closeFilters, toggleBurgerMenu, closeBurgerMenu }

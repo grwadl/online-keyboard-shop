@@ -35,11 +35,17 @@ const QueryAction = {
   CHANGE_SORT: 'changeSortQuery'
 }
 
+const PageActions = {
+  RESIZE: 'resize'
+}
+
 const ModalActions = {
   openModal: 'openModal',
   closeModal: 'closeModal',
   openFilters: 'openFilters',
-  closeFilters: 'closeFilters'
+  closeFilters: 'closeFilters',
+  toggleBurgerMenu: 'toggleBurgerMenu',
+  closeBurgerMenu: 'closeBurgerMenu'
 }
 
-export { Actions, ProductsActions, FiltersAction, SearchAction, QueryAction, ModalActions, RegisterAction }
+export { Actions, ProductsActions, FiltersAction, SearchAction, QueryAction, ModalActions, RegisterAction, PageActions }

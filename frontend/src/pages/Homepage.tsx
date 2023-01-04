@@ -7,15 +7,14 @@ import { closeFilters, openFilters } from '@/redux/actions/modal-actions'
 import { changeFilteredProducts } from '@/redux/actions/products-action'
 import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
 import { generateQuery } from '@/utils/generateQuery'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 const Homepage = () => {
   const dispatch = useAppDispatch()
   const products = useAppSelector(({ products }) => products)
   const query = useAppSelector(({ query }) => query)
   const isOpenFiltersOnMobile = useAppSelector(({ modal }) => modal.filtersOpen)
-  const [isOnMobile, setIsOnMobile] = useState<boolean | null>(null)
-
+  const { isOnPc } = useAppSelector(({ page }) => page)
   const showFiltersMenu = (): void => {
     dispatch(openFilters())
   }
@@ -25,26 +24,20 @@ const Homepage = () => {
   }
 
   useEffect(() => {
-    const handleResize = () => setIsOnMobile(+window.innerWidth >= 768)
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
-  useEffect(() => {
     const unifiedQuery = generateQuery(query)
     dispatch(changeFilteredProducts(unifiedQuery))
   }, [query.filters, query.pagination, query.search, query.sort])
 
   return (
     <div className="flex">
-      {!isOnMobile ? (
+      {isOnPc !== null && !isOnPc ? (
         <MobileFilterList
           isOpenFiltersOnMobile={isOpenFiltersOnMobile}
           closeFiltersMenu={closeFiltersMenu}
-          className="fixed z-10 px-10 top-[50px] left-0 w-full h-full bg-white md:block flex-0"
+          className="block md:hidden fixed z-[5] px-10 top-[50px] left-0 w-full h-full bg-white flex-0"
         />
       ) : (
-        <FilterList className="md:basis-40 lg:basis-64" />
+        <FilterList className="hidden md:block md:basis-40 lg:basis-64" />
       )}
 
       <div className="main-part flex-1 relative">

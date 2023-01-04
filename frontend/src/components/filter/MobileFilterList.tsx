@@ -34,6 +34,10 @@ const MobileFilterList = ({ className, closeFiltersMenu, isOpenFiltersOnMobile }
   }
 
   useEffect(() => {
+    return () => closeFiltersMenu()
+  }, [])
+
+  useEffect(() => {
     dispatch(changeFilterAction(selectedFilters))
   }, [selectedFilters])
 

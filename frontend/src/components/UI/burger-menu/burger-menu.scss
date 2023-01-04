@@ -1,0 +1,18 @@
+.burger-menu-center {
+  &::before,
+  &::after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 3px;
+    background-color: inherit;
+  }
+
+  &::before {
+    top: 0;
+  }
+
+  &::after {
+    bottom: 0;
+  }
+}

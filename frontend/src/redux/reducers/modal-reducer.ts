@@ -1,12 +1,28 @@
 import { createReducer, isAnyOf } from '@reduxjs/toolkit'
-import { closeFilters, closeModal, openFilters, openModal } from '../actions/modal-actions'
+import {
+  closeBurgerMenu,
+  closeFilters,
+  closeModal,
+  openFilters,
+  openModal,
+  toggleBurgerMenu
+} from '../actions/modal-actions'
 
 const initialState = {
   logInOpen: false,
-  filtersOpen: false
+  filtersOpen: false,
+  burgerMenuOpen: false
 }
 
 const modalReducer = createReducer(initialState, (builder) => {
+  builder.addCase(toggleBurgerMenu, (state) => {
+    state.burgerMenuOpen = !state.burgerMenuOpen
+  })
+
+  builder.addCase(closeBurgerMenu, (state) => {
+    state.burgerMenuOpen = false
+  })
+
   builder.addMatcher(isAnyOf(closeModal, openModal), (state, action) => {
     const isOpen = action.payload
     state.logInOpen = isOpen

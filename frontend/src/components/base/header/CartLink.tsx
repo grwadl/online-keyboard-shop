@@ -25,6 +25,7 @@ const CartLink = ({ user, className }: Props) => {
 
   return (
     <div className={`cart-link gap-2 items-center basis-28 shrink-0 grow max-w-fit justify-end ${className ?? ''}`}>
+      <ProfileAvatar logIn={logIn} logOut={logOut} user={user} />
       {isShowed && (
         <Link to="/cart">
           <img className={`w-6 ${!isShowed ? 'hidden' : ''}`} src={cart} alt="cart icon" />
@@ -33,7 +34,6 @@ const CartLink = ({ user, className }: Props) => {
       <span className={`cart-link-general-price whitespace-nowrap ${!isShowed ? 'hidden' : ''}`}>
         {totalPrice ?? 0} $
       </span>
-      <ProfileAvatar logIn={logIn} logOut={logOut} user={user} />
     </div>
   )
 }

@@ -3,5 +3,7 @@
 }
 
 .default-avatar-wrap:hover .pop-up-menu {
-  display: block;
+  @media (min-width: 768px) {
+    display: block;
+  }
 }

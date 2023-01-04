@@ -1,0 +1,19 @@
+.mobile-menu-enter {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+.mobile-menu-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: 200ms;
+}
+.mobile-menu-exit {
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: 200ms;
+}
+.mobile-menu-exit-active {
+  opacity: 0;
+  transform: translateY(-100%);
+  transition-duration: 0.2s;
+}
