@@ -4,6 +4,7 @@ import { useAppDispatch } from '@/redux/common/hooks'
 import { ICart } from '@/redux/types/reducers/login'
 import { useEffect, useState } from 'react'
 import { CloseButton } from '../UI/CloseButton'
+import './cart-item.scss'
 import { MAX_PRODUCT_QUANTITY, MIN_PRODUCT_QUANTITY } from './CartList'
 
 type Props = {
@@ -32,7 +33,7 @@ const CartItem = ({ cart, onChangeQuantity, onMinusQuantity, onPlusQuantity, rem
   )
 
   return (
-    <div className="cart-item flex relative w-full gap-5 justify-between items-center">
+    <div className="cart-item flex relative w-full gap-5 justify-between items-center p-2 cursor-pointer">
       <div className="cart-product-general-info basis-[460px] flex gap-3 items-center">
         <div className="cart-item-img-wrap w-32 h-24 flex justify-center">
           <img src={cart.product.image} className="h-full object-contain" alt="product image" />

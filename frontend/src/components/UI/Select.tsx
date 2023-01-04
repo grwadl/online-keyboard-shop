@@ -14,7 +14,10 @@ const Select = ({ className, value, onChange, options }: Props) => {
   const selectedFullOption = useMemo(() => options.find((option) => option.value === value), [value, onChange])
 
   return (
-    <div className={`my-select  ${className ?? ''}`} onClick={() => setShowed((v) => !v)}>
+    <div
+      className={`my-select  ${className ?? ''} ${showed ? 'opened' : 'closed'}`}
+      onClick={() => setShowed((v) => !v)}
+    >
       <span className="selected">{selectedFullOption?.name}</span>
       <SelectDefaultList setShowed={setShowed} onChange={onChange} options={options} showed={showed} />
     </div>

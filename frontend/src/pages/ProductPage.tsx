@@ -19,7 +19,7 @@ const ProductPage = () => {
   const { isLoading, latestProducts, product } = useAppSelector(({ productPage }) => productPage)
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [pathname])
 
   useEffect(() => {
