@@ -11,8 +11,6 @@ type Params = {
   id: string
 }
 
-let timeOut: NodeJS.Timeout
-
 const ProductPage = () => {
   const { id } = useParams<Params>()
   const navigate = useNavigate()

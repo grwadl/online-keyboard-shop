@@ -18,10 +18,12 @@ const Header = ({ user, className }: Props) => {
 
   return (
     <header className={`header z-10 py-2 bg-def-white fixed w-full ${className}`}>
-      <DownHeader user={user} />
-      {isOnPc !== null && !isOnPc && (
-        <MobileList user={user} closeBurgerMenu={closeBurgerMenuHandler} burgerMenuOpen={burgerMenuOpen} />
-      )}
+      <div className="width-wrap max-w-[1600px] mx-auto">
+        <DownHeader user={user} />
+        {isOnPc !== null && !isOnPc && (
+          <MobileList user={user} closeBurgerMenu={closeBurgerMenuHandler} burgerMenuOpen={burgerMenuOpen} />
+        )}
+      </div>
     </header>
   )
 }
