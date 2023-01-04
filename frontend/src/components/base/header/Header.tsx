@@ -17,7 +17,7 @@ const Header = ({ user, className }: Props) => {
   const closeBurgerMenuHandler = () => dispatch(closeBurgerMenu())
 
   return (
-    <header className={`header z-10 py-2 bg-def-white fixed w-full ${className}`}>
+    <header className={`header z-10 py-2 border-b border-icon-color bg-def-white fixed w-full ${className}`}>
       <div className="width-wrap max-w-[1600px] mx-auto">
         <DownHeader user={user} />
         {isOnPc !== null && !isOnPc && (

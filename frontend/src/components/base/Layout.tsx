@@ -23,7 +23,7 @@ const Layout = () => {
         closeModal={closeModalHandler}
         isOpen={isOpenModal}
       />
-      <div className="padded-section mt-[60px] md:mt-36 shrink-0 w-full basis-full max-w-[1600px] mx-auto">
+      <div className="padded-section mt-[60px] md:mt-36 flex-1 w-full basis-full max-w-[1600px] mx-auto">
         {loading ? <Loader /> : <Outlet />}
       </div>
       <Footer />
