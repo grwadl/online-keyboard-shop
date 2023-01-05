@@ -1,5 +1,6 @@
 import { CartPage } from '@/pages/CartPage'
 import { Homepage } from '@/pages/Homepage'
+import { OrderPage } from '@/pages/OrderPage'
 import { ProductPage } from '@/pages/ProductPage'
 import { useAppSelector } from '@/redux/common/hooks'
 import { useMemo } from 'react'
@@ -16,7 +17,12 @@ const Router = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Homepage />} />
           <Route path="/product/:id" element={<ProductPage />} />
-          {isLogined && <Route path="cart" element={<CartPage />} />}
+          {isLogined && (
+            <>
+              <Route path="cart" element={<CartPage />} />
+              <Route path="order" element={<OrderPage />} />
+            </>
+          )}
           <Route path="*" element={<div>404</div>} />
         </Route>
       </Routes>

@@ -46,8 +46,12 @@ const TotalPayment = ({ user, className }: Props) => {
         <div className="final-price-number">price+delivery</div>
       </div>
       <div className="final-buttons mt-10 flex justify-between items-center">
-        <Button className="p-2">Continue</Button>
-        <Link to="/">Go back to shopping</Link>
+        <Link to="/order">
+          <Button className="p-2">Continue</Button>
+        </Link>
+        <Link className="hover:text-icon-color duration-300" to="/">
+          Go back to shopping
+        </Link>
       </div>
     </div>
   )

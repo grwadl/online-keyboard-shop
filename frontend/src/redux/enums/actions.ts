@@ -40,13 +40,29 @@ const PageActions = {
   RESIZE: 'resize'
 }
 
-const ModalActions = {
-  openModal: 'openModal',
-  closeModal: 'closeModal',
-  openFilters: 'openFilters',
-  closeFilters: 'closeFilters',
-  toggleBurgerMenu: 'toggleBurgerMenu',
-  closeBurgerMenu: 'closeBurgerMenu'
+const NovaPoshtaActions = {
+  CHANGE_ACTIVE: 'changeActive',
+  CLEAR_ACTIVE: 'clearActive',
+  CHANGE_HINT: 'changeHint'
 }
 
-export { Actions, ProductsActions, FiltersAction, SearchAction, QueryAction, ModalActions, RegisterAction, PageActions }
+const ModalActions = {
+  OPEN_MODAL: 'openModal',
+  CLOSE_MODAL: 'closeModal',
+  OPEN_FILTERS: 'openFilters',
+  CLOSE_FILTERS: 'closeFilters',
+  TOGGLE_BURGER_MENU: 'toggleBurgerMenu',
+  CLOSE_BURGER_MENU: 'closeBurgerMenu'
+}
+
+export {
+  Actions,
+  ProductsActions,
+  FiltersAction,
+  SearchAction,
+  QueryAction,
+  ModalActions,
+  RegisterAction,
+  PageActions,
+  NovaPoshtaActions
+}

@@ -43,22 +43,18 @@ const RegistrationModal = ({ setAnotherModal }: Props) => {
     <form className="modal relative" onSubmit={handleSubmit}>
       <h3 className="modal-header mb-3 text-center text-xl">Sign Up</h3>
       <MyInput
-        otherProps={{
-          placeholder: 'Email',
-          ...register('email', {
-            min: 10,
-            pattern: { message: 'This is invalid Email', value: EMAIL_REGEX },
-            required: 'Email is required!'
-          })
-        }}
+        placeholder="Email"
+        {...register('email', {
+          min: 10,
+          pattern: { message: 'This is invalid Email', value: EMAIL_REGEX },
+          required: 'Email is required!'
+        })}
         className="block w-full mb-3"
       />
+      <MyInput {...register('password', { required: true })} placeholder="Password" className="block w-full mb-3" />
       <MyInput
-        otherProps={{ placeholder: 'Password', ...register('password', { required: true }) }}
-        className="block w-full mb-3"
-      />
-      <MyInput
-        otherProps={{ placeholder: 'Confirm password', ...register('passwordConfirm', { required: true }) }}
+        placeholder="Confirm password"
+        {...register('passwordConfirm', { required: true })}
         className="block w-full mb-3"
       />
       <span className="block w-full cursor-pointer hover:text-main-accent transition-all" onClick={setAnotherModal}>

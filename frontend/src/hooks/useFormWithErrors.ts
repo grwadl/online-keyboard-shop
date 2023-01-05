@@ -9,7 +9,8 @@ const useFormWithErrors = (
   const {
     register,
     handleSubmit,
-    formState: { errors, submitCount }
+    formState: { errors, submitCount },
+    watch
   } = useForm()
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const useFormWithErrors = (
     if (!errors) return ''
     return ((errors?.email?.message || errors?.password?.message) as string) ?? ''
   }, [errors, error])
-  return { errorToDisplay, register, handleSubmit: handleSubmit(onSubmitHandler) }
+  return { errorToDisplay, watch, register, handleSubmit: handleSubmit(onSubmitHandler) }
 }
 
 export { useFormWithErrors }

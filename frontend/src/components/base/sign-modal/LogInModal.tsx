@@ -26,21 +26,17 @@ const LogInModal = ({ setAnotherModal }: Props) => {
     <form className="modal relative" onSubmit={handleSubmit}>
       <h3 className="modal-header mb-3 text-center text-xl">Sign In</h3>
       <MyInput
-        otherProps={{
-          placeholder: 'Email',
-          ...register('email', {
-            min: 10,
-            pattern: { message: 'This is invalid Email', value: EMAIL_REGEX },
-            required: 'Email is required!'
-          })
-        }}
+        placeholder="Email"
+        {...register('email', {
+          min: 10,
+          pattern: { message: 'This is invalid Email', value: EMAIL_REGEX },
+          required: 'Email is required!'
+        })}
         className="block w-full mb-3"
       />
       <MyInput
-        otherProps={{
-          placeholder: 'Password',
-          ...register('password', { min: 10, required: "Password can't be empty" })
-        }}
+        placeholder="Password"
+        {...register('password', { min: 10, required: "Password can't be empty" })}
         className="block w-full mb-3"
       />
       <span className="block w-full cursor-pointer hover:text-main-accent transition-all" onClick={setAnotherModal}>

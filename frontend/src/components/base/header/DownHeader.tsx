@@ -28,7 +28,7 @@ const DownHeader = ({ user }: Props) => {
     if (search === '' && value !== '') setValue('')
   }, [search])
 
-  useDebounce(() => dispatch(changeSearchAction(value)), value, 300)
+  useDebounce(() => dispatch(changeSearchAction(value)), [value], 300)
 
   return (
     <div className="padded-section relative z-30 py-[4px] flex justify-between items-center text-header-gray">
@@ -37,7 +37,7 @@ const DownHeader = ({ user }: Props) => {
       </Link>
       {(pathname === '/' || pathname === '') && (
         <MyInput
-          otherProps={{ placeholder: 'Type the name of the keyboard...' }}
+          placeholder="Type the name of the keyboard..."
           className="hidden md:block h-[90%]"
           onChange={onChangeSearch}
           value={value}
