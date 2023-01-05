@@ -1,3 +1,4 @@
+import { useDetectWindowSize } from '@/hooks/useDetectWindowSize'
 import { closeModal } from '@/redux/actions/modal-actions'
 import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
 import { Outlet } from 'react-router-dom'
@@ -11,16 +12,20 @@ const Layout = () => {
   const isOpenModal = useAppSelector(({ modal }) => modal.logInOpen)
   const dispatch = useAppDispatch()
   const closeModalHandler = () => dispatch(closeModal())
+  useDetectWindowSize()
 
   return (
     <div className="layout flex flex-col h-full">
       <Header user={user} />
       <SignModal
-        className="fixed top-[25%] bg-white z-10 left-[40%] p-10"
+        classNameContainer="flex justify-center items-center"
+        className="fixed bg-white z-10 p-10"
         closeModal={closeModalHandler}
         isOpen={isOpenModal}
       />
-      <div className="padded-section mt-36 flex-1 basis-full">{loading ? <Loader /> : <Outlet />}</div>
+      <div className="padded-section mt-[60px] md:mt-36 flex-1 w-full basis-full max-w-[1600px] mx-auto">
+        {loading ? <Loader /> : <Outlet />}
+      </div>
       <Footer />
     </div>
   )

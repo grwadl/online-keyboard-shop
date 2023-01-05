@@ -35,5 +35,8 @@
   },
   "optionalDependencies": {
     "husky": "^8.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18"
   }
 }

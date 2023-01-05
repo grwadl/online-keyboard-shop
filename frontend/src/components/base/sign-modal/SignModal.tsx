@@ -9,9 +9,10 @@ type Props = {
   isOpen: boolean
   closeModal: () => void
   className?: string
+  classNameContainer?: string
 }
 
-const SignModal = ({ isOpen, closeModal, className }: Props) => {
+const SignModal = ({ isOpen, closeModal, className, classNameContainer }: Props) => {
   const [isLogInOpened, setIsLoginOpened] = useState<boolean>(true)
   const setRegistrationModal = () => setIsLoginOpened(false)
   const setLoginModal = () => setIsLoginOpened(true)
@@ -22,7 +23,7 @@ const SignModal = ({ isOpen, closeModal, className }: Props) => {
   }, [user?.email])
 
   return (
-    <Modal onCloseModal={closeModal} isOpen={isOpen} className={className}>
+    <Modal onCloseModal={closeModal} isOpen={isOpen} className={className} classNameContainer={classNameContainer}>
       <div className="modal-container relative">
         <CloseButton
           onClick={closeModal}

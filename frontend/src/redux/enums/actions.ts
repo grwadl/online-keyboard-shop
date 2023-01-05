@@ -22,7 +22,8 @@ const ProductsActions = {
 }
 
 const FiltersAction = {
-  SELECT_CHANGED: 'selectChanged'
+  SELECT_CHANGED: 'selectChanged',
+  SET_NULL: 'setNull'
 }
 
 const SearchAction = {
@@ -35,9 +36,17 @@ const QueryAction = {
   CHANGE_SORT: 'changeSortQuery'
 }
 
-const ModalActions = {
-  openModal: 'openModal',
-  closeModal: 'closeModal'
+const PageActions = {
+  RESIZE: 'resize'
 }
 
-export { Actions, ProductsActions, FiltersAction, SearchAction, QueryAction, ModalActions, RegisterAction }
+const ModalActions = {
+  openModal: 'openModal',
+  closeModal: 'closeModal',
+  openFilters: 'openFilters',
+  closeFilters: 'closeFilters',
+  toggleBurgerMenu: 'toggleBurgerMenu',
+  closeBurgerMenu: 'closeBurgerMenu'
+}
+
+export { Actions, ProductsActions, FiltersAction, SearchAction, QueryAction, ModalActions, RegisterAction, PageActions }

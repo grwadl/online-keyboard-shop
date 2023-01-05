@@ -31,7 +31,7 @@ const SortBar = ({ className }: Props) => {
   return (
     <div className={`sort-bar ${className ?? ''}`}>
       <Select
-        className="p-2 w-28 cursor-pointer"
+        className="ml-2 h-full w-full whitespace-nowrap cursor-pointer"
         onChange={onChange}
         value={selectedSort.value}
         options={sortOptions}

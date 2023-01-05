@@ -11,6 +11,7 @@ import { JwtAuthGuard } from './auth/jwt-auth-guard'
 import { JWT } from './jwt/jwt.module'
 import { CartModule } from './cart/cart.module'
 import { QueryParserService } from './query-parser/query-parser.service'
+import { OrderModule } from './order/order.module'
 
 @Module({
   imports: [
@@ -31,7 +32,8 @@ import { QueryParserService } from './query-parser/query-parser.service'
     ProductsModule,
     UserModule,
     AuthModule,
-    CartModule
+    CartModule,
+    OrderModule
   ],
   controllers: [],
   providers: [

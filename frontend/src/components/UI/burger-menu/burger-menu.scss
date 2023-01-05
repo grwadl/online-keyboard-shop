@@ -1,0 +1,40 @@
+.burger-menu-center {
+  transition-duration: 0.3s;
+}
+
+.burger-menu-wrap {
+  &::before,
+  &::after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    display: block;
+    height: 3px;
+    background-color: #000;
+  }
+  &.active {
+    .burger-menu-center {
+      transform: scale(0);
+    }
+    &::before {
+      top: 50%;
+      transform: rotate(-45deg);
+      transition-duration: 0.3s;
+    }
+
+    &::after {
+      bottom: 40%;
+      transform: rotate(45deg);
+      transition-duration: 0.3s;
+    }
+  }
+  &::before {
+    top: 0;
+    transition-duration: 0.3s;
+  }
+
+  &::after {
+    bottom: 0;
+    transition-duration: 0.3s;
+  }
+}

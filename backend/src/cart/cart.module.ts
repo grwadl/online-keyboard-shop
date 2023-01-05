@@ -9,6 +9,7 @@ import { CartRepository } from './repository/cart.repository'
 @Module({
   imports: [TypeOrmModule.forFeature([Cart]), ProductsModule],
   controllers: [CartController],
-  providers: [CartService, CartRepository]
+  providers: [CartService, CartRepository],
+  exports: [CartService]
 })
 export class CartModule {}
