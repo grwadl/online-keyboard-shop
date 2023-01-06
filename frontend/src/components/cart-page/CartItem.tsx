@@ -28,7 +28,7 @@ const CartItem = ({ cart, onChangeQuantity, onMinusQuantity, onPlusQuantity, rem
       if (isFirstRender) return
       dispatch(changeProductQuantity({ id: cart.id, quantity: cart.quantity }))
     },
-    cart.quantity,
+    [cart.quantity],
     300
   )
 

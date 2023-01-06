@@ -55,7 +55,7 @@ const MobileFilterList = ({ className, closeFiltersMenu, isOpenFiltersOnMobile }
         <MyInput
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
-          otherProps={{ placeholder: 'Type the name of product...' }}
+          placeholder="Type the name of product..."
           className="block w-full mb-5"
         />
         <Button onClick={closeAndSearch} className="w-full block">
