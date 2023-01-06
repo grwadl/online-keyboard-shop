@@ -32,7 +32,7 @@ const InputFormik = ({ field, className, disabled, placeholder }: ExtendedFieldP
         onFocus={onFocus}
         className="w-full disabled:cursor-not-allowed"
       />
-      <ErrorMessage name={name}>{(msg) => <span className="block text-my-red mt-1">{msg}</span>}</ErrorMessage>
+      <ErrorMessage name={name}>{(msg) => <span className="block text-my-red mt-[2px]">{msg}</span>}</ErrorMessage>
       {postReducer.activeField === name && postReducer[name].length !== 0 && (
         <div className="hint-wrapper absolute z-10 w-full top-7 left-0 overflow-y-scroll  max-h-32">
           {postReducer[name].map((hint, idx) => (
