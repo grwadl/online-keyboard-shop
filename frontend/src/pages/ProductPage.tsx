@@ -5,7 +5,7 @@ import { fetchCurrentProduct, fetchLatestProducts } from '@/redux/actions/produc
 import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
 import { IProduct } from '@/redux/types/reducers/products'
 import { useEffect, useMemo } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 type Params = {
   id: string
@@ -14,15 +14,26 @@ type Params = {
 const ProductPage = () => {
   const { id } = useParams<Params>()
   const navigate = useNavigate()
+  const { pathname } = useLocation()
   const dispatch = useAppDispatch()
   const { isLoading, latestProducts, product } = useAppSelector(({ productPage }) => productPage)
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [pathname])
+
+  useEffect(() => {
     if (!id) return
-    const fetchCurrent = dispatch(fetchCurrentProduct(+id)).unwrap()
-    const fetchRelated = dispatch(fetchLatestProducts()).unwrap()
-    Promise.all([fetchCurrent, fetchRelated]).catch(() => navigate('/'))
+    dispatch(fetchCurrentProduct(+id))
+      .unwrap()
+      .catch(() => navigate('/'))
   }, [id])
+
+  useEffect(() => {
+    dispatch(fetchLatestProducts())
+      .unwrap()
+      .catch(() => navigate('/'))
+  }, [])
 
   const keyboards = useMemo(
     () => latestProducts?.filter((p) => p.id !== (product as IProduct)?.id),

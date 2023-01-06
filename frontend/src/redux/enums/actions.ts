@@ -5,7 +5,8 @@ const Actions = {
   REGISTER: 'register',
   REMOVE_ERROR: 'removeError',
   ADD_TO_CART: 'addToCart',
-  REMOVE_FROM_CART: 'removeFromCart'
+  REMOVE_FROM_CART: 'removeFromCart',
+  CHANGE_PRODUCT_QUANTITY: 'changeProductQuantity'
 }
 
 const RegisterAction = {
@@ -21,7 +22,8 @@ const ProductsActions = {
 }
 
 const FiltersAction = {
-  SELECT_CHANGED: 'selectChanged'
+  SELECT_CHANGED: 'selectChanged',
+  SET_NULL: 'setNull'
 }
 
 const SearchAction = {
@@ -34,9 +36,34 @@ const QueryAction = {
   CHANGE_SORT: 'changeSortQuery'
 }
 
-const ModalActions = {
-  openModal: 'openModal',
-  closeModal: 'closeModal'
+const PageActions = {
+  RESIZE: 'resize'
 }
 
-export { Actions, ProductsActions, FiltersAction, SearchAction, QueryAction, ModalActions, RegisterAction }
+const NovaPoshtaActions = {
+  CHANGE_ACTIVE: 'changeActive',
+  CLEAR_ACTIVE: 'clearActive',
+  CHANGE_HINT: 'changeHint',
+  SET_SELECTED_VALUE: 'setSelectedValue'
+}
+
+const ModalActions = {
+  OPEN_MODAL: 'openModal',
+  CLOSE_MODAL: 'closeModal',
+  OPEN_FILTERS: 'openFilters',
+  CLOSE_FILTERS: 'closeFilters',
+  TOGGLE_BURGER_MENU: 'toggleBurgerMenu',
+  CLOSE_BURGER_MENU: 'closeBurgerMenu'
+}
+
+export {
+  Actions,
+  ProductsActions,
+  FiltersAction,
+  SearchAction,
+  QueryAction,
+  ModalActions,
+  RegisterAction,
+  PageActions,
+  NovaPoshtaActions
+}

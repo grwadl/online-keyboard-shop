@@ -67,7 +67,7 @@ const Slider = <T,>({ slides, className, renderItem }: Props<T>) => {
         direction="left"
         className="hidden md:block w-8 left-0 cursor-pointer p-2 bg-white hover:bg-border-color duration-500 z-[1]"
       />
-      <div ref={ref} className="slides-wrap flex w-full">
+      <div ref={ref} className="slides-wrap flex w-full gap-2">
         {slides?.map(renderItem)}
       </div>
       <Arrow

@@ -28,7 +28,7 @@ export class AuthService {
 
   async login(user: LogInUserDto): Promise<User & { token: string }> {
     const { password, email } = user
-    const [possibleUser] = await this.userService.findAll({
+    let [possibleUser] = await this.userService.findAll({
       where: { email }
     })
 
@@ -38,29 +38,30 @@ export class AuthService {
       { email, id: possibleUser.id },
       { expiresIn: ACCESS_TOKEN_LIFETIME }
     )
-    const id = uuid() as string
-    const newToken = this.jwtService.sign(
-      { id },
-      { expiresIn: REFRESH_TOKEN_LIFETIME }
-    )
+    if (!possibleUser.refreshToken) {
+      const id = uuid() as string
+      const newToken = this.jwtService.sign(
+        { id },
+        { expiresIn: REFRESH_TOKEN_LIFETIME }
+      )
 
-    await this.userService.update(possibleUser.id, {
-      refreshToken: newToken
-    })
-    return { ...possibleUser, refreshToken: newToken, token }
+      possibleUser = await this.userService.update(possibleUser.id, {
+        refreshToken: newToken
+      })
+    }
+    return { ...possibleUser, token }
   }
 
   async relogin(refreshToken: string) {
     try {
       this.validate(refreshToken)
 
-      const [{ refreshToken: _, ...possibleUser }] =
-        await this.userService.findAll({
-          where: [{ refreshToken }]
-        })
+      const [res] = await this.userService.findAll({
+        where: [{ refreshToken }]
+      })
 
-      if (!possibleUser) throw new UnauthorizedException()
-
+      if (!res) throw new UnauthorizedException()
+      const { refreshToken: _, ...possibleUser } = res
       const token: string = this.jwtService.sign(
         { email: possibleUser.email, id: possibleUser.id },
         { expiresIn: ACCESS_TOKEN_LIFETIME }

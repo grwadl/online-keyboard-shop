@@ -9,7 +9,6 @@ type Props = {
 const UpperHeader = ({ user }: Props) => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false)
   const toggleModalOpen = () => setModalOpen(true)
-  const toggleModalClose = () => setModalOpen(false)
 
   return (
     <div className="bg-header-gray w-full py-1 flex justify-between text-my-white padded-section text-white text-xs">

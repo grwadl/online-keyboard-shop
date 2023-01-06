@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { changeFilters } from '../actions/filters-action'
+import { changeFilters, setNullFilters } from '../actions/filters-action'
 import { FilterSection } from '../types/reducers/filter-reducer'
 
 const initialState: FilterSection = {
@@ -32,6 +32,12 @@ const filterReducer = createReducer(initialState, (builder) => {
       options: changedOptionsInSection
     }
   })
+
+  builder.addCase(setNullFilters, (state) => {
+    state.keycaps = initialState.keycaps
+    state.switches = initialState.switches
+    state.type = initialState.type
+  })
 })
 
-export { filterReducer }
+export { filterReducer, initialState }

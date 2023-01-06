@@ -1,0 +1,6 @@
+.product-item {
+  transition-duration: 0.3s;
+  &:hover {
+    box-shadow: 3px 5px 5px black;
+  }
+}

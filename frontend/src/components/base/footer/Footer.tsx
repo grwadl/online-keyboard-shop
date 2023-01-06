@@ -8,14 +8,12 @@ import inst from '@/assets/icons/socials/inst.svg'
 
 const Footer = () => {
   return (
-    <footer className="footer padded-section py-10 text-white bg-header-gray">
-      <div className="footer-wrapper flex justify-between">
+    <footer className="footer mt-10 padded-section py-10 text-white bg-header-gray">
+      <div className="footer-wrapper max-w-[1600px] mx-auto flex flex-wrap justify-start gap-6 sm:justify-between">
         <div className="socials-container flex-0 basis-54">
           <div className="logo-container flex gap-3 items-center pb-5">
             <img src={logo} alt="LOGO HERE" className="logo max-h-9" />
-            <span className="logo-text tracking-wide size text-lg">
-              KEYBOARD SHOP
-            </span>
+            <span className="logo-text tracking-wide size text-lg">KEYBOARD SHOP</span>
           </div>
           <div className="socials-wrap flex justify-between pb-5">
             <a href="">
@@ -30,24 +28,17 @@ const Footer = () => {
           </div>
           <span className="corypright block">KEYBOARD SHOP 2022</span>
         </div>
-        <div className="contacts">
-          <h3 className="contacts-title uppercase mb-2 tracking-wide text-lg">
-            Contacts
-          </h3>
+        <div className="contacts basis-full sm:basis-auto flex flex-col">
+          <h3 className="contacts-title uppercase mb-2 tracking-wide text-lg">Contacts</h3>
           <ul className="contacts-list text-second-text-color">
             <li className="py-2">
               <a href="#" className="flex items-center gap-3">
                 <img src={clock} className="w-6" alt="contact logo" />
-                <span className="text-white text-sm">
-                  Every day from 10:00 to 6:00
-                </span>
+                <span className="text-white text-sm">Every day from 10:00 to 6:00</span>
               </a>
             </li>
             <li className="py-2">
-              <a
-                href="mailto:youngwwad@gmail.com"
-                className="flex items-center gap-3"
-              >
+              <a href="mailto:youngwwad@gmail.com" className="flex items-center gap-3">
                 <img src={mail} className="w-6" alt="contact logo" />
                 <span className="text-white text-sm">youngwwad@gmail.com</span>
               </a>

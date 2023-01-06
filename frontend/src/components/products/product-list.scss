@@ -1,0 +1,11 @@
+.product-item {
+  flex: 0 0 100%;
+
+  @media (min-width: 640px) {
+    flex: 0 0 calc((100% / 3) - 8px);
+  }
+
+  @media (min-width: 1024px) {
+    flex: 0 0 calc(25% - 8px);
+  }
+}

@@ -9,6 +9,7 @@ import { useMemo } from 'react'
 import { tags } from '../mock'
 import { ProductType } from '../product-type/ProductType'
 import './taglist.scss'
+import './upper-info.scss'
 
 type Props = {
   keyboard: IProduct
@@ -31,20 +32,20 @@ const UpperInfo = ({ keyboard }: Props) => {
   }
 
   return (
-    <div className="product-wrapper flex gap-8 mb-5">
-      <div className="product-image-wrapper px-10 flex justify-center flex-grow-0 flex-shrink-0 basis-1/3">
+    <div className="product-wrapper flex flex-wrap gap-2 md:gap-8 mb-5">
+      <div className="product-image-wrapper flex justify-center">
         <img src={image} className="max-h-[500px] object-cover w-auto" alt={name} />
       </div>
       <div className="product-general-info-wrapper">
-        <h2 className="product-name text-3xl text-header-gray mb-10">{name}</h2>
+        <h2 className="product-name text-3xl text-header-gray mb-5 md:mb-10">{name}</h2>
         <div className="product-buy flex gap-9 items-center">
           <span className="product-price text-header-gray text-2xl">{price} $</span>
           <Button onClick={addToCart} className="py-3 px-7">
             {isInCart ? 'Remove from cart' : 'Add to cart'}
           </Button>
         </div>
-        <Hr className="w-full mt-10" />
-        <div className="tags-list flex gap-2 my-5">
+        <Hr className="w-full mt-5 md:mt-10" />
+        <div className="tags-list flex flex-wrap gap-2 my-5">
           {tags.map((tag) => (
             <Tag {...tag} key={tag.text} />
           ))}

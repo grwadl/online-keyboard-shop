@@ -5,7 +5,7 @@ interface IProduct {
   switches: string
   type: string
   image: string
-  price: string
+  price: number
   desc: string
   excerpt: string
 }
