@@ -1,7 +1,7 @@
 import Button from '@/components/UI/Button'
 import { MyInput } from '@/components/UI/MyInput'
 import { login } from '@/redux/actions/login-action'
-import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
+import { useAppDispatch } from '@/redux/common/hooks'
 import { Field, FieldProps, Form, Formik, FormikValues } from 'formik'
 import { isDataLoginData } from './common'
 
@@ -13,7 +13,6 @@ const initialValues = { email: '', password: '' }
 
 const LogInModal = ({ setAnotherModal }: Props) => {
   const dispatch = useAppDispatch()
-  const { error, user } = useAppSelector(({ login }) => login)
 
   const onSubmit = (data: FormikValues) => {
     if (isDataLoginData(data)) dispatch(login(data))

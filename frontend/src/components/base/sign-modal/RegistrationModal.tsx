@@ -16,7 +16,7 @@ const initialValues = { email: '', password: '', passwordConfirm: '' }
 
 const RegistrationModal = ({ setAnotherModal }: Props) => {
   const dispatch = useAppDispatch()
-  const { error, isSuccess } = useAppSelector(({ register }) => register)
+  const { isSuccess } = useAppSelector(({ register }) => register)
 
   const onSubmit = (data: FieldValues) => {
     if (isDataLoginData(data)) dispatch(registerFunc(data))
