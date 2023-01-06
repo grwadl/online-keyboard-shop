@@ -43,7 +43,7 @@ function MapLeaflet() {
   )
 
   return (
-    <div className="map w-full max-h-60 sm:max-h-[600px] lg:max-h-96 xl:max-h-[600px] relative z-1 overflow-hidden cursor-pointer">
+    <div className="map w-full max-h-60 sm:max-h-[400px] md:max-h-[600px] lg:max-h-96 xl:max-h-[600px] relative z-1 overflow-hidden cursor-pointer">
       {displayMap}
     </div>
   )

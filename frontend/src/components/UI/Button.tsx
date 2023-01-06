@@ -1,22 +1,10 @@
-import React from 'react'
+import { ButtonHTMLAttributes } from 'react'
 import './button.scss'
 
-type Props = {
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
-  children: React.ReactNode
-  className?: string
-  disabled?: boolean
-  type?: 'button' | 'submit'
-}
-
-const Button = ({ children, onClick, className, disabled, type = 'button' }: Props) => {
+const Button = (props: ButtonHTMLAttributes<HTMLButtonElement>) => {
+  const { className, children, ...other } = props
   return (
-    <button
-      disabled={disabled}
-      type={type}
-      className={`my-btn p-2 bg-main-accent text-white ${className}`}
-      onClick={onClick}
-    >
+    <button {...other} className={`my-btn p-2 bg-main-accent text-white ${className}`}>
       {children}
     </button>
   )

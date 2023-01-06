@@ -3,6 +3,7 @@ import { logOut as logOutAction } from '@/redux/actions/login-action'
 import { openModal } from '@/redux/actions/modal-actions'
 import { useAppDispatch } from '@/redux/common/hooks'
 import { IUser } from '@/redux/types/reducers/login'
+import { countTotalPrice } from '@/utils/totalPrice'
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { ProfileAvatar } from './profile-avatar/ProfileAvatar'
@@ -15,11 +16,7 @@ type Props = {
 
 const CartLink = ({ user, className, onClick }: Props) => {
   const isShowed = useMemo(() => !!user, [user?.email])
-  const totalPrice = useMemo<number>(() => {
-    if (!user?.cart?.length) return 0
-    const prices = user.cart.map((prod) => prod.quantity * prod.product.price)
-    return prices.reduce((total, current) => total + current)
-  }, [user?.cart])
+  const totalPrice = useMemo<number>(() => countTotalPrice(user), [user?.cart])
   const dispatch = useAppDispatch()
   const logOut = () => dispatch(logOutAction())
   const logIn = () => dispatch(openModal())
