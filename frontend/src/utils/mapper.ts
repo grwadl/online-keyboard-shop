@@ -20,7 +20,7 @@ const mapNovaPoshtaArrayResponse = <T extends Record<string, unknown>>(
   if (isObject(res)) return mapNovaPoshtaSimpleReponse(res, schema)
 
   const result: T[] = []
-  if (Array.isArray(res)) for (const entry of res) result.push(entry, schema)
+  if (Array.isArray(res)) for (const entry of res) result.push(mapNovaPoshtaSimpleReponse(entry, schema))
   return result
 }
 

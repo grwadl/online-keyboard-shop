@@ -14,18 +14,19 @@ const getParams = ({ modelName, calledMethod, searchedValue }: PostParamsProps) 
   modelName,
   calledMethod,
   methodProperties: {
-    ...searchedValue
+    ...searchedValue,
+    Limit: 10
   }
 })
 
 class PostService {
-  static async getPostOfiice(value: string): Promise<NovaPoshtaResponse> {
+  static async getPostOfiice(value: string, CityName: string): Promise<NovaPoshtaResponse> {
     return fetch(url, {
       body: JSON.stringify(
         getParams({
           modelName: 'Address',
           calledMethod: 'getWarehouses',
-          searchedValue: { WarehouseId: value }
+          searchedValue: { WarehouseId: value, CityName }
         })
       ),
       method: 'POST',

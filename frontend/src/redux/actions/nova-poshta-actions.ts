@@ -23,10 +23,9 @@ const changeNovaPoshtaHint = createAsyncThunk<HintReturn, InitialValue, AsyncThu
     const searchedValue = values[activeField]
 
     let hintResult: NovaPoshtaResponse
-
     if (!searchedValue) return rejectWithValue([])
 
-    if (activeField === 'post') hintResult = await PostService.getPostOfiice(searchedValue)
+    if (activeField === 'post') hintResult = await PostService.getPostOfiice(searchedValue, values.city)
     else hintResult = await PostService.getCity(searchedValue)
     if (!hintResult.success) return rejectWithValue([])
     return { fieldName: activeField, data: hintResult.data }

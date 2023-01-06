@@ -23,8 +23,6 @@ const novaPoshtaReducer = createReducer(initialState, (builder) => {
 
   builder.addCase(clearActiveField, (state) => {
     state.activeField = null
-    state.post = []
-    state.city = []
   })
 
   builder.addCase(changeNovaPoshtaHint.fulfilled, (state, action) => {

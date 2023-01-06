@@ -2,7 +2,6 @@ import { FormObserver } from '@/components/order-page/forms/FormObserver'
 import { formSchema } from '@/components/order-page/forms/schema'
 import { InputFormik, InputPostFormik } from '@/components/order-page/InputFormik/InputFormik'
 import { MyInput } from '@/components/UI/MyInput'
-import { useAppDispatch } from '@/redux/common/hooks'
 import { Field, FieldProps, Form, Formik, useFormik } from 'formik'
 
 const onSubmit = (values: typeof initialValues) => console.log(values)
@@ -10,13 +9,11 @@ const onSubmit = (values: typeof initialValues) => console.log(values)
 const initialValues = { name: '', email: '', number: '', post: '', city: '' }
 
 const OrderPage = () => {
-  const { values, errors, handleSubmit, handleChange } = useFormik({
+  const { handleSubmit } = useFormik({
     initialValues,
     onSubmit,
     validationSchema: formSchema
   })
-
-  const dispatch = useAppDispatch()
 
   return (
     <div className="order-page flex flex-wrap">
