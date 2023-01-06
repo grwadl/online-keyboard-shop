@@ -1,6 +1,7 @@
+import { mapNovaPoshtaArrayResponse } from '@/utils/mapper'
 import { createReducer } from '@reduxjs/toolkit'
 import { changeActiveField, changeNovaPoshtaHint, clearActiveField } from '../actions/nova-poshta-actions'
-import { City, PostOffice } from '../types/reducers/nova-poshta-reducer'
+import { city, City, postOffice, PostOffice } from '../types/reducers/nova-poshta-reducer'
 
 type InitialState = {
   activeField: 'city' | 'post' | null
@@ -28,8 +29,8 @@ const novaPoshtaReducer = createReducer(initialState, (builder) => {
 
   builder.addCase(changeNovaPoshtaHint.fulfilled, (state, action) => {
     const { data, fieldName } = action.payload
-    if (fieldName === 'city') state.city = data as City[]
-    else if (fieldName === 'post') state.post = data as PostOffice[]
+    if (fieldName === 'city') state.city = mapNovaPoshtaArrayResponse(data, city) as City[]
+    else if (fieldName === 'post') state.post = mapNovaPoshtaArrayResponse(data, postOffice) as PostOffice[]
   })
 })
 

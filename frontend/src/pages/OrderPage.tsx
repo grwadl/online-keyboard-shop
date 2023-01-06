@@ -23,7 +23,7 @@ const OrderPage = () => {
       <div className="order-page-forms flex-0 basis-3/5">
         <h2 className="order-confirm text-2xl  font-bold mb-5">Order confirmation</h2>
         <Formik initialValues={initialValues} onSubmit={onSubmit}>
-          <Form className="forms flex flex-wrap gap-x-8">
+          <Form onSubmit={handleSubmit} className="forms flex flex-wrap gap-x-8">
             <FormObserver />
             <h4 className="form-title text-lg font-semibold basis-full mb-6">Customer info</h4>
             <Field name="name">{({ field }: FieldProps) => <MyInput className="basis-[40%] mb-5" {...field} />}</Field>
