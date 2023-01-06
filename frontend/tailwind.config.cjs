@@ -10,7 +10,8 @@ module.exports = {
       'second-text-color': '#E5E5E5',
       'icon-color': '#828282',
       'main-accent': '#15616D',
-      black: '#000'
+      black: '#000',
+      'my-red': '#FF0000	'
     }
   },
   plugins: []
