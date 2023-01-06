@@ -43,7 +43,8 @@ const PageActions = {
 const NovaPoshtaActions = {
   CHANGE_ACTIVE: 'changeActive',
   CLEAR_ACTIVE: 'clearActive',
-  CHANGE_HINT: 'changeHint'
+  CHANGE_HINT: 'changeHint',
+  SET_SELECTED_VALUE: 'setSelectedValue'
 }
 
 const ModalActions = {

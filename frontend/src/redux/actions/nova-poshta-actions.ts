@@ -32,4 +32,9 @@ const changeNovaPoshtaHint = createAsyncThunk<HintReturn, InitialValue, AsyncThu
   }
 )
 
-export { changeActiveField, clearActiveField, changeNovaPoshtaHint }
+const setSelectedValue = createAction(
+  NovaPoshtaActions.SET_SELECTED_VALUE,
+  (fieldName: 'city' | 'post', value: string) => ({ payload: { fieldName, value } })
+)
+
+export { changeActiveField, clearActiveField, changeNovaPoshtaHint, setSelectedValue }
