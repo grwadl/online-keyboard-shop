@@ -24,8 +24,12 @@ export class AuthService {
     private emailService: EmailService
   ) {}
 
-  validate<T extends object>(token: string): T {
-    return this.jwtService.verify(token)
+  validate<T extends object>(token: string): T | false {
+    try {
+      return this.jwtService.verify(token) as T
+    } catch (e) {
+      return false
+    }
   }
 
   async login(user: LogInUserDto): Promise<User & { token: string }> {
@@ -42,7 +46,8 @@ export class AuthService {
       { expiresIn: ACCESS_TOKEN_LIFETIME }
     )
 
-    if (!possibleUser.refreshToken) {
+    const isValid = this.validate(possibleUser.refreshToken)
+    if (!isValid) {
       const id = uuid() as string
       const newRefreshToken = this.jwtService.sign(
         { id },
@@ -57,25 +62,22 @@ export class AuthService {
   }
 
   async relogin(refreshToken: string) {
-    try {
-      this.validate(refreshToken)
+    const isValid = this.validate(refreshToken)
+    if (!isValid)
+      throw new HttpException('Invalid refresh token', HttpStatus.BAD_REQUEST)
 
-      const [res] = await this.userService.findAll({
-        where: [{ refreshToken }]
-      })
+    const [res] = await this.userService.findAll({
+      where: [{ refreshToken }]
+    })
 
-      if (!res) throw new UnauthorizedException()
-      const { refreshToken: _, ...possibleUser } = res
-      const token: string = this.jwtService.sign(
-        { email: possibleUser.email, id: possibleUser.id },
-        { expiresIn: ACCESS_TOKEN_LIFETIME }
-      )
+    if (!res) throw new UnauthorizedException()
+    const { refreshToken: _, ...possibleUser } = res
+    const token: string = this.jwtService.sign(
+      { email: possibleUser.email, id: possibleUser.id },
+      { expiresIn: ACCESS_TOKEN_LIFETIME }
+    )
 
-      return { ...possibleUser, token }
-    } catch (e) {
-      console.error(e)
-      return null
-    }
+    return { ...possibleUser, token }
   }
 
   async register(user: CreateUserDto) {
