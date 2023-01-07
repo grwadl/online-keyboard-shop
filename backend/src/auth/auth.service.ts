@@ -38,7 +38,12 @@ export class AuthService {
       where: { email }
     })
 
-    if (!possibleUser || !bcrypt.compare(password, possibleUser.password))
+    const isCorrectPassword = await bcrypt.compare(
+      password,
+      possibleUser?.password
+    )
+
+    if (!possibleUser || !isCorrectPassword)
       throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST)
 
     const accessToken: string = this.jwtService.sign(
