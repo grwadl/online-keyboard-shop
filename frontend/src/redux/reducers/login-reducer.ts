@@ -3,8 +3,8 @@ import {
   addProductToCart,
   changeProductQuantity,
   changeProductQuantityLocally,
-  login,
   logOut,
+  login,
   relogin,
   removeError,
   removeProductFromCart
@@ -22,7 +22,7 @@ const loginReducer = createReducer<ILogin>(initialState, (builder) => {
     state.error = 'Invalid credentials'
   })
 
-  builder.addCase(logOut, (state) => {
+  builder.addCase(logOut.fulfilled, (state) => {
     state.user = null
   })
 

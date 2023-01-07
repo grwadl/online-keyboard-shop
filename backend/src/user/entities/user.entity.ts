@@ -23,7 +23,7 @@ export class User implements IUser {
   @Column()
   password: string
 
-  @Column()
+  @Column('text')
   refreshToken?: string
 
   @OneToMany(() => Cart, (cart) => cart.user)

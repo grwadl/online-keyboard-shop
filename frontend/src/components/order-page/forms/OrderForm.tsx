@@ -1,10 +1,11 @@
+import { MyInput } from '@/components/UI/MyInput'
+import { InputFormik, InputPostFormik } from '@/components/order-page/InputFormik/InputFormik'
 import { FormObserver } from '@/components/order-page/forms/FormObserver'
 import { formSchema } from '@/components/order-page/forms/schema'
-import { InputFormik, InputPostFormik } from '@/components/order-page/InputFormik/InputFormik'
-import { MyInput } from '@/components/UI/MyInput'
 import { Field, FieldProps, Form, Formik } from 'formik'
 import { InputFormikWithErrors } from '../InputFormik/InputFormikWithErrors'
 
+//TODO: rewrite
 const onSubmit = () => console.log('submitted')
 
 const initialValues = { name: '', email: '', number: '', post: '', city: '' }
