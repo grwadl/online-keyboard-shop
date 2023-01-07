@@ -1,5 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { changeFilterAction, changePageAction, changeSearchAction, changeSortAction } from '../actions/query-action'
+import {
+  changeFilterAction,
+  changeLimitAction,
+  changePageAction,
+  changeSearchAction,
+  changeSortAction
+} from '../actions/query-action'
 import { InititalStateQuery } from '../types/reducers/query-reducer'
 
 const initialState: InititalStateQuery = {
@@ -33,6 +39,12 @@ const queryReducer = createReducer(initialState, (builder) => {
     const { payload } = action
 
     state.page = payload
+  })
+
+  builder.addCase(changeLimitAction, (state, action) => {
+    const { payload } = action
+
+    state.limit = payload
   })
 })
 

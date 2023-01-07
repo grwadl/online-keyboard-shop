@@ -35,7 +35,8 @@ const QueryAction = {
   CHANGE_FILTERS: 'changeFiltersQuery',
   CHANGE_SEARCH: 'changeSearchQuery',
   CHANGE_SORT: 'changeSortQuery',
-  CHANGE_PAGE: 'changePage'
+  CHANGE_PAGE: 'changePage',
+  CHANGE_LIMIT: 'changeLimit'
 }
 
 const PageActions = {

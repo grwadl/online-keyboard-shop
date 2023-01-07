@@ -31,4 +31,8 @@ const changePageAction = createAction<PrepareAction<string>>(QueryAction.CHANGE_
   payload: 'page=' + page
 }))
 
-export { changeFilterAction, changeSearchAction, changeSortAction, changePageAction }
+const changeLimitAction = createAction<PrepareAction<string>>(QueryAction.CHANGE_LIMIT, (limit: number) => ({
+  payload: 'limit=' + limit
+}))
+
+export { changeFilterAction, changeSearchAction, changeSortAction, changePageAction, changeLimitAction }
