@@ -9,7 +9,7 @@ type Props = {
 
 const Arrow = ({ direction, className, onClick }: Props) => {
   return (
-    <div onClick={onClick} className={`${direction}-arrow arrow absolute top-[45%] ${className ?? ''}`}>
+    <div onClick={onClick} className={`${direction}-arrow arrow ${className ?? ''}`}>
       <img src={direction === 'left' ? leftArrow : rightArrow} className="w-full" alt="arrow" />
     </div>
   )

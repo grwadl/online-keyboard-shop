@@ -38,6 +38,10 @@ input[type='number']::-webkit-outer-spin-button {
   min-height: 100vh;
 }
 
+.layout-wrap {
+  flex: 0 0 calc(100vh - 180px);
+}
+
 input[type='checkbox'] {
   -webkit-appearance: none;
   appearance: none;

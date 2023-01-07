@@ -1,3 +1,5 @@
+import { Square } from '../UI/square/Square'
+
 type Props = {
   totalPages: number[]
   active: number
@@ -9,15 +11,13 @@ const PageList = ({ totalPages, className, active, setActive }: Props) => {
   return (
     <>
       {totalPages?.map((p) => (
-        <div
+        <Square
           key={p}
           onClick={() => setActive(p)}
-          className={` py-2 px-4 cursor-pointer duration-300 hover:bg-icon-color ${className ?? ''} ${
-            p === active ? 'bg-main-accent text-white' : 'bg-light-gray text-black'
-          }`}
+          className={`${className ?? ''} ${p === active ? 'bg-main-accent text-white' : 'bg-light-gray text-black'}`}
         >
           {p}
-        </div>
+        </Square>
       ))}
     </>
   )

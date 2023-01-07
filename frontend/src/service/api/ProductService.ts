@@ -4,8 +4,8 @@ import { URL } from '../enums/urls'
 import { deleteAuthed, get as getReq, postAuthed, putAuthed } from './fetch'
 
 class ProductService {
-  static async get(params = ''): Promise<IProduct[]> {
-    return getReq<IProduct[]>(`${URL.PRODUCTS}${params}`)
+  static async get(params = ''): Promise<[IProduct[], number]> {
+    return getReq<[IProduct[], number]>(`${URL.PRODUCTS}${params}`)
   }
 
   static async getOne(id: number): Promise<IProduct> {

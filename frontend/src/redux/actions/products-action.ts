@@ -7,14 +7,15 @@ import { IProduct } from '../types/reducers/products'
 
 export interface ReturnType {
   keyboards: IProduct[]
+  totalProducts: number
 }
 
 const cachedGetProductReq = cached(() => ProductService.get())
 
 const getAllProducts = createAsyncThunk<ReturnType, void, AsyncThunkConfig>(ProductsActions.GET_ALL, async () => {
-  const keyboards = await cachedGetProductReq()
+  const [keyboards, totalProducts] = await cachedGetProductReq()
 
-  return { keyboards }
+  return { keyboards, totalProducts }
 })
 
 const getQuantityOfProducts = createAsyncThunk<number, void, AsyncThunkConfig>(
@@ -27,8 +28,8 @@ const changeFilteredProducts = createAsyncThunk<ReturnType, string, AsyncThunkCo
   async (query) => {
     const actualQuery = query ? `?${query}` : ''
 
-    const keyboards = await ProductService.get(actualQuery)
-    return { keyboards }
+    const [keyboards, totalProducts] = await ProductService.get(actualQuery)
+    return { keyboards, totalProducts }
   }
 )
 

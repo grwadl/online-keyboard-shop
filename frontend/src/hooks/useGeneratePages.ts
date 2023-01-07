@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
-const useGeneratePages = (totalProducts: number) => {
-  const productOnOnePage = useMemo(() => Math.ceil(totalProducts / 10), [totalProducts])
+const useGeneratePages = (totalProducts: number, maxOnPage = 10) => {
+  const productOnOnePage = useMemo(() => Math.ceil(totalProducts / maxOnPage), [totalProducts, maxOnPage])
   const numberedPages = useMemo<number[]>(() => {
     const result: number[] = []
     for (let index = 1; index <= productOnOnePage; index++) {
