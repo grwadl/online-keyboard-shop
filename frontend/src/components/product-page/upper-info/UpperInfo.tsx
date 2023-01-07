@@ -23,7 +23,7 @@ const UpperInfo = ({ keyboard }: Props) => {
   const isInCart = useMemo<boolean>(() => {
     if (!user) return false
     return !!user.cart.find((product) => product.product.id === keyboard.id)
-  }, [user?.cart.length])
+  }, [keyboard.id, user])
 
   const addToCart = () => {
     if (!user) return dispatch(openModal())

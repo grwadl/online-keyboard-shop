@@ -31,7 +31,7 @@ const Homepage = () => {
   useEffect(() => {
     const unifiedQuery = generateQuery(query)
     dispatch(changeFilteredProducts(unifiedQuery))
-  }, [query.filters, query.page, query.search, query.sort])
+  }, [query])
 
   return (
     <div className="flex">

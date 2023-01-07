@@ -4,7 +4,7 @@ const useDebounce = <T extends (...args: any[]) => void>(fn: T, dependency: unkn
   useEffect(() => {
     const timer = setTimeout(() => fn(), delay ?? 500)
     return () => clearTimeout(timer)
-  }, dependency)
+  }, [dependency])
 }
 
 export { useDebounce }
