@@ -52,6 +52,12 @@ export class UserController {
     return user
   }
 
+  @Public(Get('log-out'))
+  async logOut(@Res() res: Response) {
+    res.clearCookie('refreshToken', cookieOptions)
+    return res.status(200).send({ message: 'logged out' })
+  }
+
   @Public(Get('refresh'))
   async signInAgain(
     @Req() { cookies }: Request,

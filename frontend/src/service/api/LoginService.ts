@@ -10,8 +10,7 @@ class LoginService {
     return user
   }
 
-  static async validateToken(token: string): Promise<IUser | null> {
-    if (!token) return null
+  static async validateToken(): Promise<IUser | null> {
     const res = await fetchRefreshedAcessToken()
     if (!res.ok) return null
     const { token: newToken, ...user } = (await res.json()) as IUser
@@ -28,6 +27,10 @@ class LoginService {
 
   static async register(data: LoginData): Promise<void> {
     return post<void>(`${URL.USER}sign-up`, { body: JSON.stringify(data) })
+  }
+
+  static async logOut(): Promise<void> {
+    return get<void>(`${URL.USER}log-out`)
   }
 }
 

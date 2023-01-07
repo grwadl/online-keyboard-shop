@@ -17,17 +17,19 @@ const login = createAsyncThunk<ActionReturn, LoginData, AsyncThunkConfig>(
   }
 )
 
-const logOut = createAction(Actions.LOG_OUT, () => {
-  removeFromStorage('token')
-  return { payload: null }
-})
+const logOut = createAsyncThunk<null, void, AsyncThunkConfig>(
+  Actions.LOG_OUT,
+  async (_, { extra: { LoginService } }) => {
+    removeFromStorage('token')
+    await LoginService.logOut()
+    return null
+  }
+)
 
 const relogin = createAsyncThunk<ActionReturn, void, AsyncThunkConfig>(
   Actions.RELOGIN,
-  async (_, { extra: { LoginService }, rejectWithValue }) => {
-    const token = localStorage.getItem('token') as string
-    if (!token) rejectWithValue(null)
-    const user = await LoginService.validateToken(token)
+  async (_, { extra: { LoginService } }) => {
+    const user = await LoginService.validateToken()
 
     return { user }
   }
