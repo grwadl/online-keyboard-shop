@@ -28,6 +28,7 @@ const Pagination = ({ className }: Props) => {
   }, [activePage])
 
   useEffect(() => {
+    setActivePage(1)
     dispatch(changeLimitAction(limit))
   }, [limit])
 
