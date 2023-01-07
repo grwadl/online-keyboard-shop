@@ -3,7 +3,6 @@ import Button from '@/components/UI/Button'
 import { MessageBox } from '@/components/UI/MessageBox'
 import { MyInput } from '@/components/UI/MyInput'
 import { InputFormikWithErrors } from '@/components/order-page/InputFormik/InputFormikWithErrors'
-import { useAppDispatch } from '@/redux/common/hooks'
 import { LoginService } from '@/service/api/LoginService'
 import { Form, Formik } from 'formik'
 import { useState } from 'react'
@@ -18,7 +17,6 @@ type Props = {
 const initialValues = { email: '', password: '', passwordConfirm: '' }
 
 const RegistrationModal = ({ setAnotherModal }: Props) => {
-  const dispatch = useAppDispatch()
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
   const onSubmit = (data: FieldValues) => {
