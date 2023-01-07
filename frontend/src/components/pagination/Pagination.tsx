@@ -32,12 +32,12 @@ const Pagination = ({ className }: Props) => {
   }, [limit])
 
   return (
-    <div className={`container sm:flex gap-x-20 ${className ?? ''}`}>
+    <div className={`container mb-5 ${className ?? ''}`}>
       <div className="limits-wrap flex items-center gap-4">
         <h3 className="text-icon-color">Products on page: </h3>
         <Limits setLimit={setActiveLimit} activeLimit={limit} limits={avaliableLimits} />
       </div>
-      <div className="pagination-container flex items-center gap-4">
+      <div className="pagination-container flex items-center mt-6 lg:mt-0 gap-4">
         <Arrow className="cursor-pointer" onClick={() => setActivePage((v) => (v <= 1 ? v : v - 1))} direction="left" />
         <PageList setActive={setActivePageHandler} active={activePage} totalPages={numberedPages} />
         <Arrow

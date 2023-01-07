@@ -47,7 +47,7 @@ const Homepage = () => {
 
       <div className="main-part flex-1 relative">
         <Catalog showFiltersMenu={showFiltersMenu} />
-        <Pagination className="flex gap-4 mt-8" />
+        <Pagination className="block lg:flex gap-4 mt-8 items-center lg:flex gap-x-20" />
         {products.loading ? (
           <Loader className="absolute top-1/2 left-1/2" />
         ) : (
