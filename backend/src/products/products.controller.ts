@@ -12,6 +12,12 @@ export class ProductsController {
     private productService: ProductsService,
     private queryParserService: QueryParserService
   ) {}
+
+  @Public(Get('/count'))
+  async getQuantity() {
+    return this.productService.getQuantity()
+  }
+
   @Public(Get())
   getAll(
     @Query(new ParseQueryPipe<FilterProduct>())

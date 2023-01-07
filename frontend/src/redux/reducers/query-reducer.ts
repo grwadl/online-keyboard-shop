@@ -1,12 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { changeFilterAction, changeSearchAction, changeSortAction } from '../actions/query-action'
-import { InititalStateQueery } from '../types/reducers/query-reducer'
+import { changeFilterAction, changePageAction, changeSearchAction, changeSortAction } from '../actions/query-action'
+import { InititalStateQuery } from '../types/reducers/query-reducer'
 
-const initialState: InititalStateQueery = {
+const initialState: InititalStateQuery = {
   filters: '',
-  pagination: '',
+  page: 'page=1',
   search: '',
-  sort: ''
+  sort: '',
+  limit: 'limit=8'
 }
 
 const queryReducer = createReducer(initialState, (builder) => {
@@ -26,6 +27,12 @@ const queryReducer = createReducer(initialState, (builder) => {
     const { payload } = action
 
     state.sort = payload
+  })
+
+  builder.addCase(changePageAction, (state, action) => {
+    const { payload } = action
+
+    state.page = payload
   })
 })
 

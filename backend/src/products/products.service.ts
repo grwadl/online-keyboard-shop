@@ -15,4 +15,8 @@ export class ProductsService {
   getOne(params: FindOneOptions<Keyboard>) {
     return this.keyboardRepository.findOne(params)
   }
+
+  getQuantity() {
+    return this.keyboardRepository.count()
+  }
 }

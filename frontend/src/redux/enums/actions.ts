@@ -16,6 +16,7 @@ const RegisterAction = {
 
 const ProductsActions = {
   GET_ALL: 'getAll',
+  GET_QUANTITY: 'getQuantity',
   CHANGE_FILTERS: 'changeFilters',
   GET_LATEST: 'getLatest',
   GET_CURRENT: 'getCurrent'
@@ -33,7 +34,8 @@ const SearchAction = {
 const QueryAction = {
   CHANGE_FILTERS: 'changeFiltersQuery',
   CHANGE_SEARCH: 'changeSearchQuery',
-  CHANGE_SORT: 'changeSortQuery'
+  CHANGE_SORT: 'changeSortQuery',
+  CHANGE_PAGE: 'changePage'
 }
 
 const PageActions = {

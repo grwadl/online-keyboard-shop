@@ -1,6 +1,6 @@
 import { fetchCurrentProduct, fetchLatestProducts } from '@/redux/actions/product-page-actions'
 import { createReducer, isAllOf } from '@reduxjs/toolkit'
-import { IProduct } from './products'
+import { IProduct } from '../types/reducers/products'
 
 interface InitialState {
   product: IProduct | null
@@ -18,6 +18,7 @@ const productPageReducer = createReducer(initialState, (builder) => {
   builder.addCase(fetchCurrentProduct.pending, (state) => {
     state.isLoading = true
   })
+
   builder.addCase(fetchLatestProducts.fulfilled, (state, action) => {
     const {
       payload: { keyboards }

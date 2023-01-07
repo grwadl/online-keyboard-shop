@@ -1,4 +1,4 @@
-import { createAction, PrepareAction } from '@reduxjs/toolkit'
+import { PrepareAction, createAction } from '@reduxjs/toolkit'
 import { QueryAction } from '../enums/actions'
 import { FilterSection } from '../types/reducers/filter-reducer'
 
@@ -27,4 +27,8 @@ const changeSortAction = createAction<PrepareAction<string>>(QueryAction.CHANGE_
   payload: sort ? `sort=${sort}` : ''
 }))
 
-export { changeFilterAction, changeSearchAction, changeSortAction }
+const changePageAction = createAction<PrepareAction<string>>(QueryAction.CHANGE_PAGE, (page: number) => ({
+  payload: 'page=' + page
+}))
+
+export { changeFilterAction, changeSearchAction, changeSortAction, changePageAction }

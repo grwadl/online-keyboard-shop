@@ -2,9 +2,10 @@ import { Loader } from '@/components/base/loading/Loader'
 import { Catalog } from '@/components/catalog/Catalog'
 import { FilterList } from '@/components/filter/FilterList'
 import { MobileFilterList } from '@/components/filter/MobileFilterList'
+import { Pagination } from '@/components/pagination/Pagination'
 import { ProductsList } from '@/components/products/ProductsList'
 import { closeFilters, openFilters } from '@/redux/actions/modal-actions'
-import { changeFilteredProducts } from '@/redux/actions/products-action'
+import { changeFilteredProducts, getQuantityOfProducts } from '@/redux/actions/products-action'
 import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
 import { generateQuery } from '@/utils/generateQuery'
 import { useEffect } from 'react'
@@ -24,9 +25,13 @@ const Homepage = () => {
   }
 
   useEffect(() => {
+    dispatch(getQuantityOfProducts())
+  }, [])
+
+  useEffect(() => {
     const unifiedQuery = generateQuery(query)
     dispatch(changeFilteredProducts(unifiedQuery))
-  }, [query.filters, query.pagination, query.search, query.sort])
+  }, [query.filters, query.page, query.search, query.sort])
 
   return (
     <div className="flex">
@@ -42,6 +47,7 @@ const Homepage = () => {
 
       <div className="main-part flex-1 relative">
         <Catalog showFiltersMenu={showFiltersMenu} />
+        <Pagination className="flex gap-4 mt-8" />
         {products.loading ? (
           <Loader className="absolute top-1/2 left-1/2" />
         ) : (

@@ -1,14 +1,14 @@
 import { changeFilters } from '@/redux/actions/filters-action'
 import { changeFilterAction } from '@/redux/actions/query-action'
 import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
-import React, { useCallback, useEffect } from 'react'
+import React, { memo, useCallback, useEffect } from 'react'
 import { SelectFilter } from '../UI/SelectFilter'
 
 type Props = {
   className?: string
 }
 
-const FilterList = ({ className }: Props) => {
+const FilterList = memo(({ className }: Props) => {
   const dispatch = useAppDispatch()
   const selectedFilters = useAppSelector(({ filters }) => filters)
 
@@ -28,6 +28,6 @@ const FilterList = ({ className }: Props) => {
       <SelectFilter onChange={onChangeFilterHandler} name="Type" filter={selectedFilters.type} />
     </div>
   )
-}
+})
 
 export { FilterList }

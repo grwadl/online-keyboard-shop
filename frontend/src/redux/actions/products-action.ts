@@ -17,6 +17,11 @@ const getAllProducts = createAsyncThunk<ReturnType, void, AsyncThunkConfig>(Prod
   return { keyboards }
 })
 
+const getQuantityOfProducts = createAsyncThunk<number, void, AsyncThunkConfig>(
+  ProductsActions.GET_QUANTITY,
+  async (_, { extra: { ProductService } }) => await ProductService.countProduct()
+)
+
 const changeFilteredProducts = createAsyncThunk<ReturnType, string, AsyncThunkConfig>(
   ProductsActions.CHANGE_FILTERS,
   async (query) => {
@@ -27,4 +32,4 @@ const changeFilteredProducts = createAsyncThunk<ReturnType, string, AsyncThunkCo
   }
 )
 
-export { getAllProducts, changeFilteredProducts }
+export { getAllProducts, changeFilteredProducts, getQuantityOfProducts }
