@@ -1,11 +1,12 @@
 import successImage from '@/assets/images/success.svg'
-import { InputFormikWithErrors } from '@/components/order-page/InputFormik/InputFormikWithErrors'
 import Button from '@/components/UI/Button'
 import { MessageBox } from '@/components/UI/MessageBox'
 import { MyInput } from '@/components/UI/MyInput'
-import { register as registerFunc } from '@/redux/actions/login-action'
-import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
+import { InputFormikWithErrors } from '@/components/order-page/InputFormik/InputFormikWithErrors'
+import { useAppDispatch } from '@/redux/common/hooks'
+import { LoginService } from '@/service/api/LoginService'
 import { Form, Formik } from 'formik'
+import { useState } from 'react'
 import { FieldValues } from 'react-hook-form'
 import { isDataLoginData } from './common'
 import { registrationSchema } from './schema'
@@ -18,10 +19,13 @@ const initialValues = { email: '', password: '', passwordConfirm: '' }
 
 const RegistrationModal = ({ setAnotherModal }: Props) => {
   const dispatch = useAppDispatch()
-  const { isSuccess } = useAppSelector(({ register }) => register)
+  const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
   const onSubmit = (data: FieldValues) => {
-    if (isDataLoginData(data)) dispatch(registerFunc(data))
+    if (isDataLoginData(data))
+      LoginService.register(data)
+        .then(() => setIsSuccess(true))
+        .catch(() => setIsSuccess(false))
   }
 
   if (isSuccess)
@@ -29,7 +33,7 @@ const RegistrationModal = ({ setAnotherModal }: Props) => {
       <MessageBox
         imageSrc={successImage}
         title="Success!"
-        subtitle="Now you can login into your account"
+        subtitle="Now you can should confirm your email address"
         className="modal relative flex flex-col w-full h-full items-center justify-center"
       >
         <Button onClick={setAnotherModal} type="button" className="w-full mt-4">

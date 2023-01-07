@@ -1,6 +1,6 @@
 import { MAX_PRODUCT_QUANTITY, MIN_PRODUCT_QUANTITY } from '@/components/cart-page/CartList'
 import { removeFromStorage } from '@/service/localstorage/storage'
-import { createAction, createAsyncThunk, PrepareAction } from '@reduxjs/toolkit'
+import { PrepareAction, createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { Actions } from '../enums/actions'
 import { AsyncThunkConfig } from '../types/global.types'
 import { ICart, IUser, LoginData } from '../types/reducers/login'
@@ -29,14 +29,6 @@ const relogin = createAsyncThunk<ActionReturn, void, AsyncThunkConfig>(
     if (!token) rejectWithValue(null)
     const user = await LoginService.validateToken(token)
 
-    return { user }
-  }
-)
-
-const register = createAsyncThunk<ActionReturn, LoginData, AsyncThunkConfig>(
-  Actions.REGISTER,
-  async (data, { extra: { LoginService } }) => {
-    const user = await LoginService.register(data)
     return { user }
   }
 )
@@ -86,7 +78,6 @@ export {
   login,
   relogin,
   removeError,
-  register,
   logOut,
   addProductToCart,
   removeProductFromCart,

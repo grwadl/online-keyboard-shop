@@ -8,10 +8,9 @@ import { UserRepository } from './repository/user.repository'
 @Injectable()
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
-  create(createUserDto: CreateUserDto): Promise<User> {
+  create(createUserDto: CreateUserDto | UpdateUserDto): Promise<User> {
     return this.userRepository.save({
-      ...createUserDto,
-      refreshToken: 'fsdfsdfsdf'
+      ...createUserDto
     })
   }
 
