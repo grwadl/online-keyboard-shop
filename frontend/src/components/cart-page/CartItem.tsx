@@ -2,10 +2,10 @@ import { useDebounce } from '@/hooks/useDebounce'
 import { changeProductQuantity } from '@/redux/actions/login-action'
 import { useAppDispatch } from '@/redux/common/hooks'
 import { ICart } from '@/redux/types/reducers/login'
-import { useEffect, useState } from 'react'
+import { memo, useMemo } from 'react'
 import { CloseButton } from '../UI/CloseButton'
-import './cart-item.scss'
 import { MAX_PRODUCT_QUANTITY, MIN_PRODUCT_QUANTITY } from './CartList'
+import './cart-item.scss'
 
 type Props = {
   cart: ICart
@@ -15,17 +15,13 @@ type Props = {
   removeFromCart: (cart: ICart) => void
 }
 
-const CartItem = ({ cart, onChangeQuantity, onMinusQuantity, onPlusQuantity, removeFromCart }: Props) => {
+const CartItem = memo(({ cart, onChangeQuantity, onMinusQuantity, onPlusQuantity, removeFromCart }: Props) => {
+  let isFirstRender = useMemo<boolean>(() => true, [])
   const dispatch = useAppDispatch()
-  const [isFirstRender, setIsFirstRender] = useState<boolean>(true)
-
-  useEffect(() => {
-    setIsFirstRender(false)
-  }, [])
 
   useDebounce(
     () => {
-      if (isFirstRender) return
+      if (isFirstRender) return (isFirstRender = false)
       dispatch(changeProductQuantity({ id: cart.id, quantity: cart.quantity }))
     },
     [cart.quantity],
@@ -64,6 +60,6 @@ const CartItem = ({ cart, onChangeQuantity, onMinusQuantity, onPlusQuantity, rem
       <CloseButton onClick={() => removeFromCart(cart)} className="absolute bottom-2 right-2 text-xl cursor-pointer" />
     </div>
   )
-}
+})
 
 export { CartItem }

@@ -31,6 +31,8 @@ const CartPage = () => {
       </MessageBox>
     )
 
+  console.log('rerender')
+
   return (
     <div className="cart-page">
       <CommonHeading subtitle={`${addedToCartQuantity} product(s)`} title="Cart" />

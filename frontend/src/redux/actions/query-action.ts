@@ -1,3 +1,4 @@
+import { RangeValue } from '@/components/UI/input-range/InputRange'
 import { PrepareAction, createAction } from '@reduxjs/toolkit'
 import { QueryAction } from '../enums/actions'
 import { FilterSection } from '../types/reducers/filter-reducer'
@@ -35,4 +36,15 @@ const changeLimitAction = createAction<PrepareAction<string>>(QueryAction.CHANGE
   payload: 'limit=' + limit
 }))
 
-export { changeFilterAction, changeSearchAction, changeSortAction, changePageAction, changeLimitAction }
+const changePriceAction = createAction<PrepareAction<string>>(QueryAction.CHANGE_PRICE, (price: RangeValue) => ({
+  payload: `priceFrom=${price.min}&priceTo=${price.max}`
+}))
+
+export {
+  changeFilterAction,
+  changeSearchAction,
+  changeSortAction,
+  changePageAction,
+  changeLimitAction,
+  changePriceAction
+}

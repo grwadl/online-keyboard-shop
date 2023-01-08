@@ -22,6 +22,12 @@ class FilterProduct {
 
   @IsOptional()
   limit: number
+
+  @IsOptional()
+  fromPrice: number
+
+  @IsOptional()
+  toPrice: number
 }
 
 export { FilterProduct }

@@ -3,6 +3,7 @@ import {
   changeFilterAction,
   changeLimitAction,
   changePageAction,
+  changePriceAction,
   changeSearchAction,
   changeSortAction
 } from '../actions/query-action'
@@ -45,6 +46,12 @@ const queryReducer = createReducer(initialState, (builder) => {
     const { payload } = action
 
     state.limit = payload
+  })
+
+  builder.addCase(changePriceAction, (state, action) => {
+    const { payload } = action
+
+    state.filters += payload
   })
 })
 
