@@ -9,11 +9,11 @@ interface GetCurrentReturnType {
   keyboard: IProduct
 }
 
-const fetchLatestProducts = createAsyncThunk<ReturnType, void, AsyncThunkConfig>(
+const fetchLatestProducts = createAsyncThunk<Omit<ReturnType, 'totalProducts'>, void, AsyncThunkConfig>(
   ProductsActions.GET_LATEST,
   async () => {
     const query = '?limit=15'
-    const keyboards = await ProductService.get(query)
+    const [keyboards] = await ProductService.get(query)
     return { keyboards }
   }
 )

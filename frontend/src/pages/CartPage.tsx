@@ -1,9 +1,9 @@
 import cartEmpty from '@/assets/images/empty-cart.svg'
-import { CartList } from '@/components/cart-page/CartList'
-import { TotalPayment } from '@/components/cart-page/payment/TotalPayment'
 import Button from '@/components/UI/Button'
 import CommonHeading from '@/components/UI/CommonHeading'
 import { MessageBox } from '@/components/UI/MessageBox'
+import { CartList } from '@/components/cart-page/CartList'
+import { TotalPayment } from '@/components/cart-page/payment/TotalPayment'
 import { useAppSelector } from '@/redux/common/hooks'
 import { useEffect, useMemo } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -15,7 +15,7 @@ const CartPage = () => {
 
   useEffect(() => {
     if (!user?.email) navigate('../', { replace: true })
-  }, [])
+  }, [user?.email])
 
   if (!addedToCartQuantity)
     return (

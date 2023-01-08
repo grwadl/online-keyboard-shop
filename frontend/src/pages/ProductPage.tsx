@@ -37,7 +37,7 @@ const ProductPage = () => {
 
   const keyboards = useMemo(
     () => latestProducts?.filter((p) => p.id !== (product as IProduct)?.id),
-    [latestProducts.length, product?.id]
+    [latestProducts, product]
   )
 
   if (isLoading)

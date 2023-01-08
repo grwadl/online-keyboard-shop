@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Arrow from '../arrows/Arrow'
 import {
   handleMoveByArrow,
@@ -23,15 +23,23 @@ const Slider = <T,>({ slides, className, renderItem }: Props<T>) => {
 
   const ref = useRef<HTMLDivElement>(null)
 
-  const resizeWindowHandler = useCallback(() => resizeListener({ ref, setMaxScrollValue, setWidthOfElement }), [])
+  const memoizedSlider = useMemo(
+    () => (
+      <div ref={ref} className="slides-wrap flex w-full gap-2">
+        {slides?.map(renderItem)}
+      </div>
+    ),
+    [slides, renderItem]
+  )
 
   useEffect(() => {
+    const resizeWindowHandler = () => resizeListener({ ref, setMaxScrollValue, setWidthOfElement })
     resizeWindowHandler()
     window.addEventListener('resize', resizeWindowHandler)
     return () => {
       window.removeEventListener('resize', resizeWindowHandler)
     }
-  }, [ref.current])
+  }, [slides])
 
   const onTouchStart = useCallback(
     (e: React.TouchEvent<HTMLDivElement>) => onTouchStartHandler({ e, setIsDown, setStartX }),
@@ -52,7 +60,7 @@ const Slider = <T,>({ slides, className, renderItem }: Props<T>) => {
   const onMoveByArrow = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) =>
       handleMoveByArrow({ e, maxScrollValue, previousTransition, ref, setPreviousTransition, widthOfElement }),
-    [maxScrollValue, previousTransition]
+    [maxScrollValue, previousTransition, widthOfElement]
   )
 
   return (
@@ -65,15 +73,13 @@ const Slider = <T,>({ slides, className, renderItem }: Props<T>) => {
       <Arrow
         onClick={onMoveByArrow}
         direction="left"
-        className="hidden md:block w-8 left-0 cursor-pointer p-2 bg-white hover:bg-border-color duration-500 z-[1]"
+        className="hidden md:block w-8 left-0 absolute top-[45%] cursor-pointer p-2 bg-white hover:bg-border-color duration-500 z-[1]"
       />
-      <div ref={ref} className="slides-wrap flex w-full gap-2">
-        {slides?.map(renderItem)}
-      </div>
+      {memoizedSlider}
       <Arrow
         onClick={onMoveByArrow}
         direction="right"
-        className="hidden md:block w-8 right-0 cursor-pointer p-2 bg-white hover:bg-border-color duration-500 z-[1]"
+        className="hidden md:block w-8 right-0 absolute top-[45%] cursor-pointer p-2 bg-white hover:bg-border-color duration-500 z-[1]"
       />
     </div>
   )

@@ -1,7 +1,7 @@
 import filterIcon from '@/assets/icons/filter.png'
 import { useAppSelector } from '@/redux/common/hooks'
-import { SortBar } from '../sort/SortBar'
 import CommonHeading from '../UI/CommonHeading'
+import { SortBar } from '../sort/SortBar'
 import './catalog.scss'
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 }
 
 const Catalog = ({ className, showFiltersMenu }: Props) => {
-  const productsQuantity = useAppSelector(({ products }) => products.keyboards)?.length ?? 0
+  const productsQuantity = useAppSelector(({ products }) => products.totalProducts) ?? 0
 
   return (
     <div className={`${className ?? ''} flex justify-between items-center`}>
