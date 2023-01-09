@@ -1,6 +1,8 @@
+import placeholder from '@/assets/shop-placeholder.png'
 import Button from '@/components/UI/Button'
 import { Hr } from '@/components/UI/Hr'
 import { Tag } from '@/components/UI/Tag'
+import { LazyLoad } from '@/components/UI/lazy-load/LazyLoad'
 import { addProductToCart, removeProductFromCart } from '@/redux/actions/login-action'
 import { openModal } from '@/redux/actions/modal-actions'
 import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
@@ -34,7 +36,7 @@ const UpperInfo = ({ keyboard }: Props) => {
   return (
     <div className="product-wrapper flex flex-wrap gap-2 md:gap-8 mb-5">
       <div className="product-image-wrapper flex justify-center">
-        <img src={image} className="max-h-[500px] object-cover w-auto" alt={name} />
+        <LazyLoad src={image} className="max-h-[500px] w-full object-cover" alt={name} placeholder={placeholder} />
       </div>
       <div className="product-general-info-wrapper">
         <h2 className="product-name text-3xl text-header-gray mb-5 md:mb-10">{name}</h2>
