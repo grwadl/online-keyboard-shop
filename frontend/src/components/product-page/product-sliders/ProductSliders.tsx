@@ -1,5 +1,5 @@
-import Product from '@/components/products/Product'
 import { Slider } from '@/components/UI/slider/Slider'
+import Product from '@/components/products/Product'
 import { IProduct } from '@/redux/types/reducers/products'
 
 type Props = {
@@ -22,4 +22,4 @@ const ProductSliderWrapper = ({ keyboards }: Props) => {
   )
 }
 
-export { ProductSliderWrapper }
+export default ProductSliderWrapper
