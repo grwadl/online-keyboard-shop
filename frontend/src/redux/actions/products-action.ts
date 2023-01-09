@@ -1,5 +1,5 @@
 import { ProductService } from '@/service/api/ProductService'
-import { cached } from '@/service/cache'
+import { cached, cachedMap } from '@/service/cache'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ProductsActions } from '../enums/actions'
 import { AsyncThunkConfig } from '../types/global.types'
@@ -18,17 +18,20 @@ const getAllProducts = createAsyncThunk<ReturnType, void, AsyncThunkConfig>(Prod
   return { keyboards, totalProducts }
 })
 
+const cachedGetQuantityReq = cached(() => ProductService.countProduct())
+
 const getQuantityOfProducts = createAsyncThunk<number, void, AsyncThunkConfig>(
   ProductsActions.GET_QUANTITY,
-  async (_, { extra: { ProductService } }) => await ProductService.countProduct()
+  async () => await cachedGetQuantityReq()
 )
+
+const cachedFilters = cachedMap<[IProduct[], number]>()
 
 const changeFilteredProducts = createAsyncThunk<ReturnType, string, AsyncThunkConfig>(
   ProductsActions.CHANGE_FILTERS,
   async (query) => {
     const actualQuery = query ? `?${query}` : ''
-
-    const [keyboards, totalProducts] = await ProductService.get(actualQuery)
+    const [keyboards, totalProducts] = await cachedFilters(() => ProductService.get(actualQuery), actualQuery)
     return { keyboards, totalProducts }
   }
 )
