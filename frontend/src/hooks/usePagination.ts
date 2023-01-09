@@ -8,7 +8,7 @@ const usePagination = (totalPages: number[], active: number): [number[], boolean
     if (isFirstActiveAndLong) return Array.from({ length: MAX_MIDDLE_SQUARE_LENGTH - 1 }, (_, i) => i + 2)
 
     const isLastActiveAndLong =
-      totalPages.length + 2 - active <= PAGINATION_STEP * 2 && MAX_MIDDLE_SQUARE_LENGTH + 1 <= totalPages.length
+      totalPages.length + 2 - active <= PAGINATION_STEP * 2 && MAX_MIDDLE_SQUARE_LENGTH + 1 <= totalPages.length + 1
     if (isLastActiveAndLong)
       return Array.from(
         { length: MAX_MIDDLE_SQUARE_LENGTH - 1 },
