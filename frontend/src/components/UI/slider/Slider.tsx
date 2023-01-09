@@ -73,13 +73,13 @@ const Slider = <T,>({ slides, className, renderItem }: Props<T>) => {
       <Arrow
         onClick={onMoveByArrow}
         direction="left"
-        className="hidden md:block w-8 left-0 absolute top-[45%] cursor-pointer p-2 bg-white hover:bg-border-color duration-500 z-[1]"
+        className="hidden md:block w-8 left-0 absolute top-[45%] cursor-pointer p-2 bg-white hover:bg-border-color duration-500 z-[3]"
       />
       {memoizedSlider}
       <Arrow
         onClick={onMoveByArrow}
         direction="right"
-        className="hidden md:block w-8 right-0 absolute top-[45%] cursor-pointer p-2 bg-white hover:bg-border-color duration-500 z-[1]"
+        className="hidden md:block w-8 right-0 absolute top-[45%] cursor-pointer p-2 bg-white hover:bg-border-color duration-500 z-[3]"
       />
     </div>
   )
