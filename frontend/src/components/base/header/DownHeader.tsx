@@ -1,6 +1,6 @@
 import logo from '@/assets/icons/logo.png'
-import { BurgerMenu } from '@/components/UI/burger-menu/BurgerMenu'
 import { MyInput } from '@/components/UI/MyInput'
+import { BurgerMenu } from '@/components/UI/burger-menu/BurgerMenu'
 import { useDebounce } from '@/hooks/useDebounce'
 import { toggleBurgerMenu } from '@/redux/actions/modal-actions'
 import { changeSearchAction } from '@/redux/actions/query-action'
@@ -18,7 +18,7 @@ const DownHeader = ({ user }: Props) => {
   const dispatch = useAppDispatch()
   const { pathname } = useLocation()
   const { burgerMenuOpen } = useAppSelector(({ modal }) => modal)
-  const { search } = useAppSelector(({ query }) => query)
+  const { name: search } = useAppSelector(({ query }) => query)
 
   const [value, setValue] = useState('')
   const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)

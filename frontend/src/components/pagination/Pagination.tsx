@@ -1,14 +1,17 @@
 import { useGeneratePages } from '@/hooks/useGeneratePages'
 import { changeLimitAction, changePageAction } from '@/redux/actions/query-action'
 import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
-import { useCallback, useEffect, useState } from 'react'
-import Arrow from '../UI/arrows/Arrow'
-import { Limits } from './Limits'
+import { memo, useCallback, useEffect, useState } from 'react'
+import Arr from '../UI/arrows/Arrow'
+import { Limits as Lim } from './Limits'
 import { PageList } from './PageList'
 
 type Props = {
   className?: string
 }
+
+const Arrow = memo(Arr)
+const Limits = memo(Lim)
 
 const avaliableLimits = [4, 8, 12, 16]
 
@@ -18,7 +21,8 @@ const Pagination = ({ className }: Props) => {
 
   const dispatch = useAppDispatch()
   const { totalProducts } = useAppSelector(({ products }) => products)
-  const numberedPages = useGeneratePages(totalProducts, limit)
+  const { filters, price } = useAppSelector(({ query }) => query)
+  const [numberedPages, isTwoPages] = useGeneratePages(totalProducts, limit)
 
   const setActivePageHandler = useCallback((p: number) => setActivePage(p), [])
   const setActiveLimit = useCallback((lim: number) => setLimit(lim), [])
@@ -26,6 +30,10 @@ const Pagination = ({ className }: Props) => {
   useEffect(() => {
     dispatch(changePageAction(activePage))
   }, [activePage])
+
+  useEffect(() => {
+    setActivePage(1)
+  }, [filters, price])
 
   useEffect(() => {
     setActivePage(1)
@@ -40,7 +48,12 @@ const Pagination = ({ className }: Props) => {
       </div>
       <div className="pagination-container flex items-center mt-6 xl:mt-0 gap-4">
         <Arrow className="cursor-pointer" onClick={() => setActivePage((v) => (v <= 1 ? v : v - 1))} direction="left" />
-        <PageList setActive={setActivePageHandler} active={activePage} totalPages={numberedPages} />
+        <PageList
+          isTwoPages={isTwoPages}
+          setActive={setActivePageHandler}
+          active={activePage}
+          totalPages={numberedPages}
+        />
         <Arrow
           className="cursor-pointer"
           onClick={() => setActivePage((v) => (v >= numberedPages.length + 2 ? v : v + 1))}

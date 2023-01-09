@@ -21,12 +21,11 @@
         "NODE_ENV": "local"
       },
       "sourceMaps": true,
+      "smartStep": true,
       "console": "internalConsole",
       "outputCapture": "std",
       "skipFiles": [
         "${workspaceFolder}/backend/node_modules/**/*.js",
-        "${workspaceFolder}/node_modules/**/*.js",
-        "${workspaceFolder}/**/node_modules/**/*.js",
         "<node_internals>/**/*.js"
       ]
     }

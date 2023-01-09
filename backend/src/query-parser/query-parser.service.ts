@@ -1,15 +1,26 @@
 import { Injectable } from '@nestjs/common'
-import { FindManyOptions, In, Like } from 'typeorm'
+import { Between, FindManyOptions, In, Like } from 'typeorm'
+
+type BetweenStatement = { lowerThan: number; greaterThan: number }
 
 export const isArray = (data: Array<any> | unknown): data is Array<any> =>
   Array.isArray(data)
+
+const isObject = (data: any): data is Record<string, unknown> =>
+  typeof data === 'object'
+const isBetweenStatements = (
+  data: Record<string, unknown>
+): data is BetweenStatement => 'lowerThan' in data && 'greaterThan' in data
 
 const isLikeStatement = (value: unknown): value is string =>
   typeof value === 'string' && value.startsWith('~')
 
 const generateQuery = (value: Array<any> | unknown) => {
+  if (!value) return
   if (isArray(value)) return In<unknown[]>(value)
   if (isLikeStatement(value)) return Like(`%${value.slice(1)}%`)
+  if (isObject(value) && isBetweenStatements(value))
+    return Between(value.greaterThan, value.lowerThan)
   return value
 }
 
@@ -20,7 +31,7 @@ const handleSorting = (sort: string) => {
   const sortType = sort.charAt(0) === '-' ? 'DESC' : 'ASC'
   const fieldToSort = sort.slice(1)
 
-  return { [fieldToSort]: sortType }
+  return { order: { [fieldToSort]: sortType } }
 }
 
 const handlePagination = (page: number, limit: number) => {
@@ -39,7 +50,7 @@ export class QueryParserService {
     const { sort, page, limit, ...filters } = parsedQuery
     const res = {
       where: {},
-      order: handleSorting(sort),
+      ...handleSorting(sort),
       ...handlePagination(+page, +limit)
     }
 

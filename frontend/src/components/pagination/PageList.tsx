@@ -8,12 +8,13 @@ type Props = {
   active: number
   className?: string
   setActive: (value: number) => void
+  isTwoPages: boolean
 }
 
 export const PAGINATION_STEP = 1
 export const MAX_MIDDLE_SQUARE_LENGTH = 5
 
-const PageList = memo(({ totalPages, className, active, setActive }: Props) => {
+const PageList = memo(({ totalPages, className, active, setActive, isTwoPages }: Props) => {
   const [showedPages, isShowingLeftDot, isShowingRightDot] = usePagination(totalPages, active)
 
   return (
@@ -27,14 +28,16 @@ const PageList = memo(({ totalPages, className, active, setActive }: Props) => {
       {isShowingLeftDot && <Square className="bg-light-gray text-black">...</Square>}
       <SquareMiddlePagesList active={active} setActive={setActive} showedPages={showedPages} />
       {isShowingRightDot && <Square className="bg-light-gray text-black">...</Square>}
-      <Square
-        onClick={() => setActive(totalPages.length + 2)}
-        className={`${className ?? ''} ${
-          totalPages.length + 2 === active ? 'bg-main-accent text-white' : 'bg-light-gray text-black'
-        }`}
-      >
-        {totalPages.length + 2}
-      </Square>
+      {(totalPages.length !== 0 || isTwoPages) && (
+        <Square
+          onClick={() => setActive(totalPages.length + 2)}
+          className={`${className ?? ''} ${
+            totalPages.length + 2 === active ? 'bg-main-accent text-white' : 'bg-light-gray text-black'
+          }`}
+        >
+          {totalPages.length + 2}
+        </Square>
+      )}
     </>
   )
 })
