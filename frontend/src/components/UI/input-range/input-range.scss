@@ -1,7 +1,12 @@
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 .range-input::-webkit-slider-thumb {
-  background-color: #f1f5f7;
-  border: none;
-  border-radius: 50%;
+  -webkit-appearance: none;
+  background: white;
+  border: 2px solid var(--main-accent);
   box-shadow: 0 0 1px 1px #ced4da;
   cursor: pointer;
   height: 18px;
@@ -13,7 +18,7 @@
 
 /* For Firefox browsers */
 .range-input::-moz-range-thumb {
-  background-color: #f1f5f7;
+  background: var(--main-accent);
   border: none;
   border-radius: 50%;
   box-shadow: 0 0 1px 1px #ced4da;
