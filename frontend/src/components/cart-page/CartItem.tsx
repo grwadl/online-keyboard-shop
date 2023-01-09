@@ -1,9 +1,11 @@
+import placeholder from '@/assets/shop-placeholder.png'
 import { useDebounce } from '@/hooks/useDebounce'
 import { changeProductQuantity } from '@/redux/actions/login-action'
 import { useAppDispatch } from '@/redux/common/hooks'
 import { ICart } from '@/redux/types/reducers/login'
 import { memo, useMemo } from 'react'
 import { CloseButton } from '../UI/CloseButton'
+import { LazyLoad } from '../UI/lazy-load/LazyLoad'
 import { MAX_PRODUCT_QUANTITY, MIN_PRODUCT_QUANTITY } from './CartList'
 import './cart-item.scss'
 
@@ -32,7 +34,7 @@ const CartItem = memo(({ cart, onChangeQuantity, onMinusQuantity, onPlusQuantity
     <div className="cart-item flex flex-wrap relative w-full gap-5 justify-between items-center p-2 cursor-pointer">
       <div className="cart-product-general-info basis-full md:basis-[460px] flex gap-3 items-center">
         <div className="cart-item-img-wrap w-32 h-24 flex justify-center">
-          <img src={cart.product.image} className="h-full object-contain" alt="product image" />
+          <LazyLoad src={cart.product.image} className="h-full w-full" alt="product image" placeholder={placeholder} />
         </div>
         <div className="cart-product-name max-w -xs overflow-hidden">{cart.product.name}</div>
       </div>

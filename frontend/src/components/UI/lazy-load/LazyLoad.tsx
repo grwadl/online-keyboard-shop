@@ -26,13 +26,13 @@ const LazyLoad = (props: Props) => {
       {isIntersecting && (
         <>
           <img
-            className={`w-full h-full absolute z-[1] ${isLoaded ? 'opacity-1' : 'opacity-0'}`}
+            className={`w-full h-full object-cover absolute z-[1] ${isLoaded ? 'opacity-1' : 'opacity-0'}`}
             src={src}
             alt={alt}
             onLoad={onLoad}
           />
           <img
-            className={`w-full h-full absolute z-[2] ${isLoaded ? 'disappearing' : 'appearing'}`}
+            className={`w-full h-full object-cover absolute z-[2] ${isLoaded ? 'disappearing' : 'appearing'}`}
             src={placeholder}
             alt={alt}
           />
