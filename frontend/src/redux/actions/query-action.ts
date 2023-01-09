@@ -37,7 +37,7 @@ const changeLimitAction = createAction<PrepareAction<string>>(QueryAction.CHANGE
 }))
 
 const changePriceAction = createAction<PrepareAction<string>>(QueryAction.CHANGE_PRICE, (price: RangeValue) => ({
-  payload: `priceFrom=${price.min}&priceTo=${price.max}`
+  payload: `price=${price.min}gt,${price.max}lt`
 }))
 
 export {

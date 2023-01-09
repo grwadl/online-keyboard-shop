@@ -1,5 +1,6 @@
 import { useDebounce } from '@/hooks/useDebounce'
 import React, { useEffect, useRef, useState } from 'react'
+import { MyInput } from '../MyInput'
 import './input-range.scss'
 
 type Props = {
@@ -45,10 +46,24 @@ const InputRange = ({ max, min, step, className, onChangeValuesFunc }: Props) =>
     lineBetweenRef.current.style.right = marginRight + '%'
   }, [value.min, value.max, max])
 
-  useDebounce(() => onChangeValuesFunc(value), [value.max, value.min], 300)
+  useDebounce(() => max !== 0 && onChangeValuesFunc(value), [value.max, value.min], 300)
 
   return (
     <div className={`input-range-wrapper ${className ?? ''}`}>
+      <div className="input-range-input-text-container mb-5 flex justify-between">
+        <MyInput
+          value={value.min}
+          className="flex-grow-0 flex-shrink-1 border text-center max-w-[100px]"
+          type="number"
+          onChange={onChangeMin}
+        />
+        <MyInput
+          value={value.max}
+          className="flex-grow-0 flex-shrink-1 border text-center max-w-[100px]"
+          type="number"
+          onChange={onChangeMax}
+        />
+      </div>
       <div className="range-inputs-container relative">
         <div className="line z-[1] bg-light-gray w-full h-1 relative top-[3px]" />
         <div className="relative input-wrap h-4">

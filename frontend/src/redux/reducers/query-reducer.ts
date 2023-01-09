@@ -13,8 +13,9 @@ const initialState: InititalStateQuery = {
   filters: '',
   page: 'page=1',
   search: '',
-  sort: '',
-  limit: 'limit=8'
+  sort: 'sort=-name',
+  limit: 'limit=8',
+  price: 'price=0gt,10000lt'
 }
 
 const queryReducer = createReducer(initialState, (builder) => {
@@ -51,7 +52,7 @@ const queryReducer = createReducer(initialState, (builder) => {
   builder.addCase(changePriceAction, (state, action) => {
     const { payload } = action
 
-    state.filters += payload
+    state.price = payload
   })
 })
 

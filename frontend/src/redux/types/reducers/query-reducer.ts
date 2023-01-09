@@ -4,6 +4,7 @@ interface InititalStateQuery {
   sort: string
   page: string
   limit: string
+  price: string
 }
 
 export type { InititalStateQuery }

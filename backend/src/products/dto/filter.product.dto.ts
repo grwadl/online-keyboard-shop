@@ -24,10 +24,7 @@ class FilterProduct {
   limit: number
 
   @IsOptional()
-  fromPrice: number
-
-  @IsOptional()
-  toPrice: number
+  price: number
 }
 
 export { FilterProduct }

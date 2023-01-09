@@ -37,7 +37,8 @@ const QueryAction = {
   CHANGE_SORT: 'changeSortQuery',
   CHANGE_PAGE: 'changePage',
   CHANGE_LIMIT: 'changeLimit',
-  CHANGE_PRICE: 'changePrice'
+  CHANGE_PRICE: 'changePrice',
+  PARSE_QUERY: 'parseQuery'
 }
 
 const PageActions = {

@@ -27,14 +27,16 @@ const PageList = memo(({ totalPages, className, active, setActive }: Props) => {
       {isShowingLeftDot && <Square className="bg-light-gray text-black">...</Square>}
       <SquareMiddlePagesList active={active} setActive={setActive} showedPages={showedPages} />
       {isShowingRightDot && <Square className="bg-light-gray text-black">...</Square>}
-      <Square
-        onClick={() => setActive(totalPages.length + 2)}
-        className={`${className ?? ''} ${
-          totalPages.length + 2 === active ? 'bg-main-accent text-white' : 'bg-light-gray text-black'
-        }`}
-      >
-        {totalPages.length + 2}
-      </Square>
+      {totalPages.length !== 0 && (
+        <Square
+          onClick={() => setActive(totalPages.length + 2)}
+          className={`${className ?? ''} ${
+            totalPages.length + 2 === active ? 'bg-main-accent text-white' : 'bg-light-gray text-black'
+          }`}
+        >
+          {totalPages.length + 2}
+        </Square>
+      )}
     </>
   )
 })
