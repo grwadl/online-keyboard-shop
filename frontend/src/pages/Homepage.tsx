@@ -51,7 +51,7 @@ const Homepage = () => {
         {products.loading ? (
           <Loader className="absolute top-1/2 left-1/2" />
         ) : (
-          <ProductsList products={products.keyboards} />
+          <ProductsList isLoading={products.loading} products={products.keyboards} />
         )}
       </div>
     </div>

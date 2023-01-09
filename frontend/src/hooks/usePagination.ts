@@ -3,7 +3,8 @@ import { useMemo } from 'react'
 
 const usePagination = (totalPages: number[], active: number): [number[], boolean, boolean] => {
   const showedPages = useMemo<number[]>(() => {
-    const isFirstActiveAndLong = active - 1 <= PAGINATION_STEP * 2 && MAX_MIDDLE_SQUARE_LENGTH + 1 <= totalPages.length
+    const isFirstActiveAndLong =
+      active - 1 <= PAGINATION_STEP * 2 && MAX_MIDDLE_SQUARE_LENGTH + 1 <= totalPages.length + 1
     if (isFirstActiveAndLong) return Array.from({ length: MAX_MIDDLE_SQUARE_LENGTH - 1 }, (_, i) => i + 2)
 
     const isLastActiveAndLong =
