@@ -53,13 +53,13 @@ const InputRange = ({ max, min, step, className, onChangeValuesFunc }: Props) =>
       <div className="input-range-input-text-container mb-5 flex justify-between">
         <MyInput
           value={value.min}
-          className="flex-grow-0 flex-shrink-1 border text-center max-w-[100px]"
+          className="flex-grow-0 flex-shrink-1 border text-center w-2/5 lg:max-w-[100px]"
           type="number"
           onChange={onChangeMin}
         />
         <MyInput
           value={value.max}
-          className="flex-grow-0 flex-shrink-1 border text-center max-w-[100px]"
+          className="flex-grow-0 flex-shrink-1 border text-center w-2/5 lg:max-w-[100px]"
           type="number"
           onChange={onChangeMax}
         />
