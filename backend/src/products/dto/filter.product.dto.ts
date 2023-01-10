@@ -16,6 +16,15 @@ class FilterProduct {
 
   @IsOptional()
   sort: string
+
+  @IsOptional()
+  page: number
+
+  @IsOptional()
+  limit: number
+
+  @IsOptional()
+  price: number
 }
 
 export { FilterProduct }

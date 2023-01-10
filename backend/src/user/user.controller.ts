@@ -34,8 +34,12 @@ export class UserController {
   ) {}
 
   @Public(Post('sign-up'))
-  async signUp(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return await this.authService.register(createUserDto)
+  async signUp(
+    @Body() createUserDto: CreateUserDto,
+    @Res({ passthrough: true }) res: Response
+  ): Promise<void> {
+    await this.authService.register(createUserDto)
+    res.status(201).send({ message: 'Now confirm your email' })
   }
 
   @Public(Post('sign-in'))
@@ -46,6 +50,12 @@ export class UserController {
     const { refreshToken, ...user } = await this.authService.login(signInDto)
     res.cookie('refreshToken', refreshToken, cookieOptions)
     return user
+  }
+
+  @Public(Get('log-out'))
+  async logOut(@Res() res: Response) {
+    res.clearCookie('refreshToken', cookieOptions)
+    return res.status(200).send({ message: 'logged out' })
   }
 
   @Public(Get('refresh'))
@@ -63,6 +73,23 @@ export class UserController {
       throw new UnauthorizedException()
     }
     return user
+  }
+
+  @Public(Get('confirm/:token'))
+  async confirmMail(
+    @Param('token') token: string,
+    @Req() { cookies }: Request,
+    @Res({ passthrough: true }) res: Response
+  ) {
+    const possibleRefreshToken = cookies['refreshToken']
+    if (possibleRefreshToken) return res.redirect(process.env.SITE_URL)
+    const candidate = await this.authService.confirmEmail(token)
+
+    if (!candidate) return res.redirect(process.env.SITE_URL)
+
+    res
+      .cookie('refreshToken', candidate.refreshToken, cookieOptions)
+      .redirect(process.env.SITE_URL)
   }
 
   @Put(':id')

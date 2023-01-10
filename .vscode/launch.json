@@ -16,13 +16,12 @@
         "tsconfig-paths/register"
       ],
       "cwd": "${workspaceRoot}/backend",
-      "protocol": "inspector",
       "internalConsoleOptions": "openOnSessionStart",
       "env": {
-        "NODE_ENV": "local",
-        "NODE_PORT": "9000"
+        "NODE_ENV": "local"
       },
       "sourceMaps": true,
+      "smartStep": true,
       "console": "internalConsole",
       "outputCapture": "std",
       "skipFiles": [

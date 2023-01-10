@@ -1,8 +1,10 @@
-interface InititalStateQueery {
+interface InititalStateQuery {
   filters: string
   search: string
   sort: string
-  pagination: string
+  page: string
+  limit: string
+  price: string
 }
 
-export type { InititalStateQueery }
+export type { InititalStateQuery }

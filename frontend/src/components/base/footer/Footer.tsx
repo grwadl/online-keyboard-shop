@@ -5,8 +5,9 @@ import phone from '@/assets/icons/phone.svg'
 import github from '@/assets/icons/socials/gh.svg'
 import linked from '@/assets/icons/socials/in.svg'
 import inst from '@/assets/icons/socials/inst.svg'
+import { memo } from 'react'
 
-const Footer = () => {
+const Footer = memo(() => {
   return (
     <footer className="footer mt-10 padded-section py-10 text-white bg-header-gray">
       <div className="footer-wrapper max-w-[1600px] mx-auto flex flex-wrap justify-start gap-6 sm:justify-between">
@@ -54,6 +55,6 @@ const Footer = () => {
       </div>
     </footer>
   )
-}
+})
 
 export { Footer }

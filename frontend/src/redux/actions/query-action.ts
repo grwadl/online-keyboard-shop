@@ -1,4 +1,5 @@
-import { createAction, PrepareAction } from '@reduxjs/toolkit'
+import { RangeValue } from '@/components/UI/input-range/InputRange'
+import { PrepareAction, createAction } from '@reduxjs/toolkit'
 import { QueryAction } from '../enums/actions'
 import { FilterSection } from '../types/reducers/filter-reducer'
 
@@ -27,4 +28,23 @@ const changeSortAction = createAction<PrepareAction<string>>(QueryAction.CHANGE_
   payload: sort ? `sort=${sort}` : ''
 }))
 
-export { changeFilterAction, changeSearchAction, changeSortAction }
+const changePageAction = createAction<PrepareAction<string>>(QueryAction.CHANGE_PAGE, (page: number) => ({
+  payload: 'page=' + page
+}))
+
+const changeLimitAction = createAction<PrepareAction<string>>(QueryAction.CHANGE_LIMIT, (limit: number) => ({
+  payload: 'limit=' + limit
+}))
+
+const changePriceAction = createAction<PrepareAction<string>>(QueryAction.CHANGE_PRICE, (price: RangeValue) => ({
+  payload: `price=${price.min}gt,${price.max}lt`
+}))
+
+export {
+  changeFilterAction,
+  changeSearchAction,
+  changeSortAction,
+  changePageAction,
+  changeLimitAction,
+  changePriceAction
+}

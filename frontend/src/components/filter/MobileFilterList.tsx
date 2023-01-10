@@ -1,13 +1,13 @@
 import { changeFilters } from '@/redux/actions/filters-action'
 import { changeFilterAction, changeSearchAction } from '@/redux/actions/query-action'
 import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
-import { SortBar } from '../sort/SortBar'
 import Button from '../UI/Button'
 import { CloseButton } from '../UI/CloseButton'
 import { MyInput } from '../UI/MyInput'
 import { SelectFilter } from '../UI/SelectFilter'
+import { SortBar } from '../sort/SortBar'
 
 import './filter-list.scss'
 
@@ -17,7 +17,7 @@ type Props = {
   closeFiltersMenu: () => void
 }
 
-const MobileFilterList = ({ className, closeFiltersMenu, isOpenFiltersOnMobile }: Props) => {
+const MobileFilterList = memo(({ className, closeFiltersMenu, isOpenFiltersOnMobile }: Props) => {
   const dispatch = useAppDispatch()
   const selectedFilters = useAppSelector(({ filters }) => filters)
   const [searchValue, setSearchValue] = useState<string>('')
@@ -64,6 +64,6 @@ const MobileFilterList = ({ className, closeFiltersMenu, isOpenFiltersOnMobile }
       </div>
     </CSSTransition>
   )
-}
+})
 
 export { MobileFilterList }

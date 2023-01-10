@@ -1,4 +1,5 @@
 import { ProductService } from '@/service/api/ProductService'
+import { cached, cachedMap } from '@/service/cache'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ProductsActions } from '../enums/actions'
 import { AsyncThunkConfig } from '../types/global.types'
@@ -9,19 +10,22 @@ interface GetCurrentReturnType {
   keyboard: IProduct
 }
 
-const fetchLatestProducts = createAsyncThunk<ReturnType, void, AsyncThunkConfig>(
+const cachedGetRelatedProducts = cached(() => ProductService.get('?limit=15'))
+
+const fetchLatestProducts = createAsyncThunk<Omit<ReturnType, 'totalProducts'>, void, AsyncThunkConfig>(
   ProductsActions.GET_LATEST,
   async () => {
-    const query = '?limit=15'
-    const keyboards = await ProductService.get(query)
+    const [keyboards] = await cachedGetRelatedProducts()
     return { keyboards }
   }
 )
 
+const cacheFetchCurrentProduct = cachedMap<IProduct>()
+
 const fetchCurrentProduct = createAsyncThunk<GetCurrentReturnType, number, AsyncThunkConfig>(
   ProductsActions.GET_CURRENT,
   async (id) => {
-    const keyboard = await ProductService.getOne(+id)
+    const keyboard = await cacheFetchCurrentProduct(() => ProductService.getOne(+id), id + '')
     if (!keyboard) throw new Error('not Found')
     return { keyboard }
   }

@@ -4,6 +4,7 @@ import { changeSearchAction } from '@/redux/actions/query-action'
 import { useAppDispatch } from '@/redux/common/hooks'
 import { IProduct } from '@/redux/types/reducers/products'
 import { useCallback } from 'react'
+import { batch } from 'react-redux'
 import Button from '../UI/Button'
 import { MessageBox } from '../UI/MessageBox'
 import Product from './Product'
@@ -11,16 +12,19 @@ import './product-list.scss'
 
 type Props = {
   products: IProduct[]
+  isLoading: boolean
 }
 
-const ProductsList = ({ products }: Props) => {
+const ProductsList = ({ products, isLoading }: Props) => {
   const dispatch = useAppDispatch()
   const clearFilters = useCallback(() => {
-    dispatch(setNullFilters())
-    dispatch(changeSearchAction(''))
+    batch(() => {
+      dispatch(setNullFilters())
+      dispatch(changeSearchAction(''))
+    })
   }, [])
 
-  if (!products?.length)
+  if (!products?.length && !isLoading)
     return (
       <MessageBox
         className="cart-page w-full h-full flex flex-col justify-center items-center"

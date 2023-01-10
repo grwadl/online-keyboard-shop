@@ -8,11 +8,16 @@ export class ProductsService {
   constructor(
     @InjectRepository(Keyboard) private keyboardRepository: Repository<Keyboard>
   ) {}
-  get(params?: FindManyOptions<Keyboard>) {
-    return this.keyboardRepository.find(params)
+
+  get(params?: FindManyOptions<Keyboard>): Promise<[Keyboard[], number]> {
+    return this.keyboardRepository.findAndCount({ ...params, cache: true })
   }
 
   getOne(params: FindOneOptions<Keyboard>) {
-    return this.keyboardRepository.findOne(params)
+    return this.keyboardRepository.findOne({ ...params, cache: true })
+  }
+
+  getQuantity() {
+    return this.keyboardRepository.count({ cache: true })
   }
 }

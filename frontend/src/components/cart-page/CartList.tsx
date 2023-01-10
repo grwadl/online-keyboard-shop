@@ -25,6 +25,7 @@ const CartList = ({ cart, className }: Props) => {
     if (cart.quantity === MAX_PRODUCT_QUANTITY) return
     dispatch(changeProductQuantityLocally({ quantity: cart.quantity + 1, id: cart.id }))
   }, [])
+
   const onMinusQuantity = useCallback((cart: ICart) => {
     if (cart.quantity === MIN_PRODUCT_QUANTITY) return
     dispatch(changeProductQuantityLocally({ quantity: cart.quantity - 1, id: cart.id }))
