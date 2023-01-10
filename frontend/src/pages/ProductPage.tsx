@@ -1,5 +1,6 @@
 import Tabs from '@/components/UI/tabs/Tabs'
 import { Loader } from '@/components/base/loading/Loader'
+import HeaderAndTextBlock from '@/components/product-page/HeaderAndTextBlock'
 import InfoPanelsList from '@/components/product-page/info-panels/InfoPanelsList'
 import { UpperInfo } from '@/components/product-page/upper-info/UpperInfo'
 import { fetchCurrentProduct, fetchLatestProducts } from '@/redux/actions/product-page-actions'
@@ -60,6 +61,13 @@ const ProductPage = () => {
       <Tabs className="mt-16 mb-8" tabs={tabs}>
         <InfoPanelsList />
       </Tabs>
+      {!!product && (
+        <HeaderAndTextBlock
+          text={[{ leftSide: product?.desc }]}
+          className="mb-16 product-description"
+          header="Description"
+        />
+      )}
       <Suspense fallback={<Loader />}>
         <ProductSliderWrapper keyboards={keyboards} />
       </Suspense>
