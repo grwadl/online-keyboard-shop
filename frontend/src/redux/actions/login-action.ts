@@ -74,6 +74,14 @@ const changeProductQuantityLocally = createAction<PrepareAction<ChangeCartParams
   })
 )
 
+const changeInfo = createAsyncThunk<ActionReturn, { id: number } & Partial<IUser>, AsyncThunkConfig>(
+  Actions.CHANGE_PROFILE,
+  async ({ id, ...other }, { extra: { LoginService } }) => {
+    const newInfo = await LoginService.changeInfo(other, id)
+    return { user: newInfo }
+  }
+)
+
 const removeError = createAction<PrepareAction<null>>(Actions.REMOVE_ERROR, () => ({ payload: null }))
 
 export {
@@ -84,5 +92,6 @@ export {
   addProductToCart,
   removeProductFromCart,
   changeProductQuantity,
-  changeProductQuantityLocally
+  changeProductQuantityLocally,
+  changeInfo
 }

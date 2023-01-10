@@ -1,7 +1,7 @@
 import { IUser, LoginData } from '@/redux/types/reducers/login'
 import { URL } from '../enums/urls'
 import { writeToStorage } from '../localstorage/storage'
-import { fetchRefreshedAcessToken, get, post } from './fetch'
+import { fetchRefreshedAcessToken, get, post, putAuthed } from './fetch'
 
 class LoginService {
   static async login(data: LoginData): Promise<IUser | null> {
@@ -27,6 +27,11 @@ class LoginService {
 
   static async register(data: LoginData): Promise<void> {
     return post<void>(`${URL.USER}sign-up`, { body: JSON.stringify(data) })
+  }
+
+  static async changeInfo(data: Partial<IUser>, id: number): Promise<IUser | null> {
+    if (!id) throw new Error('Invalid id')
+    return putAuthed(`${URL.USER}${id}`, { body: JSON.stringify(data) })
   }
 
   static async logOut(): Promise<void> {

@@ -18,7 +18,7 @@ const DownHeader = ({ user }: Props) => {
   const dispatch = useAppDispatch()
   const { pathname } = useLocation()
   const { burgerMenuOpen } = useAppSelector(({ modal }) => modal)
-  const { name: search } = useAppSelector(({ query }) => query)
+  const { search } = useAppSelector(({ query }) => query)
 
   const [value, setValue] = useState('')
   const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)

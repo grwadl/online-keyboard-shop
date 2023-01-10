@@ -29,6 +29,15 @@ export class User implements IUser {
   @OneToMany(() => Cart, (cart) => cart.user)
   cart: Cart[]
 
+  @Column()
+  city?: string
+
+  @Column()
+  name?: string
+
+  @Column()
+  postOffice?: string
+
   @OneToMany(() => Order, (order) => order.user)
   order: Order[]
 }
