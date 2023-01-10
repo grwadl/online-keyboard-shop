@@ -1,4 +1,5 @@
 import cart from '@/assets/icons/cart.svg'
+import Button from '@/components/UI/Button'
 import { logOut as logOutAction } from '@/redux/actions/login-action'
 import { openModal } from '@/redux/actions/modal-actions'
 import { useAppDispatch } from '@/redux/common/hooks'
@@ -32,6 +33,15 @@ const CartLink = ({ user, className, onClick }: Props) => {
       <span className={`cart-link-general-price whitespace-nowrap ${!isShowed ? 'hidden' : ''}`}>
         {totalPrice ?? 0} $
       </span>
+      {isShowed ? (
+        <Button className="px-4 hidden md:block" onClick={logOut}>
+          Log out
+        </Button>
+      ) : (
+        <Button className="px-4 hidden md:block" onClick={logIn}>
+          Log In
+        </Button>
+      )}
     </div>
   )
 }
