@@ -1,5 +1,6 @@
 import { CartPage } from '@/pages/CartPage'
 import { Homepage } from '@/pages/Homepage'
+import NotFoundPage from '@/pages/NotFoundPage'
 import { OrderPage } from '@/pages/OrderPage'
 import { ProductPage } from '@/pages/ProductPage'
 import ProfilePage from '@/pages/ProfilePage'
@@ -25,7 +26,7 @@ const Router = () => {
               <Route path="profile" element={<ProfilePage />} />
             </>
           )}
-          <Route path="*" element={<div>404</div>} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </>
