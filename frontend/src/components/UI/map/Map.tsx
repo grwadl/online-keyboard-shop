@@ -49,4 +49,4 @@ function MapLeaflet() {
   )
 }
 
-export { MapLeaflet as Map }
+export default MapLeaflet

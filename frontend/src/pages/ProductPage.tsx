@@ -1,11 +1,12 @@
 import { Loader } from '@/components/base/loading/Loader'
-import { ProductSliderWrapper } from '@/components/product-page/product-sliders/ProductSliders'
 import { UpperInfo } from '@/components/product-page/upper-info/UpperInfo'
 import { fetchCurrentProduct, fetchLatestProducts } from '@/redux/actions/product-page-actions'
 import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
 import { IProduct } from '@/redux/types/reducers/products'
-import { useEffect, useMemo } from 'react'
+import React, { Suspense, useEffect, useMemo } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
+
+const ProductSliderWrapper = React.lazy(() => import('@/components/product-page/product-sliders/ProductSliders'))
 
 type Params = {
   id: string
@@ -52,7 +53,9 @@ const ProductPage = () => {
   return (
     <div className="relative">
       {!!product && <UpperInfo keyboard={product} />}
-      <ProductSliderWrapper keyboards={keyboards} />
+      <Suspense fallback={<Loader />}>
+        <ProductSliderWrapper keyboards={keyboards} />
+      </Suspense>
     </div>
   )
 }
