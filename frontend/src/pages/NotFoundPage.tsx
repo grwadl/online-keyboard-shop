@@ -1,8 +1,6 @@
 import Button from '@/components/UI/Button'
 import { Link } from 'react-router-dom'
 
-const links = [{ name: 'Home', to: '/' }]
-
 const NotFoundPage = () => {
   return (
     <div className="not-found w-full h-full flex flex-col pt-40 md:pt-20 items-center">
