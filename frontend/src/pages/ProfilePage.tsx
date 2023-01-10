@@ -40,12 +40,12 @@ const ProfilePage = () => {
       <Formik initialValues={userInitialValues} validationSchema={profileSchema} onSubmit={onSubmit}>
         {({ errors }) => (
           <Form className="flex flex-wrap justify-between">
-            <div className="profile-info flex-wrap flex basis-3/5 grow-0 justify-between">
+            <div className="profile-info flex-wrap flex basis-full lg:basis-3/5 grow-0 justify-between">
               <h4 className="form-title text-lg font-semibold basis-full mb-6">Profile info</h4>
               <InputFormikWithErrors
                 name="name"
                 errors={errors}
-                className="basis-[48%] my-4"
+                className="basis-full sm:basis-[48%] my-4"
                 placeholder="Name"
                 classNameForInput="w-full"
                 renderItem={(p) => <MyInput {...p} />}
@@ -53,7 +53,7 @@ const ProfilePage = () => {
               <InputFormikWithErrors
                 name="password"
                 errors={errors}
-                className="basis-[48%] my-4"
+                className="basis-full sm:basis-[48%] my-4"
                 placeholder="New password"
                 classNameForInput="w-full"
                 renderItem={(p) => <MyInput {...p} />}
@@ -61,19 +61,19 @@ const ProfilePage = () => {
               <InputFormikWithErrors
                 name="newPasswordConfirm"
                 errors={errors}
-                className="basis-[48%] my-4"
+                className="basis-full sm:basis-[48%] my-4"
                 placeholder="Confirm new Password"
                 classNameForInput="w-full"
                 renderItem={(p) => <MyInput {...p} />}
               />
             </div>
 
-            <div className="shipment-info flex-wrap flex basis-3/5 mt-10 justify-between">
+            <div className="shipment-info flex-wrap flex basis-full lg:basis-3/5 mt-10 justify-between">
               <h4 className="form-title text-lg font-semibold basis-full mb-6">Shipment info</h4>
               <InputFormikWithErrors
                 name="city"
                 errors={errors}
-                className="basis-[48%] my-4"
+                className="basis-full sm:basis-[48%] my-4"
                 placeholder="City"
                 classNameForInput="w-full"
                 renderItem={(p) => <MyInput {...p} />}
@@ -81,7 +81,7 @@ const ProfilePage = () => {
               <InputFormikWithErrors
                 name="postOffice"
                 errors={errors}
-                className="basis-[48%] my-4"
+                className="basis-full sm:basis-[48%] my-4"
                 placeholder="Post office"
                 classNameForInput="w-full"
                 renderItem={(p) => <MyInput {...p} />}
