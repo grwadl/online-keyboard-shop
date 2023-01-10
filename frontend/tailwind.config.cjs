@@ -11,7 +11,8 @@ module.exports = {
       'icon-color': '#828282',
       'main-accent': '#15616D',
       black: '#000',
-      'my-red': '#FF0000	'
+      'my-red': '#FF0000',
+      'dark-gray': '#333333'
     }
   },
   plugins: []

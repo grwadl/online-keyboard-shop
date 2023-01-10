@@ -1,4 +1,6 @@
+import Tabs from '@/components/UI/tabs/Tabs'
 import { Loader } from '@/components/base/loading/Loader'
+import InfoPanelsList from '@/components/product-page/info-panels/InfoPanelsList'
 import { UpperInfo } from '@/components/product-page/upper-info/UpperInfo'
 import { fetchCurrentProduct, fetchLatestProducts } from '@/redux/actions/product-page-actions'
 import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
@@ -11,6 +13,8 @@ const ProductSliderWrapper = React.lazy(() => import('@/components/product-page/
 type Params = {
   id: string
 }
+
+const tabs = ['Shipping', 'Guaranty', 'Payment']
 
 const ProductPage = () => {
   const { id } = useParams<Params>()
@@ -53,6 +57,9 @@ const ProductPage = () => {
   return (
     <div className="relative">
       {!!product && <UpperInfo keyboard={product} />}
+      <Tabs className="mt-16 mb-8" tabs={tabs}>
+        <InfoPanelsList />
+      </Tabs>
       <Suspense fallback={<Loader />}>
         <ProductSliderWrapper keyboards={keyboards} />
       </Suspense>
