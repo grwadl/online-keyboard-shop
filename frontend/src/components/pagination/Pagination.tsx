@@ -21,7 +21,7 @@ const Pagination = ({ className }: Props) => {
 
   const dispatch = useAppDispatch()
   const { totalProducts } = useAppSelector(({ products }) => products)
-  const { filters, price } = useAppSelector(({ query }) => query)
+  const { filters, price, search } = useAppSelector(({ query }) => query)
   const [numberedPages, isTwoPages] = useGeneratePages(totalProducts, limit)
 
   const setActivePageHandler = useCallback((p: number) => setActivePage(p), [])
@@ -33,7 +33,7 @@ const Pagination = ({ className }: Props) => {
 
   useEffect(() => {
     setActivePage(1)
-  }, [filters, price])
+  }, [filters, price, search])
 
   useEffect(() => {
     setActivePage(1)

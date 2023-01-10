@@ -20,6 +20,10 @@ interface ICart {
 interface IUser extends LoginData {
   email: string
   password: string
+  name: string | null
+  postOffice: string | null
+  city: string | null
+  id: number
   token: string
   cart: ICart[]
 }

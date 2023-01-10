@@ -3,6 +3,7 @@ const Actions = {
   LOG_OUT: 'logout',
   RELOGIN: 'relogin',
   REGISTER: 'register',
+  CHANGE_PROFILE: 'changeProfile',
   REMOVE_ERROR: 'removeError',
   ADD_TO_CART: 'addToCart',
   REMOVE_FROM_CART: 'removeFromCart',
