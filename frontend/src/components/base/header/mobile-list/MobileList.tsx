@@ -39,11 +39,11 @@ const MobileList = ({ burgerMenuOpen, closeBurgerMenu, user }: Props) => {
       <div className="mobile-list py-10 z-10 padded-section fixed bg-white w-full h-full" ref={ref}>
         <CartLink onClick={closeBurgerMenu} className="flex mx-auto" user={user} />
         {!!user ? (
-          <Button onClick={onLogOut} className="w-20 p-2 block mt-5 mx-auto">
+          <Button onClick={onLogOut} className="w-20 p-2 block mt-5 mx-auto md:hidden">
             Log out
           </Button>
         ) : (
-          <Button onClick={onLogIn} className="w-20 p-2 block mt-5 mx-auto">
+          <Button onClick={onLogIn} className="w-20 p-2 block mt-5 mx-auto md:hidden">
             Log in
           </Button>
         )}
