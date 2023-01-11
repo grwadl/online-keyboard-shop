@@ -27,6 +27,11 @@ const UpperInfo = ({ keyboard }: Props) => {
     return !!user.cart.find((product) => product.product.id === keyboard.id)
   }, [keyboard.id, user])
 
+  const scrollToDescription = () => {
+    const element = document.querySelector('.product-description')
+    if (element) element.scrollIntoView({ behavior: 'smooth' })
+  }
+
   const addToCart = () => {
     if (!user) return dispatch(openModal())
     if (isInCart) return dispatch(removeProductFromCart(keyboard.id))
@@ -55,6 +60,12 @@ const UpperInfo = ({ keyboard }: Props) => {
         <Hr className="w-full" />
         <div className="product-excerpt text-md my-4 w-[90%]">{excerpt}</div>
         <ProductType keyboard={keyboard} className="mb-2" />
+        <span
+          onClick={scrollToDescription}
+          className="read-more cursor-pointer text-main-accent hover:text-icon-color duration-300"
+        >
+          Read more
+        </span>
       </div>
     </div>
   )

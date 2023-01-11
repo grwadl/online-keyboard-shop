@@ -1,7 +1,9 @@
 import { CartPage } from '@/pages/CartPage'
 import { Homepage } from '@/pages/Homepage'
+import NotFoundPage from '@/pages/NotFoundPage'
 import { OrderPage } from '@/pages/OrderPage'
 import { ProductPage } from '@/pages/ProductPage'
+import ProfilePage from '@/pages/ProfilePage'
 import { useAppSelector } from '@/redux/common/hooks'
 import { useMemo } from 'react'
 import { Route, Routes } from 'react-router-dom'
@@ -21,9 +23,10 @@ const Router = () => {
             <>
               <Route path="cart" element={<CartPage />} />
               <Route path="order" element={<OrderPage />} />
+              <Route path="profile" element={<ProfilePage />} />
             </>
           )}
-          <Route path="*" element={<div>404</div>} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </>

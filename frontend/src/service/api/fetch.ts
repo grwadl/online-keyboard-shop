@@ -1,7 +1,7 @@
-import { URL } from '../enums/urls'
-import { getFromStorage, writeToStorage } from '../localstorage/storage'
+import { HttpError } from '@/utils/HttpError'
+import { getFromStorage } from '../localstorage/storage'
 
-const cookiesParams = {
+export const cookiesParams = {
   credentials: 'include' as const,
   headers: {
     'Content-Type': 'application/json',
@@ -10,15 +10,16 @@ const cookiesParams = {
   }
 }
 
-const get = async <T>(url: string, params?: RequestInit): Promise<T> =>
-  fetch(url, {
+const get = async <T>(url: string, params?: RequestInit): Promise<T> => {
+  const res = await fetch(url, {
     ...params,
     ...cookiesParams,
     method: 'GET'
-  }).then((res) => {
-    if (!res.ok) throw res
-    return res.json() as T
   })
+  const resWithJson = await res.json()
+  if (!res.ok) throw new HttpError(resWithJson?.message ?? `Fetching ${url} failed`, { statusCode: res.status, url })
+  return resWithJson
+}
 
 const getAuthed = async <T>(url: string, params?: RequestInit): Promise<T> => {
   const token = getFromStorage('token')
@@ -28,36 +29,41 @@ const getAuthed = async <T>(url: string, params?: RequestInit): Promise<T> => {
     method: 'GET',
     headers: { ...params?.headers, Authorization: `Bearer ${token}` }
   })
-  return res.json() as T
+  const resWithJson = await res.json()
+  if (!res.ok) throw new HttpError(resWithJson?.message ?? `Fetching ${url} failed`, { statusCode: res.status, url })
+  return resWithJson
 }
 
-const post = async <T>(url: string, params: RequestInit): Promise<T> =>
-  fetch(url, {
+const post = async <T>(url: string, params: RequestInit): Promise<T> => {
+  const res: Response = await fetch(url, {
     ...params,
     ...cookiesParams,
     method: 'POST'
-  }).then((res) => {
-    if (!res.ok) throw new Error(`Fetching ${url} failed`)
-    return res.json()
   })
+  const resWithJson = await res.json()
+  if (!res.ok) throw new HttpError(resWithJson?.message ?? `Fetching ${url} failed`, { statusCode: res.status, url })
+  return resWithJson
+}
 
 const postAuthed = async <T>(url: string, params?: RequestInit): Promise<T> => {
   const token = getFromStorage<string>('token')
-
   if (!token) throw new Error('there is no token in storage')
   const res = await fetch(url, {
     ...params,
     method: 'POST',
     headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', ...params?.headers }
   })
-  return res.json() as T
+  const resWithJson = await res.json()
+  if (!res.ok) throw new HttpError(resWithJson?.message ?? `Fetching ${url} failed`, { statusCode: res.status, url })
+  return resWithJson
 }
 
-const deleteReq = async <T>(url: string, params?: RequestInit): Promise<T> =>
-  fetch(url, { ...params, ...cookiesParams, method: 'DELETE' }).then((res) => {
-    if (!res.ok) throw new Error(`Fetching ${url} failed`)
-    return res.json() as T
-  })
+const deleteReq = async <T>(url: string, params?: RequestInit): Promise<T> => {
+  const res = await fetch(url, { ...params, ...cookiesParams, method: 'DELETE' })
+  const resWithJson = await res.json()
+  if (!res.ok) throw new HttpError(resWithJson?.message ?? `Fetching ${url} failed`, { statusCode: res.status, url })
+  return resWithJson
+}
 
 const deleteAuthed = async <T>(url: string, params?: RequestInit): Promise<T> => {
   const token = getFromStorage('token')
@@ -67,14 +73,17 @@ const deleteAuthed = async <T>(url: string, params?: RequestInit): Promise<T> =>
     method: 'DELETE',
     headers: { ...params?.headers, Authorization: `Bearer ${token}` }
   })
-  return res.json() as T
+  const resWithJson = await res.json()
+  if (!res.ok) throw new HttpError(resWithJson?.message ?? `Fetching ${url} failed`, { statusCode: res.status, url })
+  return resWithJson
 }
 
-const put = async <T>(url: string, params?: RequestInit): Promise<T> =>
-  fetch(url, { ...params, ...cookiesParams, method: 'PUT' }).then((res) => {
-    if (!res.ok) throw new Error(`Fetching ${url} failed`)
-    return res.json() as T
-  })
+const put = async <T>(url: string, params?: RequestInit): Promise<T> => {
+  const res = await fetch(url, { ...params, ...cookiesParams, method: 'PUT' })
+  const resWithJson = await res.json()
+  if (!res.ok) throw new HttpError(resWithJson?.message ?? `Fetching ${url} failed`, { statusCode: res.status, url })
+  return resWithJson
+}
 
 const putAuthed = async <T>(url: string, params?: RequestInit): Promise<T> => {
   const token = getFromStorage('token')
@@ -84,34 +93,9 @@ const putAuthed = async <T>(url: string, params?: RequestInit): Promise<T> => {
     method: 'PUT',
     headers: { ...params?.headers, Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }
   })
-  return res.json() as T
+  const resWithJson = await res.json()
+  if (!res.ok) throw new HttpError(resWithJson?.message ?? `Fetching ${url} failed`, { statusCode: res.status, url })
+  return resWithJson
 }
 
-const fetchRefreshedAcessToken = async () => fetch(`${URL.USER}refresh`, { ...cookiesParams })
-
-const intercepted = async <T>(req: (...p: any[]) => Promise<T>): Promise<T> => {
-  try {
-    return await req()
-  } catch (e) {
-    if (!(e instanceof Response)) throw e
-    const response = await fetchRefreshedAcessToken()
-    if (!response.ok) throw new Error(`Fetching failed`)
-
-    const { token } = (await response.json()) as { token: string }
-    writeToStorage('token', token)
-    return req()
-  }
-}
-
-export {
-  deleteReq,
-  get,
-  post,
-  put,
-  intercepted,
-  getAuthed,
-  postAuthed,
-  putAuthed,
-  deleteAuthed,
-  fetchRefreshedAcessToken
-}
+export { deleteReq, get, post, put, getAuthed, postAuthed, putAuthed, deleteAuthed }

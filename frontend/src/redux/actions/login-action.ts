@@ -2,10 +2,10 @@ import { MAX_PRODUCT_QUANTITY, MIN_PRODUCT_QUANTITY } from '@/components/cart-pa
 import { removeFromStorage } from '@/service/localstorage/storage'
 import { PrepareAction, createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { Actions } from '../enums/actions'
-import { AsyncThunkConfig } from '../types/global.types'
+import { AsyncThunkConfig } from '../types/internal'
 import { ICart, IUser, LoginData } from '../types/reducers/login'
 
-type ActionReturn = { user: IUser | null }
+export type ActionReturn = { user: IUser | null }
 
 type ChangeCartParams = { quantity: number; id: number }
 
@@ -37,33 +37,50 @@ const relogin = createAsyncThunk<ActionReturn, void, AsyncThunkConfig>(
 
 const addProductToCart = createAsyncThunk<{ cart: ICart }, number, AsyncThunkConfig>(
   Actions.ADD_TO_CART,
-  async (id, { extra: { ProductService } }) => {
-    const cart = await ProductService.addToCart(id)
-    return { cart }
+  async (id, { extra: { ProductService }, rejectWithValue }) => {
+    try {
+      const cart = await ProductService.addToCart(id)
+      return { cart }
+    } catch (e) {
+      return rejectWithValue(e)
+    }
   }
 )
 
 const removeProductFromCart = createAsyncThunk<{ cart: ICart }, number, AsyncThunkConfig>(
   Actions.REMOVE_FROM_CART,
-  async (id, { extra: { ProductService }, getState }) => {
+  async (id, { getState, extra: { ProductService }, rejectWithValue }) => {
     const {
       login: { user }
     } = getState()
+
     if (!user) throw new Error('user cannot be null')
+
     const { cart } = user
     const cartToDelete = cart.find((c) => c.product.id === id)
+
     if (!cartToDelete) throw new Error('cannot find the keyboard')
-    await ProductService.removeFromCart(cartToDelete.id)
-    return { cart: cartToDelete }
+
+    try {
+      await ProductService.removeFromCart(cartToDelete.id)
+      return { cart: cartToDelete }
+    } catch (e) {
+      return rejectWithValue(e)
+    }
   }
 )
 
 const changeProductQuantity = createAsyncThunk<{ cart: ICart }, ChangeCartParams, AsyncThunkConfig>(
   Actions.CHANGE_PRODUCT_QUANTITY,
-  async ({ id, quantity }, { extra: { ProductService } }) => {
+  async ({ id, quantity }, { extra: { ProductService }, rejectWithValue }) => {
     if (quantity < MIN_PRODUCT_QUANTITY || quantity > MAX_PRODUCT_QUANTITY) throw new Error('quantity must be normal')
-    const cart = await ProductService.changeCart(id, quantity)
-    return { cart }
+
+    try {
+      const cart = await ProductService.changeCart(id, quantity)
+      return { cart }
+    } catch (e) {
+      return rejectWithValue(e)
+    }
   }
 )
 
@@ -72,6 +89,18 @@ const changeProductQuantityLocally = createAction<PrepareAction<ChangeCartParams
   (payload: ChangeCartParams) => ({
     payload
   })
+)
+
+const changeInfo = createAsyncThunk<ActionReturn, { id: number } & Partial<IUser>, AsyncThunkConfig>(
+  Actions.CHANGE_PROFILE,
+  async ({ id, ...other }, { extra: { LoginService }, rejectWithValue }) => {
+    try {
+      const newInfo = await LoginService.changeInfo(other, id)
+      return { user: newInfo }
+    } catch (e) {
+      return rejectWithValue(e)
+    }
+  }
 )
 
 const removeError = createAction<PrepareAction<null>>(Actions.REMOVE_ERROR, () => ({ payload: null }))
@@ -84,5 +113,6 @@ export {
   addProductToCart,
   removeProductFromCart,
   changeProductQuantity,
-  changeProductQuantityLocally
+  changeProductQuantityLocally,
+  changeInfo
 }

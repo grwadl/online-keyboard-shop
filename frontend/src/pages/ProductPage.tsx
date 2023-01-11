@@ -1,6 +1,9 @@
+import Tabs from '@/components/UI/tabs/Tabs'
 import { Loader } from '@/components/base/loading/Loader'
+import HeaderAndTextBlock from '@/components/product-page/HeaderAndTextBlock'
+import InfoPanelsList from '@/components/product-page/info-panels/InfoPanelsList'
 import { UpperInfo } from '@/components/product-page/upper-info/UpperInfo'
-import { fetchCurrentProduct, fetchLatestProducts } from '@/redux/actions/product-page-actions'
+import { fetchCurrentProduct, fetchLatestProducts } from '@/redux/actions/internal'
 import { useAppDispatch, useAppSelector } from '@/redux/common/hooks'
 import { IProduct } from '@/redux/types/reducers/products'
 import React, { Suspense, useEffect, useMemo } from 'react'
@@ -11,6 +14,8 @@ const ProductSliderWrapper = React.lazy(() => import('@/components/product-page/
 type Params = {
   id: string
 }
+
+const tabs = ['Shipping', 'Guaranty', 'Payment']
 
 const ProductPage = () => {
   const { id } = useParams<Params>()
@@ -53,6 +58,16 @@ const ProductPage = () => {
   return (
     <div className="relative">
       {!!product && <UpperInfo keyboard={product} />}
+      <Tabs className="mt-16 mb-8" tabs={tabs}>
+        <InfoPanelsList />
+      </Tabs>
+      {!!product && (
+        <HeaderAndTextBlock
+          text={[{ leftSide: product?.desc }]}
+          className="mb-16 product-description"
+          header="Description"
+        />
+      )}
       <Suspense fallback={<Loader />}>
         <ProductSliderWrapper keyboards={keyboards} />
       </Suspense>
