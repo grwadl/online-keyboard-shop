@@ -10,8 +10,8 @@ type HintReturn = {
 const changeActiveField = createAction(NovaPoshtaActions.CHANGE_ACTIVE, (payload: 'city' | 'post') => ({ payload }))
 
 const clearActiveField = createAction(NovaPoshtaActions.CLEAR_ACTIVE, () => ({ payload: null }))
-//TODO:
-const changeNovaPoshtaHint = createAsyncThunk<HintReturn, Record<string, any>, AsyncThunkConfig>(
+
+const changeNovaPoshtaHint = createAsyncThunk<HintReturn, { city: string; post: string }, AsyncThunkConfig>(
   NovaPoshtaActions.CHANGE_HINT,
   async (values, { getState, extra: { PostService }, rejectWithValue }) => {
     const {
