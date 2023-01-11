@@ -1,6 +1,6 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { NovaPoshtaActions } from '../enums/actions'
-import { AsyncThunkConfig } from '../internal'
+import { AsyncThunkConfig } from '../types/internal'
 import { City, NovaPoshtaResponse, PostOffice } from '../types/reducers/nova-poshta-reducer'
 
 type HintReturn = {

@@ -2,7 +2,7 @@ import { ProductService } from '@/service/api/ProductService'
 import { cached, cachedMap } from '@/service/cache'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ProductsActions } from '../enums/actions'
-import { AsyncThunkConfig } from '../internal'
+import { AsyncThunkConfig } from '../types/internal'
 import { IProduct } from '../types/reducers/products'
 import { ReturnType } from './return-type'
 

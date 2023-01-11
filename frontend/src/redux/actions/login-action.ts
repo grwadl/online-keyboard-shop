@@ -2,7 +2,7 @@ import { MAX_PRODUCT_QUANTITY, MIN_PRODUCT_QUANTITY } from '@/components/cart-pa
 import { removeFromStorage } from '@/service/localstorage/storage'
 import { PrepareAction, createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { Actions } from '../enums/actions'
-import { AsyncThunkConfig } from '../store'
+import { AsyncThunkConfig } from '../types/internal'
 import { ICart, IUser, LoginData } from '../types/reducers/login'
 
 export type ActionReturn = { user: IUser | null }

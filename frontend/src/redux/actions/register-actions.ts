@@ -1,6 +1,6 @@
 import { PrepareAction, createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { RegisterAction } from '../enums/actions'
-import { AsyncThunkConfig } from '../store'
+import { AsyncThunkConfig } from '../types/internal'
 import { IUser, LoginData } from '../types/reducers/login'
 
 type ActionReturn = { user: IUser | null }

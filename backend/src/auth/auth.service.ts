@@ -78,7 +78,6 @@ export class AuthService {
 
   async relogin(refreshToken: string) {
     const isValid = await this.validate(refreshToken)
-    console.log(isValid, refreshToken)
 
     if (!isValid) return null
 
