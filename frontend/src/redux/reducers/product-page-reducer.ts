@@ -1,4 +1,4 @@
-import { fetchCurrentProduct, fetchLatestProducts } from '@/redux/actions/product-page-actions'
+import { fetchCurrentProduct, fetchLatestProducts } from '@/redux/actions/internal'
 import { createReducer, isAllOf } from '@reduxjs/toolkit'
 import { IProduct } from '../types/reducers/products'
 

@@ -1,10 +1,10 @@
-import { InputFormikWithErrors } from '@/components/order-page/InputFormik/InputFormikWithErrors'
 import Button from '@/components/UI/Button'
 import { MyInput } from '@/components/UI/MyInput'
-import { login } from '@/redux/actions/login-action'
+import { InputFormikWithErrors } from '@/components/order-page/InputFormik/InputFormikWithErrors'
+import { ActionReturn, login } from '@/redux/actions/login-action'
 import { useAppDispatch } from '@/redux/common/hooks'
-import { Form, Formik, FormikValues, useFormik } from 'formik'
-import { useEffect } from 'react'
+import { HttpError } from '@/utils/HttpError'
+import { Form, Formik, FormikValues } from 'formik'
 import { isDataLoginData } from './common'
 import { loginSchema } from './schema'
 
@@ -17,25 +17,18 @@ const initialValues = { email: '', password: '' }
 const LogInModal = ({ setAnotherModal }: Props) => {
   const dispatch = useAppDispatch()
 
-  const onSubmit = (data: FormikValues) => {
-    if (isDataLoginData(data)) dispatch(login(data))
+  const onSubmit = async (data: FormikValues): Promise<ActionReturn | void> => {
+    if (isDataLoginData(data)) return dispatch(login(data)).unwrap()
   }
-
-  const { setErrors } = useFormik({
-    validationSchema: loginSchema,
-    initialValues,
-    onSubmit
-  })
-
-  useEffect(() => setErrors({}), [])
 
   return (
     <Formik
       validationSchema={loginSchema}
       initialValues={initialValues}
-      onSubmit={(data, { resetForm }) => {
+      onSubmit={(data, { resetForm, setErrors }) => {
         onSubmit(data)
-        resetForm()
+          .then(() => resetForm())
+          .catch((e: HttpError) => setErrors({ email: e.message, password: e.message }))
       }}
     >
       {({ errors }) => (

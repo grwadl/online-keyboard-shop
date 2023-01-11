@@ -1,15 +1,8 @@
-import { LoginService } from '@/service/api/LoginService'
-import { PostService } from '@/service/api/PostService'
-import { ProductService } from '@/service/api/ProductService'
+import { LoginService, PostService, ProductService } from '@/service/api/internal'
 import { configureStore } from '@reduxjs/toolkit'
-import { filterReducer } from './reducers/filters-reducer'
-import { loginReducer } from './reducers/login-reducer'
-import { modalReducer } from './reducers/modal-reducer'
-import { novaPoshtaReducer } from './reducers/nova-poshta-reducer'
-import { pageReducer } from './reducers/page-reducer'
-import { productPageReducer } from './reducers/product-page-reducer'
-import { productReducer } from './reducers/products-reducer'
-import { queryReducer } from './reducers/query-reducer'
+
+import { unauthMiddleware } from './middlewares/unauth'
+import { rootReducer } from './reducers/root-reducer'
 
 const extraArgument = {
   LoginService,
@@ -17,23 +10,14 @@ const extraArgument = {
   PostService
 }
 
-const store = configureStore({
-  reducer: {
-    login: loginReducer,
-    products: productReducer,
-    filters: filterReducer,
-    query: queryReducer,
-    productPage: productPageReducer,
-    modal: modalReducer,
-    page: pageReducer,
-    post: novaPoshtaReducer
-  },
+export const store = configureStore({
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: {
         extraArgument
       }
-    })
+    }).concat(unauthMiddleware)
 })
 
-export { store, extraArgument }
+export { extraArgument }

@@ -8,7 +8,7 @@ import {
   relogin,
   removeError,
   removeProductFromCart
-} from '../actions/login-action'
+} from '../actions/internal'
 import { ILogin } from '../types/reducers/login'
 
 const initialState: ILogin = {

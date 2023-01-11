@@ -1,7 +1,6 @@
-import { InitialValue } from '@/pages/OrderPage'
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { NovaPoshtaActions } from '../enums/actions'
-import { AsyncThunkConfig } from '../types/global.types'
+import { AsyncThunkConfig } from '../types/internal'
 import { City, NovaPoshtaResponse, PostOffice } from '../types/reducers/nova-poshta-reducer'
 
 type HintReturn = {
@@ -12,7 +11,7 @@ const changeActiveField = createAction(NovaPoshtaActions.CHANGE_ACTIVE, (payload
 
 const clearActiveField = createAction(NovaPoshtaActions.CLEAR_ACTIVE, () => ({ payload: null }))
 
-const changeNovaPoshtaHint = createAsyncThunk<HintReturn, InitialValue, AsyncThunkConfig>(
+const changeNovaPoshtaHint = createAsyncThunk<HintReturn, { city: string; post: string }, AsyncThunkConfig>(
   NovaPoshtaActions.CHANGE_HINT,
   async (values, { getState, extra: { PostService }, rejectWithValue }) => {
     const {

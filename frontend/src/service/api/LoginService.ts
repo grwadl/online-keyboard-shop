@@ -1,7 +1,8 @@
 import { IUser, LoginData } from '@/redux/types/reducers/login'
 import { URL } from '../enums/urls'
 import { writeToStorage } from '../localstorage/storage'
-import { fetchRefreshedAcessToken, get, post, putAuthed } from './fetch'
+import { get, post, putAuthed } from './fetch'
+import { fetchRefreshedAccessToken, intercepted } from './internal'
 
 class LoginService {
   static async login(data: LoginData): Promise<IUser | null> {
@@ -11,7 +12,7 @@ class LoginService {
   }
 
   static async validateToken(): Promise<IUser | null> {
-    const res = await fetchRefreshedAcessToken()
+    const res = await fetchRefreshedAccessToken()
     if (!res.ok) return null
     const { token: newToken, ...user } = (await res.json()) as IUser
 
@@ -31,7 +32,7 @@ class LoginService {
 
   static async changeInfo(data: Partial<IUser>, id: number): Promise<IUser | null> {
     if (!id) throw new Error('Invalid id')
-    return putAuthed(`${URL.USER}${id}`, { body: JSON.stringify(data) })
+    return intercepted(() => putAuthed(`${URL.USER}${id}`, { body: JSON.stringify(data) }))
   }
 
   static async logOut(): Promise<void> {

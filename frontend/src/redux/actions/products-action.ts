@@ -1,14 +1,10 @@
-import { ProductService } from '@/service/api/ProductService'
+import { ProductService } from '@/service/api/internal'
 import { cached, cachedMap } from '@/service/cache'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ProductsActions } from '../enums/actions'
-import { AsyncThunkConfig } from '../types/global.types'
+import { AsyncThunkConfig } from '../types/internal'
 import { IProduct } from '../types/reducers/products'
-
-export interface ReturnType {
-  keyboards: IProduct[]
-  totalProducts: number
-}
+import { ReturnType } from './return-type'
 
 const cachedGetProductReq = cached(() => ProductService.get())
 

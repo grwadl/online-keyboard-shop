@@ -6,6 +6,7 @@ import { useAppDispatch } from './redux/common/hooks'
 
 function App() {
   const dispatch = useAppDispatch()
+
   useEffect(() => {
     dispatch(relogin())
   }, [])
