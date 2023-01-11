@@ -56,24 +56,22 @@ export class AuthService {
 
     const isValid = await this.validate(possibleUser.refreshToken)
 
-    if (!isValid) {
-      const id = uuid() as string
-      const newRefreshToken = this.jwtService.sign(
-        { id },
-        { expiresIn: REFRESH_TOKEN_LIFETIME }
-      )
-      await this.userService.update(possibleUser.id, {
-        refreshToken: newRefreshToken
-      })
+    if (isValid) return { ...possibleUser, token: accessToken }
 
-      return {
-        ...possibleUser,
-        refreshToken: newRefreshToken,
-        token: accessToken
-      }
+    const id = uuid() as string
+    const newRefreshToken = this.jwtService.sign(
+      { id },
+      { expiresIn: REFRESH_TOKEN_LIFETIME }
+    )
+    await this.userService.update(possibleUser.id, {
+      refreshToken: newRefreshToken
+    })
+
+    return {
+      ...possibleUser,
+      refreshToken: newRefreshToken,
+      token: accessToken
     }
-
-    return { ...possibleUser, token: accessToken }
   }
 
   async relogin(refreshToken: string) {
