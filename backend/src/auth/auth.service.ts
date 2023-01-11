@@ -13,8 +13,8 @@ import { v4 as uuid } from 'uuid'
 import { CreateUserDto, LogInUserDto } from '../user/dto/create-user.dto'
 import { UserService } from '../user/user.service'
 
-const ACCESS_TOKEN_LIFETIME = 300000
-const REFRESH_TOKEN_LIFETIME = 30 * 86400000
+const ACCESS_TOKEN_LIFETIME = '120s'
+const REFRESH_TOKEN_LIFETIME = '30d'
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class AuthService {
@@ -24,9 +24,9 @@ export class AuthService {
     private emailService: EmailService
   ) {}
 
-  validate<T extends object>(token: string): T | false {
+  async validate<T extends object>(token: string): Promise<T | false> {
     try {
-      return this.jwtService.verify(token) as T
+      return (await this.jwtService.verifyAsync(token)) as T
     } catch (e) {
       return false
     }
@@ -34,16 +34,19 @@ export class AuthService {
 
   async login(user: LogInUserDto): Promise<User & { token: string }> {
     const { password, email } = user
-    let [possibleUser] = await this.userService.findAll({
+    const [possibleUser] = await this.userService.findAll({
       where: { email }
     })
+
+    if (!possibleUser)
+      throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST)
 
     const isCorrectPassword = await bcrypt.compare(
       password,
       possibleUser?.password
     )
 
-    if (!possibleUser || !isCorrectPassword)
+    if (!isCorrectPassword)
       throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST)
 
     const accessToken: string = this.jwtService.sign(
@@ -51,25 +54,33 @@ export class AuthService {
       { expiresIn: ACCESS_TOKEN_LIFETIME }
     )
 
-    const isValid = this.validate(possibleUser.refreshToken)
+    const isValid = await this.validate(possibleUser.refreshToken)
+
     if (!isValid) {
       const id = uuid() as string
       const newRefreshToken = this.jwtService.sign(
         { id },
         { expiresIn: REFRESH_TOKEN_LIFETIME }
       )
-      possibleUser = await this.userService.update(possibleUser.id, {
+      await this.userService.update(possibleUser.id, {
         refreshToken: newRefreshToken
       })
+
+      return {
+        ...possibleUser,
+        refreshToken: newRefreshToken,
+        token: accessToken
+      }
     }
 
     return { ...possibleUser, token: accessToken }
   }
 
   async relogin(refreshToken: string) {
-    const isValid = this.validate(refreshToken)
-    if (!isValid)
-      throw new HttpException('Invalid refresh token', HttpStatus.BAD_REQUEST)
+    const isValid = await this.validate(refreshToken)
+    console.log(isValid, refreshToken)
+
+    if (!isValid) return null
 
     const [res] = await this.userService.findAll({
       where: [{ refreshToken }]
