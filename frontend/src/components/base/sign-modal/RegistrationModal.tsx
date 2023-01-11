@@ -4,6 +4,7 @@ import { MessageBox } from '@/components/UI/MessageBox'
 import { MyInput } from '@/components/UI/MyInput'
 import { InputFormikWithErrors } from '@/components/order-page/InputFormik/InputFormikWithErrors'
 import { LoginService } from '@/service/api/LoginService'
+import { HttpError } from '@/utils/HttpError'
 import { Form, Formik } from 'formik'
 import { useState } from 'react'
 import { FieldValues } from 'react-hook-form'
@@ -19,11 +20,8 @@ const initialValues = { email: '', password: '', passwordConfirm: '' }
 const RegistrationModal = ({ setAnotherModal }: Props) => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
-  const onSubmit = (data: FieldValues) => {
-    if (isDataLoginData(data))
-      LoginService.register(data)
-        .then(() => setIsSuccess(true))
-        .catch(() => setIsSuccess(false))
+  const onSubmit = async (data: FieldValues) => {
+    if (isDataLoginData(data)) return LoginService.register(data)
   }
 
   if (isSuccess)
@@ -43,9 +41,13 @@ const RegistrationModal = ({ setAnotherModal }: Props) => {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(data, { resetForm }) => {
+      onSubmit={(data, { resetForm, setErrors }) => {
         onSubmit(data)
-        resetForm()
+          .then(() => {
+            resetForm()
+            setIsSuccess(true)
+          })
+          .catch((e: HttpError) => setErrors({ email: e.message, password: e.message }))
       }}
       validationSchema={registrationSchema}
     >

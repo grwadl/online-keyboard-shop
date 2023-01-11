@@ -1,6 +1,6 @@
-import { createAction, createAsyncThunk, PrepareAction } from '@reduxjs/toolkit'
+import { PrepareAction, createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { RegisterAction } from '../enums/actions'
-import { AsyncThunkConfig } from '../types/global.types'
+import { AsyncThunkConfig } from '../store'
 import { IUser, LoginData } from '../types/reducers/login'
 
 type ActionReturn = { user: IUser | null }
@@ -8,11 +8,11 @@ type ActionReturn = { user: IUser | null }
 const register = createAsyncThunk<ActionReturn, LoginData, AsyncThunkConfig>(
   RegisterAction.REGISTER,
   async (data, { extra: { LoginService } }) => {
-    const user = await LoginService.register(data)
-    return { user }
+    await LoginService.register(data)
+    return { user: null }
   }
 )
 
-const removeError = createAction<PrepareAction<null>>(RegisterAction.REMOVE_ERROR, () => ({ payload: null }))
+const removeErrorReg = createAction<PrepareAction<null>>(RegisterAction.REMOVE_ERROR, () => ({ payload: null }))
 
-export { register, removeError }
+export { register, removeErrorReg }

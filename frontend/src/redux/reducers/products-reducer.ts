@@ -1,5 +1,5 @@
 import { createReducer, isAnyOf } from '@reduxjs/toolkit'
-import { changeFilteredProducts, getAllProducts } from '../actions/products-action'
+import { changeFilteredProducts, getAllProducts } from '../actions/internal'
 import { IProduct } from '../types/reducers/products'
 
 interface InitialState {

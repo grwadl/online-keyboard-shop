@@ -2,9 +2,9 @@ import { ProductService } from '@/service/api/ProductService'
 import { cached, cachedMap } from '@/service/cache'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ProductsActions } from '../enums/actions'
-import { AsyncThunkConfig } from '../types/global.types'
+import { AsyncThunkConfig } from '../internal'
 import { IProduct } from '../types/reducers/products'
-import { ReturnType } from './products-action'
+import { ReturnType } from './return-type'
 
 interface GetCurrentReturnType {
   keyboard: IProduct
