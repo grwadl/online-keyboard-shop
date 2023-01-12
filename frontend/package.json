@@ -11,7 +11,8 @@
     "lint": "eslint --ext .js,.jsx,.ts,.tsx,.astro src",
     "lint:fix": "npm run lint -- --fix",
     "prepare": "if [[ $NODE_ENV != \"production\" ]]; then cd .. && husky install client/.husky; fi",
-    "precommit": "npm run format && npm run lint:fix"
+    "precommit": "npm run format && npm run lint:fix",
+    "test": "vitest"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",

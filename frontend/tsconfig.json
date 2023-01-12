@@ -19,8 +19,9 @@
     "typeRoots": ["node_modules/yup"],
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "types": ["node", "jest", "@testing-library/jest-dom"]
   },
-  "include": ["src", "vite.config.ts", ".eslintrc.cjs"],
+  "include": ["src", "vite.config.ts", "./.eslintrc.cjs, src/tests/setup.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
