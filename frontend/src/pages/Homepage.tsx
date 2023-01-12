@@ -34,7 +34,7 @@ const Homepage = () => {
   }, [query])
 
   return (
-    <div className="flex gap-5">
+    <div className="flex gap-5 h-full">
       {isOnPc !== null && !isOnPc ? (
         <MobileFilterList
           isOpenFiltersOnMobile={isOpenFiltersOnMobile}
@@ -45,7 +45,7 @@ const Homepage = () => {
         <FilterList className="hidden  grow-0 overflow-hidden md:block md:basis-40 lg:basis-64" />
       )}
 
-      <div className="main-part flex-1 relative">
+      <div className="main-part flex-1 h-full relative">
         <Catalog showFiltersMenu={showFiltersMenu} />
         <Pagination className="block xl:flex mt-8 items-center gap-x-20" />
         {products.loading ? (
