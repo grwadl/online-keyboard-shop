@@ -22,7 +22,7 @@ const FilterList = memo(({ className }: Props) => {
   }, [selectedFilters])
 
   return (
-    <div className={`${className}`}>
+    <div role="listbox" className={`pc-listbox ${className}`}>
       <InputRange title="Price" onChangeValuesFunc={onChangeInputRange} step={100} max={10000} min={0} />
       <SelectFilter onChange={onChangeFilterHandler} name="Switches" filter={selectedFilters.switches} />
       <SelectFilter onChange={onChangeFilterHandler} name="Keycaps" filter={selectedFilters.keycaps} />
