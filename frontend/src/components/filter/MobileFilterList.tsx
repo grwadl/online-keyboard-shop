@@ -46,7 +46,7 @@ const MobileFilterList = memo(({ className, closeFiltersMenu, isOpenFiltersOnMob
 
   return (
     <CSSTransition classNames="my-node" nodeRef={ref} in={isOpenFiltersOnMobile} unmountOnExit timeout={300}>
-      <div className={`${className} filters`} ref={ref}>
+      <div role="listbox" className={`${className} mobile-filters filters`} ref={ref}>
         <CloseButton className="absolute top-6 right-14 text-3xl" onClick={closeFiltersMenu} />
         <div className="flex w-2/3 z-20 mt-6 catalog-sort items-center relative">
           <span className="catalog-sort-title text-icon-color">Sort by</span>
