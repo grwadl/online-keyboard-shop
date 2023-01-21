@@ -9,6 +9,7 @@ type Props = {
   step: number
   className?: string
   onChangeValuesFunc: (values: RangeValue) => void
+  title?: string
 }
 
 export type RangeValue = {
@@ -16,7 +17,7 @@ export type RangeValue = {
   max: number
 }
 
-const InputRange = ({ max, min, step, className, onChangeValuesFunc }: Props) => {
+const InputRange = ({ max, min, step, className, onChangeValuesFunc, title }: Props) => {
   const [value, setValue] = useState<RangeValue>({ max: max, min: 0 })
   const lineBetweenRef = useRef<HTMLDivElement>(null)
 
@@ -50,6 +51,7 @@ const InputRange = ({ max, min, step, className, onChangeValuesFunc }: Props) =>
 
   return (
     <div className={`input-range-wrapper ${className ?? ''}`}>
+      {title && <h1 className="text-base font-semibold mb-3">{title}</h1>}
       <div className="input-range-input-text-container mb-5 flex justify-between">
         <MyInput
           value={value.min}

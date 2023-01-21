@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import './App.css'
 import { Router } from './components/router/router'
 import { relogin } from './redux/actions/login-action'
@@ -12,9 +13,9 @@ function App() {
   }, [])
 
   return (
-    <>
+    <BrowserRouter>
       <Router />
-    </>
+    </BrowserRouter>
   )
 }
 
